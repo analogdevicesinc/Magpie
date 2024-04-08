@@ -1,4 +1,4 @@
-C:/Users/Vkarra/Documents/Projects/Swift-Cornell-Project-FY2023-24/Digital-Subsystem/Software/MAX32666FTHR/Stack-Push-VCOM/build/pb.o: \
+C:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/Stack-Push-VCOM/build/pb.o: \
  C:/MaximSDK/Libraries/MiscDrivers/PushButton/pb.c \
  c:\maximsdk\tools\gnutools\10.3\lib\gcc\arm-none-eabi\10.3.1\include\stddef.h \
  C:/MaximSDK/Libraries/Boards/MAX32665/FTHR/Include/board.h \

@@ -1,4 +1,4 @@
-C:/Users/Vkarra/Documents/Projects/Swift-Cornell-Project-FY2023-24/Digital-Subsystem/Software/MAX32666FTHR/Stack-Push-VCOM/build/stdio.o: \
+C:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/Stack-Push-VCOM/build/stdio.o: \
  C:/MaximSDK/Libraries/MiscDrivers/stdio.c \
  c:\maximsdk\tools\gnutools\10.3\arm-none-eabi\include\sys\errno.h \
  c:\maximsdk\tools\gnutools\10.3\arm-none-eabi\include\sys\reent.h \
