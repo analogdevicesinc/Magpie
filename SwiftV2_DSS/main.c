@@ -1,0 +1,706 @@
+/******************************************************************************
+ * Copyright (C) 2023 Maxim Integrated Products, Inc., All Rights Reserved.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a
+ * copy of this software and associated documentation files (the "Software"),
+ * to deal in the Software without restriction, including without limitation
+ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ * and/or sell copies of the Software, and to permit persons to whom the>
+ * Software is furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included
+ * in all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+ * OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ * IN NO EVENT SHALL MAXIM INTEGRATED BE LIABLE FOR ANY CLAIM, DAMAGES
+ * OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+ * OTHER DEALINGS IN THE SOFTWARE.
+ *
+ * Except as contained in this notice, the name of Maxim Integrated
+ * Products, Inc. shall not be used except as stated in the Maxim Integrated
+ * Products, Inc. Branding Policy.
+ *
+ * The mere transfer of this software does not imply any licenses
+ * of trade secrets, proprietary technology, copyrights, patents,
+ * trademarks, maskwork rights, or any other form of intellectual
+ * property whatsoever. Maxim Integrated Products, Inc. retains all
+ * ownership rights.
+ *
+ ******************************************************************************/
+
+/**
+ * @file    main.c
+ * @brief   Stack_Push_VCOM
+ * @details This project reads data from ADC using SPI and displays it on terminal
+ *
+ */
+
+#include <stdio.h>
+#include <stddef.h>
+#include <string.h>
+#include "led.h"
+#include "pb.h"
+#include "mxc_delay.h"
+#include "usb.h"
+#include "usb_event.h"
+#include "enumerate.h"
+#include "cdc_acm.h"
+#include "descriptors.h"
+#include "gcr_regs.h"
+#include "mxc_sys.h"
+#include "board.h"
+#include "spi.h"
+#include <stdarg.h>
+#include "nvic_table.h"
+#include "gpio.h"
+#include "mxc_device.h"
+#include "dev_gpio_config.h" //SwiftV2 specific GPIO configuration
+#include "AD4630.h"  //ADC configuration data
+
+/***** Definitions *****/
+#define EVENT_ENUM_COMP MAXUSB_NUM_EVENTS
+#define EVENT_REMOTE_WAKE (EVENT_ENUM_COMP + 1)
+
+#define BUFFER_SIZE 64
+
+#define STRINGIFY(x) #x
+#define TOSTRING(x) STRINGIFY(x)
+
+#define blue_led_port MXC_GPIO0    //Blue LED on FTHR board
+#define blue_led_pin  MXC_GPIO_PIN_30
+
+#define red_led_port MXC_GPIO0
+#define red_led_pin MXC_GPIO_PIN_29
+
+#define BUSY_PORT MXC_GPIO0  //Busy input from ADC
+#define BUSY_PIN MXC_GPIO_PIN_10
+
+#define MXC_GPIO_PORT_IN MXC_GPIO1  //Push button switch
+#define MXC_GPIO_PIN_IN MXC_GPIO_PIN_10
+
+//****************************************************************
+//SPI defines for SPI1 master
+//****************************************************************
+/***** Definitions *****/
+//#define DATA_LEN_SPI1 3 // Words
+//#define SPI_SPEED_SPI1 20000000// Bit Rate
+//#define DATA_SIZE_SPI1 8  //Data size
+//#define SPI_MASTER1 MXC_SPI1 //Using SPI2 as Master to configure ADC
+//#define SPI_MASTER1_SSIDX 0
+//#define SPI1_IRQ SPI1_IRQn
+
+/***** Global Data *****/
+/****************************/
+//USB_Data
+volatile int configured;
+volatile int suspended;
+volatile unsigned int event_flags;
+int remote_wake_en;
+/****************************/
+
+
+/****************************/
+//SPI-Data
+/****************************/
+volatile uint8_t ADC_BUSY = 0;
+uint8_t SPI1_rx[DATA_LEN_SPI1];
+uint8_t SPI1_tx[DATA_LEN_SPI1];
+int retVal, fail = 0;
+mxc_spi_req_t SPI1_req;
+volatile int SPI_FLAG;
+
+
+/****************************/
+//Push and Pop transfer data to buffer data
+/****************************/
+uint16_t stack[100000], spi_data;
+int32_t Storage_max_size = 100000;
+int location = -1;
+int a,i;
+
+/****************************/
+//ADC configurations
+/****************************/
+uint16_t dummyaddr = 0x3FFF;
+uint8_t  read_address = 0x00;
+uint16_t scratchpad_address = AD463X_REG_SCRATCH_PAD;
+uint8_t scratchpad_data = 0xAA;
+uint8_t pwr_mode_normal = 0x00;
+uint8_t pwr_mode_lowepower = 0x01;
+uint8_t drive_strenght_normal =0x00;
+uint8_t drive_strenght_double =0x01;
+uint8_t frame_len_24 = 0x00;
+uint8_t ch_idx0 = 0x00;
+uint8_t ch_idx1 = 0x01;
+uint8_t gain_lb = 0x00;
+uint8_t gain_hb = 0x80;
+uint32_t offset = 0;
+
+/***** Function Prototypes *****/
+
+/*******USB function prototypes **/
+int usbStartupCallback();
+int usbShutdownCallback();
+static void usbAppSleep(void);
+static void usbAppWakeup(void);
+static int setconfigCallback(MXC_USB_SetupPkt *sud, void *cbdata);
+static int setfeatureCallback(MXC_USB_SetupPkt *sud, void *cbdata);
+static int clrfeatureCallback(MXC_USB_SetupPkt *sud, void *cbdata);
+static int eventCallback(maxusb_event_t evt, void *data);
+static int usbReadCallback(void);
+static void echoUSB(void);
+
+/***** File Scope Variables *****/
+
+/* This EP assignment must match the Configuration Descriptor */
+static acm_cfg_t acm_cfg = {
+		1, /* EP OUT */
+		MXC_USBHS_MAX_PACKET, /* OUT max packet size */
+		2, /* EP IN */
+		MXC_USBHS_MAX_PACKET, /* IN max packet size */
+		3, /* EP Notify */
+		MXC_USBHS_MAX_PACKET, /* Notify max packet size */
+};
+
+static volatile int usb_read_complete;
+
+/* User-supplied function to delay usec micro-seconds */
+void delay_us(unsigned int usec)
+{
+	/* mxc_delay() takes unsigned long, so can't use it directly */
+	MXC_Delay(usec);
+}
+
+/*****************************************************************/
+//Custom Printf function design
+/*****************************************************************/
+void debugPrint(char *fmt, ... )
+{
+	char buffer[1024];
+	uint16_t len = 0;
+	va_list args;
+	va_start( args, fmt );
+	len = vsnprintf( buffer, 1024,fmt, args );
+	va_end( args );
+
+	if(len < 0)
+		return;
+
+	acm_write((uint8_t*)buffer, len);
+}
+
+
+int debugRead(const char *fmt, ...) {
+	uint8_t buffer[256]; // Adjust the buffer size
+
+	int canRead = 0;
+	int readLen = 0;
+	int num = 0;
+	uint16_t inx = 0;
+
+	while(1) {
+		canRead = acm_canread();
+		readLen = acm_read(&buffer[inx], canRead); // read a byte.
+		acm_write(&buffer[inx],readLen); // echo the byte.
+		if (buffer[inx] == '\r')
+		{ // check for end of line.
+			buffer[inx] = '\n';
+			num+=readLen;
+			inx+=readLen;
+			break;
+		} else
+		{
+			num+=readLen;
+			inx+=readLen;
+		}
+
+	}
+
+	va_list args;
+	va_start(args, fmt);
+
+	int itemsRead = vsscanf((const char*)buffer, fmt, args);
+
+	va_end(args);
+
+	return itemsRead;
+}
+
+/***SPI Handler functions***/
+void SPI0_IRQHandler(void)
+{
+	MXC_SPI_AsyncHandler(SPI_MASTER1);
+
+}
+
+
+
+void SPI_Callback(mxc_spi_req_t *req, int error)
+{
+
+	SPI_FLAG = error;
+}
+
+/*****Custom functions****/
+
+void BUSY_ISR(void)
+
+{
+	uint32_t stat;
+	stat = MXC_GPIO_GetFlags(MXC_GPIO0);
+	MXC_GPIO_ClearFlags(MXC_GPIO0, stat);
+	ADC_BUSY = 1;
+
+}
+
+/*****************************************************************/
+//Push and Pop functions
+/****************************************************************/
+
+/* Check if the stack is empty */
+int stack_empty()
+{
+	if(location == -1)
+		return 1;
+	else
+		return 0;
+}
+
+/* Check if the stack is full */
+int stack_full()
+{
+	if(location == Storage_max_size)
+		return 1;
+	else
+		return 0;
+}
+
+/* Function to insert into the stack */
+int push(uint8_t data[3])
+{
+	if(!stack_full())
+	{
+		location = location + 1;
+		//  stack[location-1] = 0xaa; //data[0];
+		//  stack[location] = 0xaa;//data[1];
+		stack[location] = (data[0]<<8)|data[1];
+		return 1;
+	}
+	else
+	{
+		printf("Could not insert data, Stack is full.\n");
+		return 0;
+	}
+}
+
+
+static void _echoUSB(void);
+/******************************************************************************/
+int main(void)
+{
+
+	//*****************************************************************************/
+	//USB initializations
+	//*****************************************************************************/
+	maxusb_cfg_options_t usb_opts;
+	/* Initialize state */
+	configured = 0;
+	suspended = 0;
+	event_flags = 0;
+	remote_wake_en = 0;
+
+	/* Start out in full speed */
+	usb_opts.enable_hs = 0;
+	usb_opts.delay_us = delay_us; /* Function which will be used for delays */
+	usb_opts.init_callback = usbStartupCallback;
+	usb_opts.shutdown_callback = usbShutdownCallback;
+
+	/* Initialize the usb module */
+	if (MXC_USB_Init(&usb_opts) != 0) {
+		printf("MXC_USB_Init() failed\n");
+
+		while (1) {}
+	}
+
+	/* Initialize the enumeration module */
+	if (enum_init() != 0) {
+		printf("enum_init() failed\n");
+
+		while (1) {}
+	}
+
+	/* Register enumeration data */
+	enum_register_descriptor(ENUM_DESC_DEVICE, (uint8_t *)&device_descriptor, 0);
+	enum_register_descriptor(ENUM_DESC_CONFIG, (uint8_t *)&config_descriptor, 0);
+	enum_register_descriptor(ENUM_DESC_STRING, lang_id_desc, 0);
+	enum_register_descriptor(ENUM_DESC_STRING, mfg_id_desc, 1);
+	enum_register_descriptor(ENUM_DESC_STRING, prod_id_desc, 2);
+
+	/* Handle configuration */
+	enum_register_callback(ENUM_SETCONFIG, setconfigCallback, NULL);
+
+	/* Handle feature set/clear */
+	enum_register_callback(ENUM_SETFEATURE, setfeatureCallback, NULL);
+	enum_register_callback(ENUM_CLRFEATURE, clrfeatureCallback, NULL);
+
+	/* Initialize the class driver */
+	if (acm_init(&config_descriptor.comm_interface_descriptor) != 0) {
+		printf("acm_init() failed\n");
+
+		while (1) {}
+	}
+
+	/* Register callbacks */
+	MXC_USB_EventEnable(MAXUSB_EVENT_NOVBUS, eventCallback, NULL);
+	MXC_USB_EventEnable(MAXUSB_EVENT_VBUS, eventCallback, NULL);
+	acm_register_callback(ACM_CB_READ_READY, usbReadCallback);
+	usb_read_complete = 0;
+
+	/* Start with USB in low power mode */
+	usbAppSleep();
+	NVIC_EnableIRQ(USB_IRQn);
+
+
+	hardware_reset();  //Hardware reset for ADC
+
+	//*****************************************************************************/
+	//GPIO and SPI1 initializations for reading data from ADC
+	//*****************************************************************************/
+	mxc_gpio_cfg_t BUSY;
+	mxc_gpio_cfg_t blue_led;
+	mxc_gpio_cfg_t red_led;
+	mxc_gpio_cfg_t gpio_in;
+
+
+	//enable_12v();  //Turns EV-kit ON
+
+	gpio_in.port = MXC_GPIO_PORT_IN;
+	gpio_in.mask = MXC_GPIO_PIN_IN;
+	gpio_in.pad = MXC_GPIO_PAD_PULL_UP;
+	gpio_in.func = MXC_GPIO_FUNC_IN;
+	gpio_in.vssel = MXC_GPIO_VSSEL_VDDIO;
+	gpio_in.drvstr = MXC_GPIO_DRVSTR_0;
+	MXC_GPIO_Config(&gpio_in);
+
+	BUSY.port = BUSY_PORT;
+	BUSY.mask = BUSY_PIN;
+	BUSY.pad = MXC_GPIO_PAD_PULL_UP;
+	BUSY.func = MXC_GPIO_FUNC_IN;
+	BUSY.vssel = MXC_GPIO_VSSEL_VDDIO;
+	MXC_GPIO_IntConfig(&BUSY, MXC_GPIO_INT_FALLING);
+	MXC_GPIO_EnableInt(BUSY.port, BUSY.mask);
+	NVIC_EnableIRQ(MXC_GPIO_GET_IRQ(MXC_GPIO_GET_IDX(BUSY_PORT)));
+	MXC_NVIC_SetVector(MXC_GPIO_GET_IRQ(MXC_GPIO_GET_IDX(BUSY_PORT)), BUSY_ISR);
+
+
+	blue_led.port = blue_led_port;
+	blue_led.mask = blue_led_pin;
+	blue_led.pad = MXC_GPIO_PAD_NONE;
+	blue_led.func = MXC_GPIO_FUNC_OUT;
+	blue_led.vssel = MXC_GPIO_VSSEL_VDDIO;
+	blue_led.drvstr = MXC_GPIO_DRVSTR_0;
+	MXC_GPIO_Config(&blue_led);
+
+	red_led.port = red_led_port;
+	red_led.mask = red_led_pin;
+	red_led.pad = MXC_GPIO_PAD_NONE;
+	red_led.func = MXC_GPIO_FUNC_OUT;
+	red_led.vssel = MXC_GPIO_VSSEL_VDDIO;
+	red_led.drvstr = MXC_GPIO_DRVSTR_0;
+	MXC_GPIO_Config(&red_led);
+
+
+	// Initialize the SPI
+	retVal = MXC_SPI_Init(SPI_MASTER1, 1, 0, 1, 0, SPI_SPEED_SPI1, MAP_A);
+	if (retVal != E_NO_ERROR)
+	{
+		printf("\nSPI INITIALIZATION ERROR\n");
+		return retVal;
+	}
+
+
+
+	SPI1_req.spi = SPI_MASTER1;
+	SPI1_req.txData = (uint8_t *)SPI1_tx;
+	SPI1_req.rxData = (uint8_t *)SPI1_rx;
+	SPI1_req.txLen = 0;
+	SPI1_req.rxLen = DATA_LEN_SPI1;
+	SPI1_req.ssIdx = 0;
+	SPI1_req.ssDeassert = 1;
+	SPI1_req.txCnt = 0;
+	SPI1_req.rxCnt = 0;
+	SPI1_req.completeCB = (spi_complete_cb_t)SPI_Callback;
+
+	//Setting the data size
+	retVal = MXC_SPI_SetDataSize(SPI_MASTER1, DATA_SIZE_SPI1);
+	if (retVal != E_NO_ERROR)
+	{
+		printf("\nSPI MASTER INITIALIZATION ERROR\n");
+		return E_FAIL;
+	}
+
+	//Setting width of the SPI in this case 3- wire SPI for SPI1 master
+	retVal = MXC_SPI_SetWidth(SPI_MASTER1, SPI_WIDTH_3WIRE);
+	if (retVal != E_NO_ERROR)
+	{
+		printf("\nSPI MASTER INITIALIZATION ERROR\n");
+		return E_FAIL;
+	}
+
+	//Setting the SPI mode
+	retVal = MXC_SPI_SetMode(SPI_MASTER1, SPI_MODE_0);
+	if (retVal != E_NO_ERROR)
+	{
+		printf("\nSPI MASTER INITIALIZATION ERROR\n");
+		return E_FAIL;
+	}
+
+	MXC_NVIC_SetVector(SPI1_IRQ, SPI0_IRQHandler);
+	NVIC_EnableIRQ(SPI1_IRQ);
+	memset(SPI1_rx, 0x0, DATA_LEN_SPI1 * sizeof(uint8_t)); //Filling a block of memory
+
+
+
+	uint8_t test[DATA_LEN_SPI1];
+
+	memset(test, 0xAA, DATA_LEN_SPI1 * sizeof(uint8_t)); //Filling a block of memory
+	/* Wait for events */
+
+	while (1)
+	{
+		// _echoUSB();
+		if (!MXC_GPIO_InGet(gpio_in.port, gpio_in.mask)) // Check for the switch press
+		{
+			MXC_GPIO_OutClr(blue_led.port, blue_led.mask); //ON blue LED
+			MXC_GPIO_OutSet(red_led.port, red_led.mask);  //OFF RED LED
+
+			if(ADC_BUSY == 1) // ADC busy signal check
+			{
+				SPI_FLAG = 1;
+
+				MXC_SPI_MasterTransactionAsync(&SPI1_req);
+				while(SPI_FLAG == 1)
+				{
+
+				}
+
+				ADC_BUSY = 0;
+
+				if(location!=100000)
+				{
+
+					location = location + 1;
+					spi_data = ((SPI1_rx[0]<<8)|SPI1_rx[1]);
+					stack[location] = spi_data^0x8000;
+
+				}
+
+
+			}
+
+
+		}
+		else
+		{
+			MXC_GPIO_OutSet(blue_led.port, blue_led.mask); //OFF blue LED
+
+
+
+			if(location>0)
+			{
+				MXC_GPIO_OutClr(red_led.port, red_led.mask);  //OFF RED LED
+				while(location--)
+				{
+
+					debugPrint("0X%x\n\r",stack[location]);// stack[location]);
+
+				}
+
+
+			}
+
+			MXC_GPIO_OutSet(red_led.port, red_led.mask);
+
+		}
+
+
+	}
+}
+
+/* This callback is used to allow the driver to call part specific initialization functions. */
+/******************************************************************************/
+int usbStartupCallback()
+{
+	// Startup the HIRC96M clock if it's not on already
+	if (!(MXC_GCR->clkcn & MXC_F_GCR_CLKCN_HIRC96M_EN)) {
+		MXC_GCR->clkcn |= MXC_F_GCR_CLKCN_HIRC96M_EN;
+
+		if (MXC_SYS_Clock_Timeout(MXC_F_GCR_CLKCN_HIRC96M_RDY) != E_NO_ERROR) {
+			return E_TIME_OUT;
+		}
+	}
+
+	MXC_SYS_ClockEnable(MXC_SYS_PERIPH_CLOCK_USB);
+
+	return E_NO_ERROR;
+}
+
+/******************************************************************************/
+int usbShutdownCallback()
+{
+	MXC_SYS_ClockDisable(MXC_SYS_PERIPH_CLOCK_USB);
+
+	return E_NO_ERROR;
+}
+
+/******************************************************************************/
+static void usbAppSleep(void)
+{
+	/* TODO: Place low-power code here */
+	suspended = 1;
+}
+
+/******************************************************************************/
+static void usbAppWakeup(void)
+{
+	/* TODO: Place low-power code here */
+	suspended = 0;
+}
+
+int a = 0;
+
+static void _echoUSB(void)
+{
+	uint8_t buffer[BUFFER_SIZE];
+
+	debugRead("%s %d", buffer, &a);
+
+	debugPrint("\n\rData Read: %s\n\rInt: %d\n\r", buffer, a);
+	return;
+
+}
+
+
+/******************************************************************************/
+static int setconfigCallback(MXC_USB_SetupPkt *sud, void *cbdata)
+{
+	/* Confirm the configuration value */
+	if (sud->wValue == config_descriptor.config_descriptor.bConfigurationValue) {
+		configured = 1;
+		MXC_SETBIT(&event_flags, EVENT_ENUM_COMP);
+
+		acm_cfg.out_ep = config_descriptor.endpoint_descriptor_1.bEndpointAddress & 0x7;
+		acm_cfg.out_maxpacket = config_descriptor.endpoint_descriptor_1.wMaxPacketSize;
+		acm_cfg.in_ep = config_descriptor.endpoint_descriptor_2.bEndpointAddress & 0x7;
+		acm_cfg.in_maxpacket = config_descriptor.endpoint_descriptor_2.wMaxPacketSize;
+		acm_cfg.notify_ep = config_descriptor.endpoint_descriptor_3.bEndpointAddress & 0x7;
+		acm_cfg.notify_maxpacket = config_descriptor.endpoint_descriptor_3.wMaxPacketSize;
+
+		return acm_configure(&acm_cfg); /* Configure the device class */
+	} else if (sud->wValue == 0) {
+		configured = 0;
+		return acm_deconfigure();
+	}
+
+	return -1;
+}
+
+/******************************************************************************/
+static int setfeatureCallback(MXC_USB_SetupPkt *sud, void *cbdata)
+{
+	if (sud->wValue == FEAT_REMOTE_WAKE) {
+		remote_wake_en = 1;
+	} else {
+		// Unknown callback
+		return -1;
+	}
+
+	return 0;
+}
+
+/******************************************************************************/
+static int clrfeatureCallback(MXC_USB_SetupPkt *sud, void *cbdata)
+{
+	if (sud->wValue == FEAT_REMOTE_WAKE) {
+		remote_wake_en = 0;
+	} else {
+		// Unknown callback
+		return -1;
+	}
+
+	return 0;
+}
+
+/******************************************************************************/
+static int eventCallback(maxusb_event_t evt, void *data)
+{
+	/* Set event flag */
+	MXC_SETBIT(&event_flags, evt);
+
+	switch (evt) {
+	case MAXUSB_EVENT_NOVBUS:
+		MXC_USB_EventDisable(MAXUSB_EVENT_BRST);
+		MXC_USB_EventDisable(MAXUSB_EVENT_SUSP);
+		MXC_USB_EventDisable(MAXUSB_EVENT_DPACT);
+		MXC_USB_Disconnect();
+		configured = 0;
+		enum_clearconfig();
+		acm_deconfigure();
+		usbAppSleep();
+		break;
+
+	case MAXUSB_EVENT_VBUS:
+		MXC_USB_EventClear(MAXUSB_EVENT_BRST);
+		MXC_USB_EventEnable(MAXUSB_EVENT_BRST, eventCallback, NULL);
+		MXC_USB_EventClear(MAXUSB_EVENT_SUSP);
+		MXC_USB_EventEnable(MAXUSB_EVENT_SUSP, eventCallback, NULL);
+		MXC_USB_Connect();
+		usbAppSleep();
+		break;
+
+	case MAXUSB_EVENT_BRST:
+		usbAppWakeup();
+		enum_clearconfig();
+		acm_deconfigure();
+		configured = 0;
+		suspended = 0;
+		break;
+
+	case MAXUSB_EVENT_SUSP:
+		usbAppSleep();
+		break;
+
+	case MAXUSB_EVENT_DPACT:
+		usbAppWakeup();
+		break;
+
+	default:
+		break;
+	}
+
+	return 0;
+}
+
+/******************************************************************************/
+static int usbReadCallback(void)
+{
+	usb_read_complete = 1;
+	return 0;
+}
+
+/******************************************************************************/
+void USB_IRQHandler(void)
+{
+	MXC_USB_EventHandler();
+}
+
+/******************************************************************************/
+void SysTick_Handler(void)
+{
+	MXC_DelayHandler();
+}
+
+//data = ((dataRead[1]<<8)+ dataRead[0]); //Data is read back MSB first
