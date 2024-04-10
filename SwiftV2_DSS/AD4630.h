@@ -143,27 +143,23 @@
 
 
 //****************************************************************
-//GPIO defines
+//GPIO defines for ADC
 //****************************************************************
-//For the CS pin
+//For the CS pin while using the SPI2 on the FTHR
 #define MXC_GPIO_PORT_OUT0 MXC_GPIO0
 #define MXC_GPIO_PIN_OUT16 MXC_GPIO_PIN_16
 
-//Pin 0.20
+//Pin 0.20 used for enabling and disabling CNV start signal through 74LV4060
 #define MXC_GPIO_PORT_OUT0 MXC_GPIO0
 #define MXC_GPIO_PIN_OUT20 MXC_GPIO_PIN_20
 
-//Pin 0.21
+//Pin 0.21 use for hardware reset
 #define MXC_GPIO_PORT_OUT0 MXC_GPIO0
 #define MXC_GPIO_PIN_OUT21 MXC_GPIO_PIN_21
 
-//Pin 0.10, used for input Busy signal
-#define MXC_GPIO_PORT_IN0 MXC_GPIO0
-#define MXC_GPIO_PIN_IN10 MXC_GPIO_PIN_10
-
-//Pin 0.18, used for input Busy signal call back
-#define MXC_GPIO_PORT_OUT0 MXC_GPIO0
-#define MXC_GPIO_PIN_OUT30 MXC_GPIO_PIN_30
+ //Busy input from ADC
+#define BUSY_PORT MXC_GPIO0
+#define BUSY_PIN MXC_GPIO_PIN_10
 
 
 //****************************************************************
@@ -181,7 +177,7 @@
 //SPI defines for SPI1 master
 //****************************************************************
 #define DATA_LEN_SPI1 3 // Words
-#define SPI_SPEED_SPI1 16000000// Bit Rate
+#define SPI_SPEED_SPI1 16500000// Bit Rate
 #define DATA_SIZE_SPI1 8  //Data size
 #define SPI_MASTER1 MXC_SPI1 //Using SPI2 as Master to configure ADC
 #define SPI_MASTER1_SSIDX 0
@@ -205,7 +201,6 @@ void disable_cnv_signal();
 //ADC configuration
 void ADC_Config();
 
-int32_t ad4630_conversion();
 
 /** Read device register. */
 int32_t ad4630_spi_reg_read_4_wire(uint16_t reg_addr,  uint8_t reg_data);

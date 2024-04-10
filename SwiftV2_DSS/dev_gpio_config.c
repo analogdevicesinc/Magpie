@@ -147,7 +147,7 @@ void enable_green_led()
 
 	/* Setup output pin. P0.5 as high */
 	MXC_GPIO_OutClr(gpio_out5.port, gpio_out5.mask);
-	printf("Green LED ON \n");
+
 
 }
 
@@ -169,7 +169,7 @@ void enable_blue_led()
 
 	/* Setup output pin. P0.3 as high */
 	MXC_GPIO_OutClr(gpio_out3.port, gpio_out3.mask);
-	printf("Blue LED ON \n");
+
 
 }
 
@@ -193,7 +193,7 @@ void disable_green_led()
 
     /*Clearing the GPIO to a low value*/
 	MXC_GPIO_OutSet(gpio_out5.port, gpio_out5.mask);
-	printf("Green LED OFF \n");
+
 }
 
 /***************************************************************************
@@ -214,29 +214,9 @@ void disable_blue_led()
 
     /*Clearing the GPIO to a low value*/
 	MXC_GPIO_OutSet(gpio_out3.port, gpio_out3.mask);
-	printf("Blue LED OFF \n");
+
 
 }
-
-/***************************************************************************
-* Enabling 74LV4060
-****************************************************************************/
-void enable_74LV4060()
-{
-	mxc_gpio_cfg_t gpio_out20;
-	printf("\n\n****** Enabling 74LV4060******\n");
-	/* Setup output pin. P0.5 */
-	gpio_out20.port = MXC_GPIO_PORT_OUT0;
-	gpio_out20.mask = MXC_GPIO_PIN_OUT20;
-	gpio_out20.pad = MXC_GPIO_PAD_NONE;
-	gpio_out20.func = MXC_GPIO_FUNC_OUT;
-	gpio_out20.vssel = MXC_GPIO_VSSEL_VDDIO;
-    MXC_GPIO_Config(&gpio_out20);
-    /*ENabling the chip*/
-	MXC_GPIO_OutSet(gpio_out20.port, gpio_out20.mask);
-
-}
-
 
 /***************************************************************************
 * @brief Enabling AD4807 P0.9

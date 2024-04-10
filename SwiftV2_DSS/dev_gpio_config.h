@@ -5,6 +5,15 @@
  *      Author: VKarra
  */
 
+/*
+| Number  |  GPIO | Power supply sequence |
+|---------|-------|-----------------------|
+| 1       |   P0.0| EN_5V3                |
+| 2       |   P0.4| EN_1V8                |
+| 3       |   P0.1| EB_5V0                |
+| 4       |   P0.2| EN_2V8                |
+*/
+
 #ifndef DEV_GPIO_CONFIG_H_
 #define DEV_GPIO_CONFIG_H_
 
@@ -13,39 +22,35 @@
 #include "board.h"
 
 //Pin definitions
-//Pin 0.0
+//Pin 0.0 for enabling the 5.3 volts supply
 #define MXC_GPIO_PORT_OUT0 MXC_GPIO0
 #define MXC_GPIO_PIN_OUT0 MXC_GPIO_PIN_0
 
-//Pin 0.1
+//Pin 0.1 for enabling the 5.0 volts supply
 #define MXC_GPIO_PORT_OUT0 MXC_GPIO0
 #define MXC_GPIO_PIN_OUT1 MXC_GPIO_PIN_1
 
-//Pin 0.2
+//Pin 0.2 for enabling the 2.8 volts supply
 #define MXC_GPIO_PORT_OUT0 MXC_GPIO0
 #define MXC_GPIO_PIN_OUT2 MXC_GPIO_PIN_2
 
-//Pin 0.4
+//Pin 0.4 for enabling the 1.8 volts supply
 #define MXC_GPIO_PORT_OUT0 MXC_GPIO0
 #define MXC_GPIO_PIN_OUT4 MXC_GPIO_PIN_4
 
-//Pin 0.12
+//Pin 0.12 for selecting the mic
 #define MXC_GPIO_PORT_OUT0 MXC_GPIO0
 #define MXC_GPIO_PIN_OUT12 MXC_GPIO_PIN_12
 
-//Pin 0.3
+//Pin 0.3  Blue LED on the Mother board
 #define MXC_GPIO_PORT_OUT0 MXC_GPIO0
 #define MXC_GPIO_PIN_OUT3 MXC_GPIO_PIN_3
 
-//Pin 0.5
+//Pin 0.5 Green LED on the Mother board
 #define MXC_GPIO_PORT_OUT0 MXC_GPIO0
 #define MXC_GPIO_PIN_OUT5 MXC_GPIO_PIN_5
 
-//Pin 0.20
-#define MXC_GPIO_PORT_OUT0 MXC_GPIO0
-#define MXC_GPIO_PIN_OUT20 MXC_GPIO_PIN_20
-
-//Pin 0.9
+//Pin 0.9 for enabling and disabling the AD4807
 #define MXC_GPIO_PORT_OUT0 MXC_GPIO0
 #define MXC_GPIO_PIN_OUT9 MXC_GPIO_PIN_9
 
@@ -88,11 +93,6 @@ void disable_green_led();
 ****************************************************************************/
 void disable_blue_led();
 
-
-/***************************************************************************
-* @brief Enabling 74LV4060_MR P0.20
-****************************************************************************/
-void enable_74LV4060();
 
 /***************************************************************************
 * @brief Enabling AD4807 P0.9

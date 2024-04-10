@@ -307,7 +307,7 @@ int32_t ad4630_spi_reg_write_4_wire_masked(uint16_t reg_addr, uint8_t mask, uint
 {
 
 	int32_t ret;
-	uint8_t reg_data;
+	uint8_t reg_data = 0;
 	ret = ad4630_spi_reg_read_4_wire(reg_addr, reg_data);
 	if(ret != 0)
 	{
@@ -346,6 +346,7 @@ int32_t ad4630_scratchpad(uint16_t addr, uint8_t data)
 	uint8_t read_data = 0x00;
 	ad4630_spi_reg_write_4_wire(addr,data);
 	ad4630_spi_reg_read_4_wire(addr,read_data);
+	return data;
 }
 
 

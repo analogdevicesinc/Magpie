@@ -33,8 +33,14 @@
 
 /**
  * @file    main.c
- * @brief   Stack_Push_VCOM
- * @details This project reads data from ADC using SPI and displays it on terminal
+ * @brief   SwiftV2_DSS
+ * @details This program is targeted towards MAX32666FTHR which talks to two other designs Mother board and Daughter Board.
+ * The Mother board houses power supplies, oscillators and AD4630 ADC where as the daughter board has all the Mics, OP-AMPS
+ * used for recording data. The code initiates SPI communication between MAX32666FTHR and AD4630 reading the recorded data
+ * from Mics. This data is simultaneously transferred to PC using USB on the FTHR. Please press SW1 on FTHR and start speaking
+ * (Blue LED is ON). We only have two seconds to hold the button. Donot hold it for long because it fills up the buffer
+ * completely. As soon as the SW1 is released the data is transferred to PC through USB (Red LED will be ON) Please check the
+ * board.c file in ${MSDKPath}\Libraries\Boards\MAX32665${BoardName}\Source path to learn switch and LED pins for specific board.
  *
  */
 
@@ -61,36 +67,23 @@
 #include "AD4630.h"  //ADC configuration data
 
 /***** Definitions *****/
+//USB_CDC_Protocol definitions
 #define EVENT_ENUM_COMP MAXUSB_NUM_EVENTS
 #define EVENT_REMOTE_WAKE (EVENT_ENUM_COMP + 1)
-
-#define BUFFER_SIZE 64
-
 #define STRINGIFY(x) #x
 #define TOSTRING(x) STRINGIFY(x)
 
+
+//Definitions to access the LEDs and Push button on FTHR board
 #define blue_led_port MXC_GPIO0    //Blue LED on FTHR board
 #define blue_led_pin  MXC_GPIO_PIN_30
 
-#define red_led_port MXC_GPIO0
+#define red_led_port MXC_GPIO0 //RED LED on FTHR board
 #define red_led_pin MXC_GPIO_PIN_29
-
-#define BUSY_PORT MXC_GPIO0  //Busy input from ADC
-#define BUSY_PIN MXC_GPIO_PIN_10
 
 #define MXC_GPIO_PORT_IN MXC_GPIO1  //Push button switch
 #define MXC_GPIO_PIN_IN MXC_GPIO_PIN_10
 
-//****************************************************************
-//SPI defines for SPI1 master
-//****************************************************************
-/***** Definitions *****/
-//#define DATA_LEN_SPI1 3 // Words
-//#define SPI_SPEED_SPI1 20000000// Bit Rate
-//#define DATA_SIZE_SPI1 8  //Data size
-//#define SPI_MASTER1 MXC_SPI1 //Using SPI2 as Master to configure ADC
-//#define SPI_MASTER1_SSIDX 0
-//#define SPI1_IRQ SPI1_IRQn
 
 /***** Global Data *****/
 /****************************/
@@ -151,7 +144,7 @@ static int setfeatureCallback(MXC_USB_SetupPkt *sud, void *cbdata);
 static int clrfeatureCallback(MXC_USB_SetupPkt *sud, void *cbdata);
 static int eventCallback(maxusb_event_t evt, void *data);
 static int usbReadCallback(void);
-static void echoUSB(void);
+
 
 /***** File Scope Variables *****/
 
@@ -174,9 +167,12 @@ void delay_us(unsigned int usec)
 	MXC_Delay(usec);
 }
 
+
 /*****************************************************************/
-//Custom Printf function design
+//Custom functions design
 /*****************************************************************/
+
+/***Custom printf USB write design***/
 void debugPrint(char *fmt, ... )
 {
 	char buffer[1024];
@@ -192,7 +188,7 @@ void debugPrint(char *fmt, ... )
 	acm_write((uint8_t*)buffer, len);
 }
 
-
+/***Custom USB read function***/
 int debugRead(const char *fmt, ...) {
 	uint8_t buffer[256]; // Adjust the buffer size
 
@@ -211,7 +207,8 @@ int debugRead(const char *fmt, ...) {
 			num+=readLen;
 			inx+=readLen;
 			break;
-		} else
+		}
+		else
 		{
 			num+=readLen;
 			inx+=readLen;
@@ -244,7 +241,7 @@ void SPI_Callback(mxc_spi_req_t *req, int error)
 	SPI_FLAG = error;
 }
 
-/*****Custom functions****/
+/*****ADC Busy signal interrupt function****/
 
 void BUSY_ISR(void)
 
@@ -256,51 +253,13 @@ void BUSY_ISR(void)
 
 }
 
-/*****************************************************************/
-//Push and Pop functions
-/****************************************************************/
-
-/* Check if the stack is empty */
-int stack_empty()
-{
-	if(location == -1)
-		return 1;
-	else
-		return 0;
-}
-
-/* Check if the stack is full */
-int stack_full()
-{
-	if(location == Storage_max_size)
-		return 1;
-	else
-		return 0;
-}
-
-/* Function to insert into the stack */
-int push(uint8_t data[3])
-{
-	if(!stack_full())
-	{
-		location = location + 1;
-		//  stack[location-1] = 0xaa; //data[0];
-		//  stack[location] = 0xaa;//data[1];
-		stack[location] = (data[0]<<8)|data[1];
-		return 1;
-	}
-	else
-	{
-		printf("Could not insert data, Stack is full.\n");
-		return 0;
-	}
-}
 
 
-static void _echoUSB(void);
+
 /******************************************************************************/
 int main(void)
 {
+	printf("Starting USB initializations\r\n");
 
 	//*****************************************************************************/
 	//USB initializations
@@ -319,17 +278,25 @@ int main(void)
 	usb_opts.shutdown_callback = usbShutdownCallback;
 
 	/* Initialize the usb module */
-	if (MXC_USB_Init(&usb_opts) != 0) {
+	if (MXC_USB_Init(&usb_opts) != 0)
+	{
 		printf("MXC_USB_Init() failed\n");
 
-		while (1) {}
+		while (1)
+		{
+
+		}
 	}
 
 	/* Initialize the enumeration module */
-	if (enum_init() != 0) {
+	if (enum_init() != 0)
+	{
 		printf("enum_init() failed\n");
 
-		while (1) {}
+		while (1)
+		{
+
+		}
 	}
 
 	/* Register enumeration data */
@@ -347,10 +314,14 @@ int main(void)
 	enum_register_callback(ENUM_CLRFEATURE, clrfeatureCallback, NULL);
 
 	/* Initialize the class driver */
-	if (acm_init(&config_descriptor.comm_interface_descriptor) != 0) {
+	if (acm_init(&config_descriptor.comm_interface_descriptor) != 0)
+	{
 		printf("acm_init() failed\n");
 
-		while (1) {}
+		while (1)
+		{
+
+		}
 	}
 
 	/* Register callbacks */
@@ -363,19 +334,18 @@ int main(void)
 	usbAppSleep();
 	NVIC_EnableIRQ(USB_IRQn);
 
-
+	printf("Performing ADC hard reset\r\n");
 	hardware_reset();  //Hardware reset for ADC
 
 	//*****************************************************************************/
 	//GPIO and SPI1 initializations for reading data from ADC
 	//*****************************************************************************/
+	printf("Initializing the ADC_BUSY interrupt, push button and LEDs on the FTHR board\r\n");
 	mxc_gpio_cfg_t BUSY;
 	mxc_gpio_cfg_t blue_led;
 	mxc_gpio_cfg_t red_led;
 	mxc_gpio_cfg_t gpio_in;
 
-
-	//enable_12v();  //Turns EV-kit ON
 
 	gpio_in.port = MXC_GPIO_PORT_IN;
 	gpio_in.mask = MXC_GPIO_PIN_IN;
@@ -412,7 +382,7 @@ int main(void)
 	red_led.drvstr = MXC_GPIO_DRVSTR_0;
 	MXC_GPIO_Config(&red_led);
 
-
+	printf("Initializing the SPI to read ADC data\r\n");
 	// Initialize the SPI
 	retVal = MXC_SPI_Init(SPI_MASTER1, 1, 0, 1, 0, SPI_SPEED_SPI1, MAP_A);
 	if (retVal != E_NO_ERROR)
@@ -464,16 +434,13 @@ int main(void)
 
 
 
-	uint8_t test[DATA_LEN_SPI1];
-
-	memset(test, 0xAA, DATA_LEN_SPI1 * sizeof(uint8_t)); //Filling a block of memory
 	/* Wait for events */
 
 	while (1)
 	{
-		// _echoUSB();
 		if (!MXC_GPIO_InGet(gpio_in.port, gpio_in.mask)) // Check for the switch press
 		{
+
 			MXC_GPIO_OutClr(blue_led.port, blue_led.mask); //ON blue LED
 			MXC_GPIO_OutSet(red_led.port, red_led.mask);  //OFF RED LED
 
@@ -489,7 +456,7 @@ int main(void)
 
 				ADC_BUSY = 0;
 
-				if(location!=100000)
+				if(location!=100000) //Check is the stack buffer is full!
 				{
 
 					location = location + 1;
@@ -506,23 +473,25 @@ int main(void)
 		else
 		{
 			MXC_GPIO_OutSet(blue_led.port, blue_led.mask); //OFF blue LED
-
-
-
 			if(location>0)
 			{
-				MXC_GPIO_OutClr(red_led.port, red_led.mask);  //OFF RED LED
+				MXC_GPIO_OutClr(red_led.port, red_led.mask);  //ON RED LED
 				while(location--)
 				{
 
-					debugPrint("0X%x\n\r",stack[location]);// stack[location]);
+					debugPrint("0X%x\r\n",stack[location]);// stack[location]);
 
 				}
+				//debugPrint("\n");// matlab must be set for \n as seperator
 
 
 			}
 
+			else
+			{
 			MXC_GPIO_OutSet(red_led.port, red_led.mask);
+			}
+
 
 		}
 
@@ -530,15 +499,18 @@ int main(void)
 	}
 }
 
+/******************************************************************************/
 /* This callback is used to allow the driver to call part specific initialization functions. */
 /******************************************************************************/
 int usbStartupCallback()
 {
 	// Startup the HIRC96M clock if it's not on already
-	if (!(MXC_GCR->clkcn & MXC_F_GCR_CLKCN_HIRC96M_EN)) {
+	if (!(MXC_GCR->clkcn & MXC_F_GCR_CLKCN_HIRC96M_EN))
+	{
 		MXC_GCR->clkcn |= MXC_F_GCR_CLKCN_HIRC96M_EN;
 
-		if (MXC_SYS_Clock_Timeout(MXC_F_GCR_CLKCN_HIRC96M_RDY) != E_NO_ERROR) {
+		if (MXC_SYS_Clock_Timeout(MXC_F_GCR_CLKCN_HIRC96M_RDY) != E_NO_ERROR)
+		{
 			return E_TIME_OUT;
 		}
 	}
@@ -572,23 +544,13 @@ static void usbAppWakeup(void)
 
 int a = 0;
 
-static void _echoUSB(void)
-{
-	uint8_t buffer[BUFFER_SIZE];
-
-	debugRead("%s %d", buffer, &a);
-
-	debugPrint("\n\rData Read: %s\n\rInt: %d\n\r", buffer, a);
-	return;
-
-}
-
 
 /******************************************************************************/
 static int setconfigCallback(MXC_USB_SetupPkt *sud, void *cbdata)
 {
 	/* Confirm the configuration value */
-	if (sud->wValue == config_descriptor.config_descriptor.bConfigurationValue) {
+	if (sud->wValue == config_descriptor.config_descriptor.bConfigurationValue)
+	{
 		configured = 1;
 		MXC_SETBIT(&event_flags, EVENT_ENUM_COMP);
 
@@ -600,7 +562,8 @@ static int setconfigCallback(MXC_USB_SetupPkt *sud, void *cbdata)
 		acm_cfg.notify_maxpacket = config_descriptor.endpoint_descriptor_3.wMaxPacketSize;
 
 		return acm_configure(&acm_cfg); /* Configure the device class */
-	} else if (sud->wValue == 0) {
+	} else if (sud->wValue == 0)
+	{
 		configured = 0;
 		return acm_deconfigure();
 	}
@@ -611,7 +574,8 @@ static int setconfigCallback(MXC_USB_SetupPkt *sud, void *cbdata)
 /******************************************************************************/
 static int setfeatureCallback(MXC_USB_SetupPkt *sud, void *cbdata)
 {
-	if (sud->wValue == FEAT_REMOTE_WAKE) {
+	if (sud->wValue == FEAT_REMOTE_WAKE)
+	{
 		remote_wake_en = 1;
 	} else {
 		// Unknown callback
@@ -624,9 +588,11 @@ static int setfeatureCallback(MXC_USB_SetupPkt *sud, void *cbdata)
 /******************************************************************************/
 static int clrfeatureCallback(MXC_USB_SetupPkt *sud, void *cbdata)
 {
-	if (sud->wValue == FEAT_REMOTE_WAKE) {
+	if (sud->wValue == FEAT_REMOTE_WAKE)
+	{
 		remote_wake_en = 0;
-	} else {
+	} else
+	{
 		// Unknown callback
 		return -1;
 	}
@@ -640,7 +606,8 @@ static int eventCallback(maxusb_event_t evt, void *data)
 	/* Set event flag */
 	MXC_SETBIT(&event_flags, evt);
 
-	switch (evt) {
+	switch (evt)
+	{
 	case MAXUSB_EVENT_NOVBUS:
 		MXC_USB_EventDisable(MAXUSB_EVENT_BRST);
 		MXC_USB_EventDisable(MAXUSB_EVENT_SUSP);
@@ -703,4 +670,4 @@ void SysTick_Handler(void)
 	MXC_DelayHandler();
 }
 
-//data = ((dataRead[1]<<8)+ dataRead[0]); //Data is read back MSB first
+
