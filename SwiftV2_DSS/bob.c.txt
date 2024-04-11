@@ -479,7 +479,6 @@ int main(void)
 				while(location--)
 				{
 
-					//debugPrint("0X%x\r\n",stack[location]);// stack[location]);
 					debugPrint("0X%x ",stack[location]);// stack[location]);
 
 				}
