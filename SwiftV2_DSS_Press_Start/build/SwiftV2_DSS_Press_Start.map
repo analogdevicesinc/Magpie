@@ -4969,7 +4969,7 @@ LOAD c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v
                 0x20000000                _esdma_data = ALIGN (., 0x4)
                 0x1000c124                __load_sdma_data = LOADADDR (.sdma_data)
 
-.bss            0x20000c00    0x31668
+.bss            0x20000c00    0x49e68
                 0x20000c00                . = ALIGN (0x4)
                 0x20000c00                _bss = .
  *(.bss*)
@@ -5001,122 +5001,122 @@ LOAD c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v
  .bss.spi_data  0x20000c64        0x2 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/SwiftV2_DSS_Press_Start/build/main.o
                 0x20000c64                spi_data
  *fill*         0x20000c66        0x2 
- .bss.stack     0x20000c68    0x30d40 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/SwiftV2_DSS_Press_Start/build/main.o
+ .bss.stack     0x20000c68    0x493e0 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/SwiftV2_DSS_Press_Start/build/main.o
                 0x20000c68                stack
  .bss.suspended
-                0x200319a8        0x4 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/SwiftV2_DSS_Press_Start/build/main.o
-                0x200319a8                suspended
+                0x2004a048        0x4 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/SwiftV2_DSS_Press_Start/build/main.o
+                0x2004a048                suspended
  .bss.usb_read_complete
-                0x200319ac        0x4 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/SwiftV2_DSS_Press_Start/build/main.o
- .bss.heap_end  0x200319b0        0x4 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/SwiftV2_DSS_Press_Start/build/heap.o
- .bss.cbFunc    0x200319b4        0x4 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(mxc_delay.o)
+                0x2004a04c        0x4 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/SwiftV2_DSS_Press_Start/build/main.o
+ .bss.heap_end  0x2004a050        0x4 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/SwiftV2_DSS_Press_Start/build/heap.o
+ .bss.cbFunc    0x2004a054        0x4 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(mxc_delay.o)
  .bss.ctrl_save
-                0x200319b8        0x4 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(mxc_delay.o)
- .bss.endtick   0x200319bc        0x4 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(mxc_delay.o)
- *fill*         0x200319c0       0x40 
+                0x2004a058        0x4 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(mxc_delay.o)
+ .bss.endtick   0x2004a05c        0x4 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(mxc_delay.o)
+ *fill*         0x2004a060      0x1a0 
  .bss.ramVectorTable
-                0x20031a00      0x1bc C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(nvic_table.o)
- .bss.states    0x20031bbc       0x78 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(spi_reva1.o)
- .bss.states    0x20031c34       0x3c C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(uart_reva.o)
-                0x20031c34                states
- .bss.callback  0x20031c70      0x100 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(gpio_common.o)
- .bss.cbparam   0x20031d70      0x100 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(gpio_common.o)
+                0x2004a200      0x1bc C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(nvic_table.o)
+ .bss.states    0x2004a3bc       0x78 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(spi_reva1.o)
+ .bss.states    0x2004a434       0x3c C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(uart_reva.o)
+                0x2004a434                states
+ .bss.callback  0x2004a470      0x100 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(gpio_common.o)
+ .bss.cbparam   0x2004a570      0x100 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(gpio_common.o)
  .bss.MXC_USB_Request
-                0x20031e70       0x30 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/SwiftV2_DSS_Press_Start/build/MAXUSB/maxusb.a(usb.o)
+                0x2004a670       0x30 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/SwiftV2_DSS_Press_Start/build/MAXUSB/maxusb.a(usb.o)
  .bss.driver_opts
-                0x20031ea0       0x10 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/SwiftV2_DSS_Press_Start/build/MAXUSB/maxusb.a(usb.o)
- .bss.ep_size   0x20031eb0       0x30 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/SwiftV2_DSS_Press_Start/build/MAXUSB/maxusb.a(usb.o)
+                0x2004a6a0       0x10 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/SwiftV2_DSS_Press_Start/build/MAXUSB/maxusb.a(usb.o)
+ .bss.ep_size   0x2004a6b0       0x30 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/SwiftV2_DSS_Press_Start/build/MAXUSB/maxusb.a(usb.o)
  .bss.setup_phase
-                0x20031ee0        0x1 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/SwiftV2_DSS_Press_Start/build/MAXUSB/maxusb.a(usb.o)
- *fill*         0x20031ee1        0x3 
- .bss.callback  0x20031ee4       0x48 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/SwiftV2_DSS_Press_Start/build/MAXUSB/maxusb.a(usb_event.o)
- .bss.events    0x20031f2c        0x4 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/SwiftV2_DSS_Press_Start/build/MAXUSB/maxusb.a(usb_event.o)
- .bss.callback  0x20031f30       0x38 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/SwiftV2_DSS_Press_Start/build/MAXUSB/maxusb.a(enumerate.o)
+                0x2004a6e0        0x1 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/SwiftV2_DSS_Press_Start/build/MAXUSB/maxusb.a(usb.o)
+ *fill*         0x2004a6e1        0x3 
+ .bss.callback  0x2004a6e4       0x48 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/SwiftV2_DSS_Press_Start/build/MAXUSB/maxusb.a(usb_event.o)
+ .bss.events    0x2004a72c        0x4 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/SwiftV2_DSS_Press_Start/build/MAXUSB/maxusb.a(usb_event.o)
+ .bss.callback  0x2004a730       0x38 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/SwiftV2_DSS_Press_Start/build/MAXUSB/maxusb.a(enumerate.o)
  .bss.callback_getdescriptor
-                0x20031f68        0x4 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/SwiftV2_DSS_Press_Start/build/MAXUSB/maxusb.a(enumerate.o)
+                0x2004a768        0x4 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/SwiftV2_DSS_Press_Start/build/MAXUSB/maxusb.a(enumerate.o)
  .bss.config_value
-                0x20031f6c        0x1 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/SwiftV2_DSS_Press_Start/build/MAXUSB/maxusb.a(enumerate.o)
+                0x2004a76c        0x1 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/SwiftV2_DSS_Press_Start/build/MAXUSB/maxusb.a(enumerate.o)
  .bss.device_status
-                0x20031f6d        0x1 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/SwiftV2_DSS_Press_Start/build/MAXUSB/maxusb.a(enumerate.o)
- *fill*         0x20031f6e        0x2 
+                0x2004a76d        0x1 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/SwiftV2_DSS_Press_Start/build/MAXUSB/maxusb.a(enumerate.o)
+ *fill*         0x2004a76e        0x2 
  .bss.enum_data
-                0x20031f70        0x2 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/SwiftV2_DSS_Press_Start/build/MAXUSB/maxusb.a(enumerate.o)
- *fill*         0x20031f72        0x2 
+                0x2004a770        0x2 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/SwiftV2_DSS_Press_Start/build/MAXUSB/maxusb.a(enumerate.o)
+ *fill*         0x2004a772        0x2 
  .bss.enum_desc_table
-                0x20031f74       0x28 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/SwiftV2_DSS_Press_Start/build/MAXUSB/maxusb.a(enumerate.o)
-                0x20031f74                enum_desc_table
- .bss.enum_req  0x20031f9c       0x24 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/SwiftV2_DSS_Press_Start/build/MAXUSB/maxusb.a(enumerate.o)
+                0x2004a774       0x28 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/SwiftV2_DSS_Press_Start/build/MAXUSB/maxusb.a(enumerate.o)
+                0x2004a774                enum_desc_table
+ .bss.enum_req  0x2004a79c       0x24 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/SwiftV2_DSS_Press_Start/build/MAXUSB/maxusb.a(enumerate.o)
  .bss.BREAK_signal
-                0x20031fc0        0x4 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/SwiftV2_DSS_Press_Start/build/MAXUSB/maxusb.a(cdc_acm.o)
+                0x2004a7c0        0x4 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/SwiftV2_DSS_Press_Start/build/MAXUSB/maxusb.a(cdc_acm.o)
  .bss.DTE_present
-                0x20031fc4        0x4 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/SwiftV2_DSS_Press_Start/build/MAXUSB/maxusb.a(cdc_acm.o)
- .bss.callback  0x20031fc8       0x10 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/SwiftV2_DSS_Press_Start/build/MAXUSB/maxusb.a(cdc_acm.o)
+                0x2004a7c4        0x4 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/SwiftV2_DSS_Press_Start/build/MAXUSB/maxusb.a(cdc_acm.o)
+ .bss.callback  0x2004a7c8       0x10 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/SwiftV2_DSS_Press_Start/build/MAXUSB/maxusb.a(cdc_acm.o)
  .bss.chained_cbdata
-                0x20031fd8        0x4 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/SwiftV2_DSS_Press_Start/build/MAXUSB/maxusb.a(cdc_acm.o)
+                0x2004a7d8        0x4 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/SwiftV2_DSS_Press_Start/build/MAXUSB/maxusb.a(cdc_acm.o)
  .bss.chained_func
-                0x20031fdc        0x4 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/SwiftV2_DSS_Press_Start/build/MAXUSB/maxusb.a(cdc_acm.o)
- .bss.creq      0x20031fe0       0x24 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/SwiftV2_DSS_Press_Start/build/MAXUSB/maxusb.a(cdc_acm.o)
- .bss.if_num    0x20032004        0x1 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/SwiftV2_DSS_Press_Start/build/MAXUSB/maxusb.a(cdc_acm.o)
- .bss.in_ep     0x20032005        0x1 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/SwiftV2_DSS_Press_Start/build/MAXUSB/maxusb.a(cdc_acm.o)
+                0x2004a7dc        0x4 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/SwiftV2_DSS_Press_Start/build/MAXUSB/maxusb.a(cdc_acm.o)
+ .bss.creq      0x2004a7e0       0x24 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/SwiftV2_DSS_Press_Start/build/MAXUSB/maxusb.a(cdc_acm.o)
+ .bss.if_num    0x2004a804        0x1 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/SwiftV2_DSS_Press_Start/build/MAXUSB/maxusb.a(cdc_acm.o)
+ .bss.in_ep     0x2004a805        0x1 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/SwiftV2_DSS_Press_Start/build/MAXUSB/maxusb.a(cdc_acm.o)
  .bss.notify_ep
-                0x20032006        0x1 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/SwiftV2_DSS_Press_Start/build/MAXUSB/maxusb.a(cdc_acm.o)
- *fill*         0x20032007        0x1 
- .bss.nreq      0x20032008       0x24 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/SwiftV2_DSS_Press_Start/build/MAXUSB/maxusb.a(cdc_acm.o)
- .bss.out_ep    0x2003202c        0x1 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/SwiftV2_DSS_Press_Start/build/MAXUSB/maxusb.a(cdc_acm.o)
- .bss.rbuf      0x2003202d       0x81 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/SwiftV2_DSS_Press_Start/build/MAXUSB/maxusb.a(cdc_acm.o)
- *fill*         0x200320ae        0x2 
- .bss.repbuf    0x200320b0       0x40 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/SwiftV2_DSS_Press_Start/build/MAXUSB/maxusb.a(cdc_acm.o)
- .bss.rfifo     0x200320f0       0x10 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/SwiftV2_DSS_Press_Start/build/MAXUSB/maxusb.a(cdc_acm.o)
- .bss.rreq      0x20032100       0x24 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/SwiftV2_DSS_Press_Start/build/MAXUSB/maxusb.a(cdc_acm.o)
+                0x2004a806        0x1 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/SwiftV2_DSS_Press_Start/build/MAXUSB/maxusb.a(cdc_acm.o)
+ *fill*         0x2004a807        0x1 
+ .bss.nreq      0x2004a808       0x24 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/SwiftV2_DSS_Press_Start/build/MAXUSB/maxusb.a(cdc_acm.o)
+ .bss.out_ep    0x2004a82c        0x1 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/SwiftV2_DSS_Press_Start/build/MAXUSB/maxusb.a(cdc_acm.o)
+ .bss.rbuf      0x2004a82d       0x81 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/SwiftV2_DSS_Press_Start/build/MAXUSB/maxusb.a(cdc_acm.o)
+ *fill*         0x2004a8ae        0x2 
+ .bss.repbuf    0x2004a8b0       0x40 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/SwiftV2_DSS_Press_Start/build/MAXUSB/maxusb.a(cdc_acm.o)
+ .bss.rfifo     0x2004a8f0       0x10 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/SwiftV2_DSS_Press_Start/build/MAXUSB/maxusb.a(cdc_acm.o)
+ .bss.rreq      0x2004a900       0x24 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/SwiftV2_DSS_Press_Start/build/MAXUSB/maxusb.a(cdc_acm.o)
  .bss.rreq_complete
-                0x20032124        0x4 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/SwiftV2_DSS_Press_Start/build/MAXUSB/maxusb.a(cdc_acm.o)
- .bss.wbuf      0x20032128       0x81 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/SwiftV2_DSS_Press_Start/build/MAXUSB/maxusb.a(cdc_acm.o)
- *fill*         0x200321a9        0x3 
- .bss.wepbuf    0x200321ac       0x40 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/SwiftV2_DSS_Press_Start/build/MAXUSB/maxusb.a(cdc_acm.o)
- .bss.wfifo     0x200321ec       0x10 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/SwiftV2_DSS_Press_Start/build/MAXUSB/maxusb.a(cdc_acm.o)
- .bss.wreq      0x200321fc       0x24 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/SwiftV2_DSS_Press_Start/build/MAXUSB/maxusb.a(cdc_acm.o)
+                0x2004a924        0x4 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/SwiftV2_DSS_Press_Start/build/MAXUSB/maxusb.a(cdc_acm.o)
+ .bss.wbuf      0x2004a928       0x81 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/SwiftV2_DSS_Press_Start/build/MAXUSB/maxusb.a(cdc_acm.o)
+ *fill*         0x2004a9a9        0x3 
+ .bss.wepbuf    0x2004a9ac       0x40 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/SwiftV2_DSS_Press_Start/build/MAXUSB/maxusb.a(cdc_acm.o)
+ .bss.wfifo     0x2004a9ec       0x10 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/SwiftV2_DSS_Press_Start/build/MAXUSB/maxusb.a(cdc_acm.o)
+ .bss.wreq      0x2004a9fc       0x24 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/SwiftV2_DSS_Press_Start/build/MAXUSB/maxusb.a(cdc_acm.o)
  .bss.__lock___atexit_recursive_mutex
-                0x20032220        0x1 c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-lock.o)
-                0x20032220                __lock___atexit_recursive_mutex
- *fill*         0x20032221        0x3 
+                0x2004aa20        0x1 c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-lock.o)
+                0x2004aa20                __lock___atexit_recursive_mutex
+ *fill*         0x2004aa21        0x3 
  .bss.__lock___malloc_recursive_mutex
-                0x20032224        0x1 c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-lock.o)
-                0x20032224                __lock___malloc_recursive_mutex
- *fill*         0x20032225        0x3 
+                0x2004aa24        0x1 c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-lock.o)
+                0x2004aa24                __lock___malloc_recursive_mutex
+ *fill*         0x2004aa25        0x3 
  .bss.__lock___sfp_recursive_mutex
-                0x20032228        0x1 c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-lock.o)
-                0x20032228                __lock___sfp_recursive_mutex
- *fill*         0x20032229        0x3 
+                0x2004aa28        0x1 c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-lock.o)
+                0x2004aa28                __lock___sfp_recursive_mutex
+ *fill*         0x2004aa29        0x3 
  .bss.__lock___sinit_recursive_mutex
-                0x2003222c        0x1 c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-lock.o)
-                0x2003222c                __lock___sinit_recursive_mutex
- *fill*         0x2003222d        0x3 
+                0x2004aa2c        0x1 c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-lock.o)
+                0x2004aa2c                __lock___sinit_recursive_mutex
+ *fill*         0x2004aa2d        0x3 
  .bss.__malloc_current_mallinfo
-                0x20032230       0x28 c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-mallocr.o)
-                0x20032230                __malloc_current_mallinfo
+                0x2004aa30       0x28 c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-mallocr.o)
+                0x2004aa30                __malloc_current_mallinfo
  .bss.__malloc_max_sbrked_mem
-                0x20032258        0x4 c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-mallocr.o)
-                0x20032258                __malloc_max_sbrked_mem
+                0x2004aa58        0x4 c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-mallocr.o)
+                0x2004aa58                __malloc_max_sbrked_mem
  .bss.__malloc_max_total_mem
-                0x2003225c        0x4 c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-mallocr.o)
-                0x2003225c                __malloc_max_total_mem
+                0x2004aa5c        0x4 c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-mallocr.o)
+                0x2004aa5c                __malloc_max_total_mem
  .bss.__malloc_top_pad
-                0x20032260        0x4 c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-mallocr.o)
-                0x20032260                __malloc_top_pad
- .bss.errno     0x20032264        0x4 c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-reent.o)
-                0x20032264                errno
+                0x2004aa60        0x4 c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-mallocr.o)
+                0x2004aa60                __malloc_top_pad
+ .bss.errno     0x2004aa64        0x4 c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-reent.o)
+                0x2004aa64                errno
  *(COMMON)
-                0x20032268                _ebss = ALIGN (., 0x4)
+                0x2004aa68                _ebss = ALIGN (., 0x4)
                 0x2008c000                __StackTop_Core1 = (ORIGIN (SRAM) + LENGTH (SRAM))
                 0x2008c000                __StackLimit_Core1 = DEFINED (Stack_Size_Core1)?(__StackTop_Core1 - Stack_Size_Core1):__StackTop_Core1
                 0x2008c000                __StackTop = DEFINED (Stack_Size_Core1)?__StackLimit_Core1:(ORIGIN (SRAM) + LENGTH (SRAM))
                 0x2008b000                __StackLimit = (__StackTop - Stack_Size)
 
-.heap           0x20032268      0xc00
-                0x20032268                . = ALIGN (0x4)
+.heap           0x2004aa68      0xc00
+                0x2004aa68                . = ALIGN (0x4)
  *(.heap*)
- .heap          0x20032268      0xc00 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/SwiftV2_DSS_Press_Start/build/startup_max32665.o
-                0x20032268                __HeapBase
+ .heap          0x2004aa68      0xc00 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/SwiftV2_DSS_Press_Start/build/startup_max32665.o
+                0x2004aa68                __HeapBase
                 0x2008b000                __HeapLimit = ABSOLUTE (__StackLimit)
                 0x2008c000                PROVIDE (__stack = __StackTop)
                 0x00000001                ASSERT ((__StackLimit >= _ebss), region RAM overflowed with stack)

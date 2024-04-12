@@ -109,8 +109,8 @@ volatile int SPI_FLAG;
 /****************************/
 //Push and Pop transfer data to buffer data
 /****************************/
-uint16_t stack[100000], spi_data;
-int32_t Storage_max_size = 100000;
+uint16_t stack[150000], spi_data;
+int32_t Storage_max_size = 150000;
 int location = -1;
 int a,i;
 
@@ -445,7 +445,7 @@ int main(void)
 
 			MXC_GPIO_OutClr(blue_led.port, blue_led.mask); //ON blue LED
 			MXC_GPIO_OutSet(red_led.port, red_led.mask);  //OFF RED LED
-			while(location!=100000)
+			while(location!=150000)
 			{
 
 			if((ADC_BUSY == 1)) // ADC busy signal check
@@ -466,7 +466,7 @@ int main(void)
 			}
 
 
-			if(location == 100000)
+			if(location == 150000)
 			{
 				MXC_GPIO_OutSet(blue_led.port, blue_led.mask); //OFF blue LED
 				MXC_GPIO_OutClr(red_led.port, red_led.mask);  //ON RED LED
