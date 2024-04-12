@@ -438,39 +438,39 @@ int main(void)
 
 	while (1)
 	{
-		button_press = !MXC_GPIO_InGet(gpio_in.port, gpio_in.mask);
+		button_press = !MXC_GPIO_InGet(gpio_in.port, gpio_in.mask); //Read and assign the status of the push button
 
 		if (button_press == 1) // Check for the switch press
 		{
 
 			MXC_GPIO_OutClr(blue_led.port, blue_led.mask); //ON blue LED
 			MXC_GPIO_OutSet(red_led.port, red_led.mask);  //OFF RED LED
-			while(location!=150000)
+			while(location!=150000) //This loop runs until the buffer location reaches 150000
 			{
 
 			if((ADC_BUSY == 1)) // ADC busy signal check
 			{
 				SPI_FLAG = 1;
 				MXC_GPIO_OutSet(red_led.port, red_led.mask);  //OFF RED LED
-				MXC_SPI_MasterTransactionAsync(&SPI1_req);
+				MXC_SPI_MasterTransactionAsync(&SPI1_req); //Perform SPI transaction
 				while(SPI_FLAG == 1)
 				{
 
 				}
 
 				ADC_BUSY = 0;
-				location = location + 1;
-				spi_data = ((SPI1_rx[0]<<8)|SPI1_rx[1]);
-				stack[location] = spi_data^0x8000;
+				location = location + 1; //Incrementing the location
+				spi_data = ((SPI1_rx[0]<<8)|SPI1_rx[1]); //creating 16 bit data
+				stack[location] = spi_data^0x8000; //Creating offset binary data
 			}
 			}
 
 
-			if(location == 150000)
+			if(location == 150000) //Checks if the buffer reached 150000 locations
 			{
 				MXC_GPIO_OutSet(blue_led.port, blue_led.mask); //OFF blue LED
 				MXC_GPIO_OutClr(red_led.port, red_led.mask);  //ON RED LED
-				while(location--)
+				while(location--) //Starts moving data to the PC
 				{
 
 					//debugPrint("0X%x\r\n",stack[location]);// stack[location]);
@@ -481,7 +481,7 @@ int main(void)
 
 			}
 			MXC_GPIO_OutSet(red_led.port, red_led.mask);
-			button_press = 0;
+			button_press = 0; //Clearing the switch press so the loop waits for new button press
 
 
 
