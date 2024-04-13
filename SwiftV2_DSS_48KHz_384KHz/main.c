@@ -372,7 +372,7 @@ int main(void)
 
 	printf("Initializing the SPI to read ADC data\r\n");
 	// Initialize the SPI
-	retVal = MXC_SPI_Init(SPI_MASTER1, 1, 0, 1, 0, SPI_SPEED_SPI1, MAP_A);
+	retVal = MXC_SPI_Init(SPI_MASTER1, 1, 0, 1, 0, 16000000, MAP_A);
 	if (retVal != E_NO_ERROR)
 	{
 		printf("\nSPI INITIALIZATION ERROR\n");
