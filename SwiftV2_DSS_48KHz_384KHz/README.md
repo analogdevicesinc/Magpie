@@ -1,7 +1,7 @@
 ## Description
 
 This program is targeted towards MAX32666FTHR which talks to two other designs Mother board and Daughter Board.  The Mother board houses power supplies, oscillators and AD4630 ADC where as the daughter board has all the Mics, OP-AMPS used for recording data.  The code initiates SPI communication between MAX32666FTHR and AD4630 reading the recorded data from Mics. This data is simultaneously transferred to PC using USB on the FTHR.
-Please press SW1 on FTHR and start speaking (Blue LED is ON).  Now the data recording time starts.  Once the buffer is full the data is automatically moved to PC(RED LED is ON while data is being transferred to PC).  This program works for both 48KHz and 384KHz
+Please press SW1 on FTHR and start speaking (Blue LED is ON).  Now the data recording time starts.  Once the buffer is full the data is automatically moved to PC(RED LED is ON while data is being transferred to PC).  This program works for both 48KHz really well. This code has baremetal implementation which helps in reducing the latency between interrupt and SPI routine.
 Please check the board.c file in ${MSDKPath}\Libraries\Boards\MAX32665\${BoardName}\Source path to learn switch and LED pins for specific board.
 
 
