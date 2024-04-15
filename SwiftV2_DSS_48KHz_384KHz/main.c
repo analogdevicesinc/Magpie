@@ -103,7 +103,6 @@ int remote_wake_en;
 /****************************/
 //SPI-Data
 /****************************/
-volatile uint8_t ADC_BUSY = 0;
 uint8_t SPI1_rx[DATA_LEN_SPI1];
 uint8_t SPI1_tx[DATA_LEN_SPI1];
 int retVal, fail = 0;
@@ -241,9 +240,23 @@ void BUSY_ISR(void)
 
 {
 	uint32_t stat;
+	//Clearing Flags
 	stat = MXC_GPIO_GetFlags(MXC_GPIO0);
 	MXC_GPIO_ClearFlags(MXC_GPIO0, stat);
-	ADC_BUSY = 1;
+
+	SPI1_CTRL0_direct |= 0x00000020; // bare-metal spi start to have quick SPI transaction
+
+	//note, the next bare-metal read from SPI1_DATA0_direct is happening while the spi read is still active
+	// since the following 4 lines only take about 1us, the spi read is not finished yet
+	// so we are really getting data from the previous read, stored in the fifo
+
+	temp32u = SPI1_DATA0_direct; // read spi fifo, result has byte order in wrong order, need to fix
+	lowByte = (temp32u >> 8) & 0xff;
+	highByte = temp32u & 0xff;
+	spi_data = lowByte | (highByte << 8); // 16-but 2's comp, need to sign-extend to 32 bits
+	stack[location] = spi_data^0x8000;
+	location = location + 1; //Incrementing the location
+
 
 }
 
@@ -328,8 +341,8 @@ int main(void)
 	usbAppSleep();
 	NVIC_EnableIRQ(USB_IRQn);
 
-	printf("Performing ADC hard reset\r\n");
-	hardware_reset();  //Hardware reset for ADC
+	//printf("Performing ADC hard reset\r\n");
+	//hardware_reset();  //Hardware reset for ADC
 
 	//*****************************************************************************/
 	//GPIO and SPI1 initializations for reading data from ADC
@@ -355,8 +368,8 @@ int main(void)
 	BUSY.func = MXC_GPIO_FUNC_IN;
 	BUSY.vssel = MXC_GPIO_VSSEL_VDDIO;
 	MXC_GPIO_IntConfig(&BUSY, MXC_GPIO_INT_FALLING);
-	MXC_GPIO_EnableInt(BUSY.port, BUSY.mask);
-	NVIC_EnableIRQ(MXC_GPIO_GET_IRQ(MXC_GPIO_GET_IDX(BUSY_PORT)));
+	//MXC_GPIO_EnableInt(BUSY.port, BUSY.mask);
+	//NVIC_EnableIRQ(MXC_GPIO_GET_IRQ(MXC_GPIO_GET_IDX(BUSY_PORT)));
 	MXC_NVIC_SetVector(MXC_GPIO_GET_IRQ(MXC_GPIO_GET_IDX(BUSY_PORT)), BUSY_ISR);
 
 
@@ -435,37 +448,25 @@ int main(void)
 
 		if (button_press == 1) // Check for the switch press
 		{
-			MXC_GPIO_EnableInt(BUSY.port, BUSY.mask);
 			MXC_GPIO_OutClr(blue_led.port, blue_led.mask); //ON blue LED
 			MXC_GPIO_OutSet(red_led.port, red_led.mask);  //OFF RED LED
+
+			MXC_GPIO_EnableInt(BUSY.port, BUSY.mask);
+			NVIC_EnableIRQ(MXC_GPIO_GET_IRQ(MXC_GPIO_GET_IDX(BUSY_PORT)));
+
 			while(location!=150000) //This loop runs until the buffer location reaches 150000
 			{
 
-				if((ADC_BUSY == 1)) // ADC busy signal check
-				{
+			//Wait until the stack is full
 
-					SPI1_CTRL0_direct |= 0x00000020; // bare-metal spi start
-
-					//note, the next bare-metal read from SPI1_DATA0_direct is happening while the spi read is still active
-					// since the following 4 lines only take about 1us, the spi read is not finished yet
-					// so we are really getting data from the previous read, stored in the fifo
-
-					temp32u = SPI1_DATA0_direct; // read spi fifo, result has byte order in wrong order, need to fix
-					lowByte = (temp32u >> 8) & 0xff;
-					highByte = temp32u & 0xff;
-					spi_data = lowByte | (highByte << 8); // 16-but 2's comp, need to sign-extend to 32 bits
-					stack[location] = spi_data^0x8000;
-					location = location + 1; //Incrementing the location
-					ADC_BUSY = 0;
-
-
-				}
 			}
 
 
 			if(location == 150000) //Checks if the buffer reached 150000 locations
 			{
 				MXC_GPIO_DisableInt(BUSY.port, BUSY.mask); // stop interupts when reach max
+				NVIC_DisableIRQ(MXC_GPIO_GET_IRQ(MXC_GPIO_GET_IDX(BUSY_PORT)));
+
 				MXC_GPIO_OutSet(blue_led.port, blue_led.mask); //OFF blue LED
 				MXC_GPIO_OutClr(red_led.port, red_led.mask);  //ON RED LED
 				while(location--) //Starts moving data to the PC
