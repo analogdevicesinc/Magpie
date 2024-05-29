@@ -492,14 +492,16 @@ uint8_t AudioFiles_WriteHeader(FIL* MyFile)
 			0x00, 0x20, 0x04, 0x00  //Bytes 43 - 46: Size of data section (Number DOES INCLUDE these four bytes)
 	};
 
-	SampleRateWord = 0x00DC0500; //384KHz
+	SampleRateWord = 0x0005DC00; //384KHz (Big Endian format)
 
-
+// ((Size of overall file) - 8)  Bytes 5-8
 	WAVFileHeader[4] = (BYTE)((MyFile->obj.objsize - 8) & 0xFF);
 	WAVFileHeader[5] = (BYTE)(((MyFile->obj.objsize - 8) >> 8) & 0xFF);
 	WAVFileHeader[6] = (BYTE)(((MyFile->obj.objsize - 8) >> 16) & 0xFF);
 	WAVFileHeader[7] = (BYTE)(((MyFile->obj.objsize - 8) >> 24) & 0xFF);
 
+
+//Sample rate Bytes 25-28
 	WAVFileHeader[24] = (BYTE)((SampleRateWord) & 0xFF);
 	WAVFileHeader[25] = (BYTE)(((SampleRateWord) >> 8) & 0xFF);
 	WAVFileHeader[26] = (BYTE)(((SampleRateWord) >> 16) & 0xFF);
@@ -507,10 +509,12 @@ uint8_t AudioFiles_WriteHeader(FIL* MyFile)
 
 	SampleRateWord = ((SampleRateWord * 16) >> 3); //Shifting Right by three is the same as dividing by 8
 
+//Byte rate Bytes 29-32
 	WAVFileHeader[28] = (BYTE)((SampleRateWord) & 0xFF);
 	WAVFileHeader[29] = (BYTE)(((SampleRateWord) >> 8) & 0xFF);
 	WAVFileHeader[30] = (BYTE)(((SampleRateWord) >> 16) & 0xFF);
 	WAVFileHeader[31] = (BYTE)(((SampleRateWord) >> 24) & 0xFF);
+
 
 	WAVFileHeader[42] = (BYTE)((MyFile->obj.objsize - 46) & 0xFF);
 	WAVFileHeader[43] = (BYTE)(((MyFile->obj.objsize - 46) >> 8) & 0xFF);
