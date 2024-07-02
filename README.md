@@ -26,3 +26,8 @@ Please use an application like tera term or putty to log the USB data into a tex
 Matlab Serial-USB:
 
 This code reads the data from the COM port and plays it back
+
+
+Cornell Univeristy Github repo link:
+https://github.com/JordanAceto/magpie_code_snippets/tree/main/adc_dma_sd_card_write 
+
