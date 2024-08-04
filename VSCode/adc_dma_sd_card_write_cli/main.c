@@ -45,7 +45,7 @@ const command_t commands[CUSTOM_COMMANDS_ARRAY_SIZE] =
         },
 
         {
-            "led_toggle", "[led_toggle] on command line", "Changes blue status", cli_led_toogle
+            "led_toggle", "[led_toggle] on command line", "Changes blue LED status", cli_led_toogle
         },
 
 };
