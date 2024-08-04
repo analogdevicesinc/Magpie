@@ -45,7 +45,7 @@ const command_t commands[CUSTOM_COMMANDS_ARRAY_SIZE] =
         },
 
         {
-            "led_toggle", "[led_toggle] on command line", "Changes led0 status", cli_led_toogle
+            "led_toggle", "[led_toggle] on command line", "Changes blue status", cli_led_toogle
         },
 
 };
@@ -80,6 +80,8 @@ int cli_wav(int argc, char *argv[])
     num2 = atoi(argv[2]);
     cli_bit_depth = num1;
     cli_sample_rate = num2;
+
+   // printf("bit depth  = %d, s_rate = %d", num1,num2);
     return 0;
 }
 
@@ -202,6 +204,7 @@ int main(void)
         {
             if (wav_event > 0)
             {
+                PRINT_LOG("Wave record started\r\n");
                 // green led on during recording
                 LED_On(LED_COLOR_GREEN);                
                 wav_attr.bits_per_sample = cli_bit_depth;
