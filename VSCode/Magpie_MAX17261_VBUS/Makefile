@@ -61,6 +61,7 @@ endif
 
 # Default board.
 BOARD ?= FTHR
+#BOARD ?= FTHR2
 
 # *******************************************************************************
 # Locate the MaximSDK

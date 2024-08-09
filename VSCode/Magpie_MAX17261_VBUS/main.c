@@ -65,7 +65,7 @@ VBUS USB Function seciton
  ***************************************************************************************************************/
 
 /***** Definitions *****/
-//USB_CDC_Protocol definitions
+// USB_CDC_Protocol definitions
 #define EVENT_ENUM_COMP MAXUSB_NUM_EVENTS
 #define EVENT_REMOTE_WAKE (EVENT_ENUM_COMP + 1)
 #define STRINGIFY(x) #x
@@ -73,7 +73,7 @@ VBUS USB Function seciton
 
 /***** Global Data *****/
 /****************************/
-//USB_Data
+// USB_Data
 volatile int configured;
 volatile int suspended;
 volatile unsigned int event_flags;
@@ -92,18 +92,16 @@ static int eventCallback(maxusb_event_t evt, void *data);
 static int usbReadCallback(void);
 static volatile int usb_read_complete;
 
-
 /***** File Scope Variables *****/
 /* This EP assignment must match the Configuration Descriptor */
 static acm_cfg_t acm_cfg = {
-		1, /* EP OUT */
-		MXC_USBHS_MAX_PACKET, /* OUT max packet size */
-		2, /* EP IN */
-		MXC_USBHS_MAX_PACKET, /* IN max packet size */
-		3, /* EP Notify */
-		MXC_USBHS_MAX_PACKET, /* Notify max packet size */
+	1,					  /* EP OUT */
+	MXC_USBHS_MAX_PACKET, /* OUT max packet size */
+	2,					  /* EP IN */
+	MXC_USBHS_MAX_PACKET, /* IN max packet size */
+	3,					  /* EP Notify */
+	MXC_USBHS_MAX_PACKET, /* Notify max packet size */
 };
-
 
 /* User-supplied function to delay usec micro-seconds */
 void delay_us(unsigned int usec)
@@ -112,29 +110,29 @@ void delay_us(unsigned int usec)
 	MXC_Delay(usec);
 }
 
-
 /*****************************************************************/
-//Custom functions design for printf using acm_write and acm_read
+// Custom functions design for printf using acm_write and acm_read
 /*****************************************************************/
 
 /***Custom printf USB write design***/
-void debugPrint(char *fmt, ... )
+void debugPrint(char *fmt, ...)
 {
 	char buffer[1024];
 	uint16_t len = 0;
 	va_list args;
-	va_start( args, fmt );
-	len = vsnprintf( buffer, 1024,fmt, args );
-	va_end( args );
+	va_start(args, fmt);
+	len = vsnprintf(buffer, 1024, fmt, args);
+	va_end(args);
 
-	if(len < 0)
+	if (len < 0)
 		return;
 
-	acm_write((uint8_t*)buffer, len);
+	acm_write((uint8_t *)buffer, len);
 }
 
 /***Custom USB read function***/
-int debugRead(const char *fmt, ...) {
+int debugRead(const char *fmt, ...)
+{
 	uint8_t buffer[256]; // Adjust the buffer size
 
 	int canRead = 0;
@@ -142,35 +140,34 @@ int debugRead(const char *fmt, ...) {
 	int num = 0;
 	uint16_t inx = 0;
 
-	while(1) {
+	while (1)
+	{
 		canRead = acm_canread();
 		readLen = acm_read(&buffer[inx], canRead); // read a byte.
-		acm_write(&buffer[inx],readLen); // echo the byte.
+		acm_write(&buffer[inx], readLen);		   // echo the byte.
 		if (buffer[inx] == '\r')
 		{ // check for end of line.
 			buffer[inx] = '\n';
-			num+=readLen;
-			inx+=readLen;
+			num += readLen;
+			inx += readLen;
 			break;
 		}
 		else
 		{
-			num+=readLen;
-			inx+=readLen;
+			num += readLen;
+			inx += readLen;
 		}
-
 	}
 
 	va_list args;
 	va_start(args, fmt);
 
-	int itemsRead = vsscanf((const char*)buffer, fmt, args);
+	int itemsRead = vsscanf((const char *)buffer, fmt, args);
 
 	va_end(args);
 
 	return itemsRead;
 }
-
 
 /*****************************************************************************
 MAX17261 Globals
@@ -183,215 +180,266 @@ char log_string[256] = {0}; // Used to print the paramter values on terminal
 // MAX17261 specific globals
 uint8_t max17261_regs1[256]; // represents all the max17261 registers.
 unsigned long timer_count_value;
-char * OutputString;
+char *OutputString;
 
 /**
-	 * @brief    Fuel_gauge_data_collect. This function reads the fuel gauge registers and outputs to OutputString Variable
-	 * @param[in] None
-	 * @param[out]  char * OutputString.  This is the output string of fuel gauge readings.
-	 *
-	 ****************************************************************************/
-	void Fuel_gauge_data_collect()
-	{
-		// local variables
-		uint16_t tempdata = 0;
-		int16_t stempdata = 0;
-		char tempstring[20] = {0};
-		double timerh = 0;  // timerh + timer = time since last por
-		double timer = 0;
+ * @brief    Fuel_gauge_data_collect. This function reads the fuel gauge registers and outputs to OutputString Variable
+ * @param[in] None
+ * @param[out]  char * OutputString.  This is the output string of fuel gauge readings.
+ *
+ ****************************************************************************/
+void Fuel_gauge_data_collect()
+{
+	// local variables
+	uint16_t tempdata = 0;
+	int16_t stempdata = 0;
+	char tempstring[20] = {0};
+	double timerh = 0; // timerh + timer = time since last por
+	double timer = 0;
 
-		// Read repsoc
-		tempdata = 0;
-		memset(tempstring,0,20);
-		tempdata = max17261_read_repsoc();
-		debugPrint("State Of Charge = %i\r\n",tempdata);
+	// Read repsoc
+	tempdata = 0;
+	memset(tempstring, 0, 20);
+	tempdata = max17261_read_repsoc();
+	debugPrint("State Of Charge = %i\r\n", tempdata);
+	// printf("State Of Charge = %i\r\n", tempdata);
 
+	// Read VCell
+	tempdata = 0;
+	memset(tempstring, 0, 20);
+	max17261_read_reg(MAX17261_I2C_ADDR, VCell_addr, &max17261_regs1[0x00], 2); // Read register
+	tempdata = (max17261_regs1[1] << 8) + max17261_regs1[0];
+	tempdata = (double)((1.25 * tempdata / 16) / 1000);
+	debugPrint("voltage per cell of the batterypack = %lf\r\n", tempdata);
+	// printf("voltage per cell of the batterypack = %lf\r\n", tempdata);
 
-		// Read VCell
-		tempdata = 0;
-		memset(tempstring,0,20);
-		max17261_read_reg(MAX17261_I2C_ADDR,VCell_addr,&max17261_regs1[0x00],2); // Read register
-		tempdata = (max17261_regs1[1]<<8) + max17261_regs1[0];
-		tempdata = (double)((1.25*tempdata/16)/1000);
-		debugPrint("voltage per cell of the batterypack = %lf\r\n",tempdata);
-		
+	// Read AvgVCell
+	tempdata = 0;
+	memset(tempstring, 0, 20);
+	max17261_read_reg(MAX17261_I2C_ADDR, AvgVCell_addr, &max17261_regs1[0x00], 2); // Read register
+	tempdata = (max17261_regs1[1] << 8) + max17261_regs1[0];
+	debugPrint("AVerage of VCell register readings = %lf\r\n", (double)((1.25 * tempdata / 16) / 1000));
+    // printf("AVerage of VCell register readings = %lf\r\n", (double)((1.25 * tempdata / 16) / 1000));
 
-		// Read AvgVCell
-		tempdata = 0;
-		memset(tempstring,0,20);
-		max17261_read_reg(MAX17261_I2C_ADDR,AvgVCell_addr,&max17261_regs1[0x00],2); // Read register
-		tempdata = (max17261_regs1[1]<<8) + max17261_regs1[0];
-		debugPrint("AVerage of VCell register readings = %lf\r\n",(double)((1.25*tempdata/16)/1000));
+	tempdata = 0;
+	memset(tempstring, 0, 20);
+	max17261_read_reg(MAX17261_I2C_ADDR, Temp_addr, &max17261_regs1[0x00], 2); // Read register
+	tempdata = (max17261_regs1[1] << 8) + max17261_regs1[0];				   // put register into unsigned int
+	stempdata = (int16_t)tempdata;											   // this is going to be signed number, so convert to 16-bit int
+	// to calculate temperature, see Table 2 on page 16 of max17261 data sheet
+	debugPrint("Temp register = %f\r\n",(double)stempdata/256);
 
+	// Read AvgTA (temperature in degrees C)
+	tempdata = 0;
+	memset(tempstring, 0, 20);
+	max17261_read_reg(MAX17261_I2C_ADDR, AvgTA_addr, &max17261_regs1[0x00], 2); // Read register
+	tempdata = (max17261_regs1[1] << 8) + max17261_regs1[0];
+	stempdata = (int16_t)tempdata; // this is going to be signed number, so convert to 16-bit int
+	debugPrint("AvgTA register = %f\r\n",(double)stempdata/256);
 
-		tempdata = 0;
-		memset(tempstring,0,20);
-		max17261_read_reg(MAX17261_I2C_ADDR,Temp_addr,&max17261_regs1[0x00],2); // Read register
-		tempdata = (max17261_regs1[1]<<8) + max17261_regs1[0]; // put register into unsigned int
-		stempdata = (int16_t) tempdata; // this is going to be signed number, so convert to 16-bit int
-		// to calculate temperature, see Table 2 on page 16 of max17261 data sheet
-		//debugPrint("Temp register = %f\r\n",(double)stempdata/256);
+	// Read Current (in mA)
+	tempdata = 0;
+	memset(tempstring, 0, 20);
+	max17261_read_reg(MAX17261_I2C_ADDR, Current_addr, &max17261_regs1[0x00], 2); // Read register
+	tempdata = (max17261_regs1[1] << 8) + max17261_regs1[0];
+	stempdata = (int16_t)tempdata; // this is going to be signed number, so convert to 16-bit int
+	debugPrint("Current register = %f\r\n", (double)stempdata * (double)156.25 / 1000);
+	// printf("Current register = %f\r\n", (double)stempdata * (double)156.25 / 1000);
 
+	// Read AvgCurrent
+	tempdata = 0;
+	memset(tempstring, 0, 20);
+	max17261_read_reg(MAX17261_I2C_ADDR, AvgCurrent_addr, &max17261_regs1[0x00], 2); // Read register
+	tempdata = (max17261_regs1[1] << 8) + max17261_regs1[0];
+	stempdata = (int16_t)tempdata; // this is going to be signed number, so convert to 16-bit int
+	debugPrint("AvgCurrent register = %f\r\n", (double)stempdata * (double)156.25 / 1000);
+	// printf("AvgCurrent register = %f\r\n", (double)stempdata * (double)156.25 / 1000);
 
-		// Read AvgTA (temperature in degrees C)
-		tempdata = 0;
-		memset(tempstring,0,20);
-		max17261_read_reg(MAX17261_I2C_ADDR,AvgTA_addr,&max17261_regs1[0x00],2); // Read register
-		tempdata = (max17261_regs1[1]<<8) + max17261_regs1[0];
-		stempdata = (int16_t) tempdata; // this is going to be signed number, so convert to 16-bit int
-		//debugPrint("AvgTA register = %f\r\n",(double)stempdata/256);
+	// Read TTF
+	tempdata = 0;
+	memset(tempstring, 0, 20);
+	max17261_read_reg(MAX17261_I2C_ADDR, TTF_addr, &max17261_regs1[0x00], 2); // Read register
+	tempdata = (max17261_regs1[1] << 8) + max17261_regs1[0];
+	stempdata = (int16_t)tempdata; // this is going to be signed number, so convert to 16-bit int
+	debugPrint("TTF register = %i\r\n",stempdata);
 
+	// Read RepCap
+	tempdata = 0;
+	memset(tempstring, 0, 20);
+	max17261_read_reg(MAX17261_I2C_ADDR, RepCap_addr, &max17261_regs1[0x00], 2); // Read register
+	tempdata = (max17261_regs1[1] << 8) + max17261_regs1[0];
+	// debugPrint("RepCap register = 0x%04x\r\n",tempdata);
+	stempdata = (int16_t)tempdata; // this is going to be signed number, so convert to 16-bit int
+	// debugPrint("RepCap register = %f\r\n",(double)stempdata/2);
 
-		// Read Current (in mA)
-		tempdata = 0;
-		memset(tempstring,0,20);
-		max17261_read_reg(MAX17261_I2C_ADDR,Current_addr,&max17261_regs1[0x00],2); // Read register
-		tempdata = (max17261_regs1[1]<<8) + max17261_regs1[0];
-		stempdata = (int16_t) tempdata; // this is going to be signed number, so convert to 16-bit int
-		debugPrint("Current register = %f\r\n",(double)stempdata*(double)156.25/1000);
+	// Read VFRemCap
+	tempdata = 0;
+	memset(tempstring, 0, 20);
+	max17261_read_reg(MAX17261_I2C_ADDR, VFRemCap_addr, &max17261_regs1[0x00], 2); // Read register
+	tempdata = (max17261_regs1[1] << 8) + max17261_regs1[0];
+	stempdata = (int16_t)tempdata; // this is going to be signed number, so convert to 16-bit int
+	// debugPrint("VFRemCap register = %f\r\n",(double)stempdata/2);
 
+	// Read MixCap
+	tempdata = 0;
+	memset(tempstring, 0, 20);
+	max17261_read_reg(MAX17261_I2C_ADDR, MixCap_addr, &max17261_regs1[0x00], 2); // Read register
+	tempdata = (max17261_regs1[1] << 8) + max17261_regs1[0];
+	stempdata = (int16_t)tempdata; // this is going to be signed number, so convert to 16-bit int
+	// debugPrint("MixCap register = %f\r\n",(double)stempdata*(double)0.5);
 
-		// Read AvgCurrent
-		tempdata = 0;
-		memset(tempstring,0,20);
-		max17261_read_reg(MAX17261_I2C_ADDR,AvgCurrent_addr,&max17261_regs1[0x00],2); // Read register
-		tempdata = (max17261_regs1[1]<<8) + max17261_regs1[0];
-		stempdata = (int16_t) tempdata; // this is going to be signed number, so convert to 16-bit int
-		debugPrint("AvgCurrent register = %f\r\n",(double)stempdata*(double)156.25/1000);
+	// Read FullCapRep
+	tempdata = 0;
+	memset(tempstring, 0, 20);
+	max17261_read_reg(MAX17261_I2C_ADDR, FullCapRep_addr, &max17261_regs1[0x00], 2); // Read register
+	tempdata = (max17261_regs1[1] << 8) + max17261_regs1[0];
+	stempdata = (int16_t)tempdata; // this is going to be signed number, so convert to 16-bit int
+	// debugPrint("FullCapRep register = %f\r\n",(double)stempdata*(double)0.5);
 
+	// Read FullCapNom
+	tempdata = 0;
+	memset(tempstring, 0, 20);
+	max17261_read_reg(MAX17261_I2C_ADDR, FullCapNom_addr, &max17261_regs1[0x00], 2); // Read register
+	tempdata = (max17261_regs1[1] << 8) + max17261_regs1[0];
+	stempdata = (int16_t)tempdata; // this is going to be signed number, so convert to 16-bit int
+	// debugPrint("FullCapNom register = %f\r\n",(double)stempdata*(double)0.5);
 
-		// Read TTF
-		tempdata = 0;
-		memset(tempstring,0,20);
-		max17261_read_reg(MAX17261_I2C_ADDR,TTF_addr,&max17261_regs1[0x00],2); // Read register
-		tempdata = (max17261_regs1[1]<<8) + max17261_regs1[0];
-		stempdata = (int16_t) tempdata; // this is going to be signed number, so convert to 16-bit int
-		//debugPrint("TTF register = %i\r\n",stempdata);
-		
+	// Read QResidual
+	tempdata = 0;
+	memset(tempstring, 0, 20);
+	max17261_read_reg(MAX17261_I2C_ADDR, QResidual_addr, &max17261_regs1[0x00], 2); // Read register
+	tempdata = (max17261_regs1[1] << 8) + max17261_regs1[0];
+	stempdata = (int16_t)tempdata; // this is going to be signed number, so convert to 16-bit int
+	debugPrint("QResidual register = %f\r\n", (double)stempdata * (double)0.5);
+	// printf("QResidual register = %f\r\n", (double)stempdata * (double)0.5);
 
-		// Read RepCap
-		tempdata = 0;
-		memset(tempstring,0,20);
-		max17261_read_reg(MAX17261_I2C_ADDR,RepCap_addr,&max17261_regs1[0x00],2); // Read register
-		tempdata = (max17261_regs1[1]<<8) + max17261_regs1[0];
-		//debugPrint("RepCap register = 0x%04x\r\n",tempdata);
-		stempdata = (int16_t) tempdata; // this is going to be signed number, so convert to 16-bit int
-		//debugPrint("RepCap register = %f\r\n",(double)stempdata/2);
+	// Read REPSOC
+	tempdata = 0;
+	memset(tempstring, 0, 20);
+	max17261_read_reg(MAX17261_I2C_ADDR, REPSOC_addr, &max17261_regs1[0x00], 2); // Read register
+	tempdata = (max17261_regs1[1] << 8) + max17261_regs1[0];
+	// debugPrint("REPSOC register = %f\r\n",(double)tempdata/256);
 
+	// Read AvSOC
+	tempdata = 0;
+	memset(tempstring, 0, 20);
+	max17261_read_reg(MAX17261_I2C_ADDR, AvSOC_addr, &max17261_regs1[0x00], 2); // Read register
+	tempdata = (max17261_regs1[1] << 8) + max17261_regs1[0];
+	// debugPrint("AvSOC register = %f\r\n",(double)tempdata/256);
 
-		// Read VFRemCap
-		tempdata = 0;
-		memset(tempstring,0,20);
-		max17261_read_reg(MAX17261_I2C_ADDR,VFRemCap_addr,&max17261_regs1[0x00],2); // Read register
-		tempdata = (max17261_regs1[1]<<8) + max17261_regs1[0];
-		stempdata = (int16_t) tempdata; // this is going to be signed number, so convert to 16-bit int
-		//debugPrint("VFRemCap register = %f\r\n",(double)stempdata/2);
+	// Read Timer
+	tempdata = 0;
+	memset(tempstring, 0, 20);
+	max17261_read_reg(MAX17261_I2C_ADDR, Timer_addr, &max17261_regs1[0x00], 2); // Read register
+	tempdata = (max17261_regs1[1] << 8) + max17261_regs1[0];
+	timer = (double)tempdata * (double)175.8 / 3600000; // see User Guide page 34 for Timer register
+	// debugPrint("Timer register (hours) = %f\r\n",timer);
 
+	// Read TimerH
+	tempdata = 0;
+	memset(tempstring, 0, 20);
+	max17261_read_reg(MAX17261_I2C_ADDR, TimerH_addr, &max17261_regs1[0x00], 2); // Read register
+	tempdata = (max17261_regs1[1] << 8) + max17261_regs1[0];
+	timerh = (double)tempdata * (double)3.2; // see User Guide page 34 for TimerH register calculation in hours
+	// debugPrint("TimerH register (hours) = %f\r\n",timerh); // see page User Guide page 34
 
-		// Read MixCap
-		tempdata = 0;
-		memset(tempstring,0,20);
-		max17261_read_reg(MAX17261_I2C_ADDR,MixCap_addr,&max17261_regs1[0x00],2); // Read register
-		tempdata = (max17261_regs1[1]<<8) + max17261_regs1[0];
-		stempdata = (int16_t) tempdata; // this is going to be signed number, so convert to 16-bit int
-		//debugPrint("MixCap register = %f\r\n",(double)stempdata*(double)0.5);
-
-
-		// Read FullCapRep
-		tempdata = 0;
-		memset(tempstring,0,20);
-		max17261_read_reg(MAX17261_I2C_ADDR,FullCapRep_addr,&max17261_regs1[0x00],2); // Read register
-		tempdata = (max17261_regs1[1]<<8) + max17261_regs1[0];
-		stempdata = (int16_t) tempdata; // this is going to be signed number, so convert to 16-bit int
-		//debugPrint("FullCapRep register = %f\r\n",(double)stempdata*(double)0.5);
-
-
-		// Read FullCapNom
-		tempdata = 0;
-		memset(tempstring,0,20);
-		max17261_read_reg(MAX17261_I2C_ADDR,FullCapNom_addr,&max17261_regs1[0x00],2); // Read register
-		tempdata = (max17261_regs1[1]<<8) + max17261_regs1[0];
-		stempdata = (int16_t) tempdata; // this is going to be signed number, so convert to 16-bit int
-		//debugPrint("FullCapNom register = %f\r\n",(double)stempdata*(double)0.5);
-
-
-		// Read QResidual
-		tempdata = 0;
-		memset(tempstring,0,20);
-		max17261_read_reg(MAX17261_I2C_ADDR,QResidual_addr,&max17261_regs1[0x00],2); // Read register
-		tempdata = (max17261_regs1[1]<<8) + max17261_regs1[0];
-		stempdata = (int16_t) tempdata; // this is going to be signed number, so convert to 16-bit int
-		debugPrint("QResidual register = %f\r\n",(double)stempdata*(double)0.5);
-
-
-		// Read REPSOC
-		tempdata = 0;
-		memset(tempstring,0,20);
-		max17261_read_reg(MAX17261_I2C_ADDR,REPSOC_addr,&max17261_regs1[0x00],2); // Read register
-		tempdata = (max17261_regs1[1]<<8) + max17261_regs1[0];
-		//debugPrint("REPSOC register = %f\r\n",(double)tempdata/256);
-
-
-		// Read AvSOC
-		tempdata = 0;
-		memset(tempstring,0,20);
-		max17261_read_reg(MAX17261_I2C_ADDR,AvSOC_addr,&max17261_regs1[0x00],2); // Read register
-		tempdata = (max17261_regs1[1]<<8) + max17261_regs1[0];
-		//debugPrint("AvSOC register = %f\r\n",(double)tempdata/256);
-
-
-		// Read Timer
-		tempdata = 0;
-		memset(tempstring,0,20);
-		max17261_read_reg(MAX17261_I2C_ADDR,Timer_addr,&max17261_regs1[0x00],2); // Read register
-		tempdata = (max17261_regs1[1]<<8) + max17261_regs1[0];
-		timer = (double)tempdata * (double)175.8/3600000; // see User Guide page 34 for Timer register
-		//debugPrint("Timer register (hours) = %f\r\n",timer);
-
-		// Read TimerH
-		tempdata = 0;
-		memset(tempstring,0,20);
-		max17261_read_reg(MAX17261_I2C_ADDR,TimerH_addr,&max17261_regs1[0x00],2); // Read register
-		tempdata = (max17261_regs1[1]<<8) + max17261_regs1[0];
-		timerh = (double)tempdata * (double)3.2; // see User Guide page 34 for TimerH register calculation in hours
-		//debugPrint("TimerH register (hours) = %f\r\n",timerh); // see page User Guide page 34
+	// Read QH
+	tempdata = 0;
+	memset(tempstring, 0, 20);
+	max17261_read_reg(MAX17261_I2C_ADDR, QH_addr, &max17261_regs1[0x00], 2); // Read register
+	tempdata = (max17261_regs1[1] << 8) + max17261_regs1[0];
+	debugPrint("QH register(coulomb count) = %f\r\n", (double)tempdata * (double)0.25 / 3600000); // We have 20mOhm sense resistor so the LSB is 0.25
+	// printf("QH register(coulomb count) = %f\r\n", (double)tempdata * (double)0.25 / 3600000); // We have 20mOhm sense resistor so the LSB is 0.25
 
 
-		// Read QH
-		tempdata = 0;
-		memset(tempstring,0,20);
-		max17261_read_reg(MAX17261_I2C_ADDR,QH_addr,&max17261_regs1[0x00],2); // Read register
-		tempdata = (max17261_regs1[1]<<8) + max17261_regs1[0];
-		debugPrint("QH register(coulomb count) = %f\r\n",(double)tempdata * (double)0.25/3600000);// We have 20mOhm sense resistor so the LSB is 0.25
-
-
-		// Read AvCap
-		tempdata = 0;
-		memset(tempstring,0,20);
-		max17261_read_reg(MAX17261_I2C_ADDR,AvCap_addr,&max17261_regs1[0x00],2); // Read register
-		tempdata = (max17261_regs1[1]<<8) + max17261_regs1[0];
+	// Read AvCap
+	tempdata = 0;
+	memset(tempstring, 0, 20);
+	max17261_read_reg(MAX17261_I2C_ADDR, AvCap_addr, &max17261_regs1[0x00], 2); // Read register
+	tempdata = (max17261_regs1[1] << 8) + max17261_regs1[0];
 	//	debugPrint("AvCap register = %f\r\n",(double)tempdata * (double)0.5);
 
-
-		// Read MixSOC
-		tempdata = 0;
-		memset(tempstring,0,20);
-		max17261_read_reg(MAX17261_I2C_ADDR,MixSOC_addr,&max17261_regs1[0x00],2); // Read register
-		tempdata = (max17261_regs1[1]<<8) + max17261_regs1[0];
+	// Read MixSOC
+	tempdata = 0;
+	memset(tempstring, 0, 20);
+	max17261_read_reg(MAX17261_I2C_ADDR, MixSOC_addr, &max17261_regs1[0x00], 2); // Read register
+	tempdata = (max17261_regs1[1] << 8) + max17261_regs1[0];
 	//	debugPrint("MixSOC register = %f\r\n",(double)tempdata/256);
-
-
-		
-	}
-
-
+}
 
 /******************************************************************************
 Your main code starts here
 ******************************************************************************/
 int main(void)
 {
-	
+
+	//*****************************************************************************/
+	// LDO enabling code
+	//*****************************************************************************/
+	mxc_gpio_cfg_t gpio_out0;
+	mxc_gpio_cfg_t gpio_out4;
+	mxc_gpio_cfg_t gpio_out1;
+	mxc_gpio_cfg_t gpio_out2;
+
+	printf("\n\n****** Power up sequence******\n");
+	printf("Now we are powering the 4 LDOs in the sequence of 5.3V, 1.8V, 5.0V, 2.8V with a delay of 500us between each supply\n");
+	printf("We enable pins in order of 0.0, 0.4, 0.1,0.2\n");
+
+	/* Setup output pin. P0.0 */
+	gpio_out0.port = MXC_GPIO_PORT_OUT0;
+	gpio_out0.mask = MXC_GPIO_PIN_OUT0;
+	gpio_out0.pad = MXC_GPIO_PAD_NONE;
+	gpio_out0.func = MXC_GPIO_FUNC_OUT;
+	gpio_out0.vssel = MXC_GPIO_VSSEL_VDDIO;
+
+	MXC_GPIO_Config(&gpio_out0);
+
+	/* Setup output pin. P0.4 */
+	gpio_out4.port = MXC_GPIO_PORT_OUT0;
+	gpio_out4.mask = MXC_GPIO_PIN_OUT4;
+	gpio_out4.pad = MXC_GPIO_PAD_NONE;
+	gpio_out4.func = MXC_GPIO_FUNC_OUT;
+	gpio_out4.vssel = MXC_GPIO_VSSEL_VDDIO;
+
+	MXC_GPIO_Config(&gpio_out4);
+
+	/* Setup output pin. P0.1 */
+	gpio_out1.port = MXC_GPIO_PORT_OUT0;
+	gpio_out1.mask = MXC_GPIO_PIN_OUT1;
+	gpio_out1.pad = MXC_GPIO_PAD_NONE;
+	gpio_out1.func = MXC_GPIO_FUNC_OUT;
+	gpio_out1.vssel = MXC_GPIO_VSSEL_VDDIO;
+
+	MXC_GPIO_Config(&gpio_out1);
+
+	/* Setup output pin. P0.2 */
+	gpio_out2.port = MXC_GPIO_PORT_OUT0;
+	gpio_out2.mask = MXC_GPIO_PIN_OUT2;
+	gpio_out2.pad = MXC_GPIO_PAD_NONE;
+	gpio_out2.func = MXC_GPIO_FUNC_OUT;
+	gpio_out2.vssel = MXC_GPIO_VSSEL_VDDIO;
+
+	MXC_GPIO_Config(&gpio_out2);
+
+	/* Setup output pin. P0.0 as high */
+	MXC_GPIO_OutSet(gpio_out0.port, gpio_out0.mask);
+	printf("LDO 5V3 enabled \n");
+	MXC_Delay(500);
+
+	/* Setup output pin. P0.4 as high */
+	MXC_GPIO_OutSet(gpio_out4.port, gpio_out4.mask);
+	printf("LDO 1V8 enabled \n");
+	MXC_Delay(500);
+
+	/* Setup output pin. P0.1 as high */
+	MXC_GPIO_OutSet(gpio_out1.port, gpio_out1.mask);
+	printf("LDO 5V0 enabled \n");
+	MXC_Delay(500);
+
+	/* Setup output pin. P0.2 as high */
+	MXC_GPIO_OutSet(gpio_out2.port, gpio_out2.mask);
+	printf("LDO 2V8 enabled \n");
+	MXC_Delay(500);
 
 	//*****************************************************************************/
 	//USB initializations
@@ -467,21 +515,20 @@ int main(void)
 	usbAppSleep();
 	NVIC_EnableIRQ(USB_IRQn);
 
-
 	//*****************************************************************************/
 	//MAX17261 Code
 	//*****************************************************************************/
-	// check if slave is responding on I2C
+	//check if slave is responding on I2C
 	max17261_i2c_test();
-	MXC_TMR_Delay(MXC_TMR0, 2000); // Delay 2000us
+	MXC_Delay(2000);
+	
 	max17261_soft_reset();		   // perform soft reset
-	MXC_TMR_Delay(MXC_TMR0, 250);
-
+	MXC_Delay(250);
 	if (max17261_por_detected())
 	{
 		// load max17261 configuration
 		printf("POR detected. Load fuel gauge config\r\n");
-		max17261_wait_dnr();
+	max17261_wait_dnr();
 		max17261_config_ez();
 		max17261_clear_por_bit();
 	}
@@ -489,26 +536,31 @@ int main(void)
 	{
 		printf("POR not detected\r\n");
 	}
-    debugPrint("MAX17261 driver \r\n");
+	// debugPrint("MAX17261 driver \r\n");
+	printf("MAX17261 driver \r\n");	
+
 	// main spin loop.  Please note that the Learn and Save Parameters section (step 3.5 and
 	// 3.6 of the max17261 Software Implementation Guide) are not implemented in this solution.
 	// If many power-on-resets are expected occur, it is a good idea to implement.
 	int count = 0;
 	while (1)
 	{
+
+		
+		
 		debugPrint("/================================/\r\n");
+		// printf("/================================/\r\n");
 		debugPrint("Data poll count is %d\r\n", count);
+		//printf("Data poll count is %d\r\n", count);
 		debugPrint("/================================/\r\n");
+		// printf("/================================/\r\n");
 		Fuel_gauge_data_collect();
 		debugPrint("\r\n");
-		
-		MXC_TMR_Delay(MXC_TMR0, 500000);
-		count = count+1;
-
+		// printf("/================================/\r\n");
+       MXC_Delay(500000);
+		 
+		count = count + 1;
 	}
-
-
-
 }
 
 /******************************************************************************/
@@ -557,7 +609,6 @@ static void usbAppWakeup(void)
 
 int a = 0;
 
-
 /******************************************************************************/
 static int setconfigCallback(MXC_USB_SetupPkt *sud, void *cbdata)
 {
@@ -575,7 +626,8 @@ static int setconfigCallback(MXC_USB_SetupPkt *sud, void *cbdata)
 		acm_cfg.notify_maxpacket = config_descriptor.endpoint_descriptor_3.wMaxPacketSize;
 
 		return acm_configure(&acm_cfg); /* Configure the device class */
-	} else if (sud->wValue == 0)
+	}
+	else if (sud->wValue == 0)
 	{
 		configured = 0;
 		return acm_deconfigure();
@@ -590,7 +642,9 @@ static int setfeatureCallback(MXC_USB_SetupPkt *sud, void *cbdata)
 	if (sud->wValue == FEAT_REMOTE_WAKE)
 	{
 		remote_wake_en = 1;
-	} else {
+	}
+	else
+	{
 		// Unknown callback
 		return -1;
 	}
@@ -604,7 +658,8 @@ static int clrfeatureCallback(MXC_USB_SetupPkt *sud, void *cbdata)
 	if (sud->wValue == FEAT_REMOTE_WAKE)
 	{
 		remote_wake_en = 0;
-	} else
+	}
+	else
 	{
 		// Unknown callback
 		return -1;
@@ -682,5 +737,3 @@ void SysTick_Handler(void)
 {
 	MXC_DelayHandler();
 }
-
-

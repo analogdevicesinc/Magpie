@@ -105,7 +105,7 @@
 		while (!is_verified)
 		{
 			max17261_write_reg(dev_addr, reg_addr, reg_data, num_of_bytes);
-			MXC_TMR_Delay(MXC_TMR1,3);// delay 3ms with timer 1
+			MXC_Delay(3000);// delay 3ms with timer 1
 			max17261_read_reg(dev_addr, reg_addr, &read_data[0], num_of_bytes);
 			printf("write_and_verify reg_data = ");
 			for (i = 0; i < num_of_bytes; i++)
@@ -250,7 +250,7 @@
 		while((FStat_register & 0x0001) == 0x0001)
 		{
 
-			MXC_TMR_Delay(MXC_TMR1,11); //11 ms delay
+			MXC_Delay(11000); //11 ms delay
 			//max17261_write_reg(MAX17261_I2C_ADDR,FStat_addr,&max17261_regs[0x00], 2);
 			max17261_read_reg(MAX17261_I2C_ADDR,FStat_addr,&max17261_regs[0x00], 2);
 			FStat_register = (max17261_regs[1]<<8) + max17261_regs[0];
@@ -309,7 +309,7 @@
 
 		while((tempdata & 0x8000) == 0x8000)
 		{
-			MXC_TMR_Delay(MXC_TMR1,11); //11 ms delay // delay 11ms
+			MXC_Delay(11000); //11 ms delay // delay 11ms
 			max17261_read_reg(MAX17261_I2C_ADDR,ModelCfg_addr, &max17261_regs[0x00],2); // read ModelCfg register
 			tempdata = (max17261_regs[1]<<8) + max17261_regs[0];
 		}

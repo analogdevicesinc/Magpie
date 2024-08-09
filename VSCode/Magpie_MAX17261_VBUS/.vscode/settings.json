@@ -16,6 +16,7 @@
     
     "target":"MAX32665",
     "board":"FTHR",
+   //"board":"FTHR2",
 
     "project_name":"${workspaceFolderBasename}",
 
