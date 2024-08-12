@@ -450,6 +450,7 @@
 		tempdata = (max17261_regs[1]<<8) + max17261_regs[0];
 		stempdata = (int16_t) tempdata; // this is going to be signed number, so convert to 16-bit int
 		printf("Current register = %f\r\n",(double)stempdata*(double)156.25/1000);
+		debugPrint("Current register = %f\r\n", (double)stempdata * (double)78.125 / 1000);
 
 
 		// Read AvgCurrent
@@ -459,6 +460,7 @@
 		tempdata = (max17261_regs[1]<<8) + max17261_regs[0];
 		stempdata = (int16_t) tempdata; // this is going to be signed number, so convert to 16-bit int
 		printf("AvgCurrent register = %f\r\n",(double)stempdata*(double)156.25/1000);
+		debugPrint("AvgCurrent register = %f\r\n", (double)stempdata * (double)78.125 / 1000);
 
 
 		// Read TTF

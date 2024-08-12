@@ -243,7 +243,8 @@ void Fuel_gauge_data_collect()
 	max17261_read_reg(MAX17261_I2C_ADDR, Current_addr, &max17261_regs1[0x00], 2); // Read register
 	tempdata = (max17261_regs1[1] << 8) + max17261_regs1[0];
 	stempdata = (int16_t)tempdata; // this is going to be signed number, so convert to 16-bit int
-	debugPrint("Current register = %f\r\n", (double)stempdata * (double)156.25 / 1000);
+	//debugPrint("Current register = %f\r\n", (double)stempdata * (double)156.25 / 1000);
+	debugPrint("Current register = %f\r\n", (double)stempdata * (double)78.125 / 1000);
 	// printf("Current register = %f\r\n", (double)stempdata * (double)156.25 / 1000);
 
 	// Read AvgCurrent
@@ -252,8 +253,9 @@ void Fuel_gauge_data_collect()
 	max17261_read_reg(MAX17261_I2C_ADDR, AvgCurrent_addr, &max17261_regs1[0x00], 2); // Read register
 	tempdata = (max17261_regs1[1] << 8) + max17261_regs1[0];
 	stempdata = (int16_t)tempdata; // this is going to be signed number, so convert to 16-bit int
-	debugPrint("AvgCurrent register = %f\r\n", (double)stempdata * (double)156.25 / 1000);
+	//debugPrint("AvgCurrent register = %f\r\n", (double)stempdata * (double)156.25 / 1000);
 	// printf("AvgCurrent register = %f\r\n", (double)stempdata * (double)156.25 / 1000);
+	debugPrint("AvgCurrent register = %f\r\n", (double)stempdata * (double)78.125 / 1000);
 
 	// Read TTF
 	tempdata = 0;
@@ -348,7 +350,7 @@ void Fuel_gauge_data_collect()
 	memset(tempstring, 0, 20);
 	max17261_read_reg(MAX17261_I2C_ADDR, QH_addr, &max17261_regs1[0x00], 2); // Read register
 	tempdata = (max17261_regs1[1] << 8) + max17261_regs1[0];
-	debugPrint("QH register(coulomb count) = %f\r\n", (double)tempdata * (double)0.25 / 3600000); // We have 20mOhm sense resistor so the LSB is 0.25
+	debugPrint("QH register(coulomb count) = %f\r\n", (double)tempdata * (double)0.25); // We have 20mOhm sense resistor so the LSB is 0.25
 	// printf("QH register(coulomb count) = %f\r\n", (double)tempdata * (double)0.25 / 3600000); // We have 20mOhm sense resistor so the LSB is 0.25
 
 
@@ -373,73 +375,7 @@ Your main code starts here
 int main(void)
 {
 
-	//*****************************************************************************/
-	// LDO enabling code
-	//*****************************************************************************/
-	mxc_gpio_cfg_t gpio_out0;
-	mxc_gpio_cfg_t gpio_out4;
-	mxc_gpio_cfg_t gpio_out1;
-	mxc_gpio_cfg_t gpio_out2;
-
-	printf("\n\n****** Power up sequence******\n");
-	printf("Now we are powering the 4 LDOs in the sequence of 5.3V, 1.8V, 5.0V, 2.8V with a delay of 500us between each supply\n");
-	printf("We enable pins in order of 0.0, 0.4, 0.1,0.2\n");
-
-	/* Setup output pin. P0.0 */
-	gpio_out0.port = MXC_GPIO_PORT_OUT0;
-	gpio_out0.mask = MXC_GPIO_PIN_OUT0;
-	gpio_out0.pad = MXC_GPIO_PAD_NONE;
-	gpio_out0.func = MXC_GPIO_FUNC_OUT;
-	gpio_out0.vssel = MXC_GPIO_VSSEL_VDDIO;
-
-	MXC_GPIO_Config(&gpio_out0);
-
-	/* Setup output pin. P0.4 */
-	gpio_out4.port = MXC_GPIO_PORT_OUT0;
-	gpio_out4.mask = MXC_GPIO_PIN_OUT4;
-	gpio_out4.pad = MXC_GPIO_PAD_NONE;
-	gpio_out4.func = MXC_GPIO_FUNC_OUT;
-	gpio_out4.vssel = MXC_GPIO_VSSEL_VDDIO;
-
-	MXC_GPIO_Config(&gpio_out4);
-
-	/* Setup output pin. P0.1 */
-	gpio_out1.port = MXC_GPIO_PORT_OUT0;
-	gpio_out1.mask = MXC_GPIO_PIN_OUT1;
-	gpio_out1.pad = MXC_GPIO_PAD_NONE;
-	gpio_out1.func = MXC_GPIO_FUNC_OUT;
-	gpio_out1.vssel = MXC_GPIO_VSSEL_VDDIO;
-
-	MXC_GPIO_Config(&gpio_out1);
-
-	/* Setup output pin. P0.2 */
-	gpio_out2.port = MXC_GPIO_PORT_OUT0;
-	gpio_out2.mask = MXC_GPIO_PIN_OUT2;
-	gpio_out2.pad = MXC_GPIO_PAD_NONE;
-	gpio_out2.func = MXC_GPIO_FUNC_OUT;
-	gpio_out2.vssel = MXC_GPIO_VSSEL_VDDIO;
-
-	MXC_GPIO_Config(&gpio_out2);
-
-	/* Setup output pin. P0.0 as high */
-	MXC_GPIO_OutSet(gpio_out0.port, gpio_out0.mask);
-	printf("LDO 5V3 enabled \n");
-	MXC_Delay(500);
-
-	/* Setup output pin. P0.4 as high */
-	MXC_GPIO_OutSet(gpio_out4.port, gpio_out4.mask);
-	printf("LDO 1V8 enabled \n");
-	MXC_Delay(500);
-
-	/* Setup output pin. P0.1 as high */
-	MXC_GPIO_OutSet(gpio_out1.port, gpio_out1.mask);
-	printf("LDO 5V0 enabled \n");
-	MXC_Delay(500);
-
-	/* Setup output pin. P0.2 as high */
-	MXC_GPIO_OutSet(gpio_out2.port, gpio_out2.mask);
-	printf("LDO 2V8 enabled \n");
-	MXC_Delay(500);
+	LDO_startup();
 
 	//*****************************************************************************/
 	//USB initializations
@@ -528,7 +464,7 @@ int main(void)
 	{
 		// load max17261 configuration
 		printf("POR detected. Load fuel gauge config\r\n");
-	max17261_wait_dnr();
+	    max17261_wait_dnr();
 		max17261_config_ez();
 		max17261_clear_por_bit();
 	}

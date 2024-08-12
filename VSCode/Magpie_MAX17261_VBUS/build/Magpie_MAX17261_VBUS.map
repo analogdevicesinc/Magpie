@@ -266,10 +266,6 @@ Discarded input sections
  .text          0x00000000        0x0 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/dev_gpio_config.o
  .data          0x00000000        0x0 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/dev_gpio_config.o
  .bss           0x00000000        0x0 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/dev_gpio_config.o
- .rodata.LDO_startup.str1.4
-                0x00000000      0x115 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/dev_gpio_config.o
- .text.LDO_startup
-                0x00000000       0xf8 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/dev_gpio_config.o
  .rodata.MAX20327_mic_sel.str1.4
                 0x00000000       0x46 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/dev_gpio_config.o
  .text.MAX20327_mic_sel
@@ -294,9 +290,6 @@ Discarded input sections
                 0x00000000       0x1e c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/dev_gpio_config.o
  .text.DISABLEn_AD4807
                 0x00000000       0x40 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/dev_gpio_config.o
- .comment       0x00000000       0x4a c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/dev_gpio_config.o
- .ARM.attributes
-                0x00000000       0x30 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/dev_gpio_config.o
  .text          0x00000000        0x0 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/dev_i2c.o
  .data          0x00000000        0x0 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/dev_i2c.o
  .bss           0x00000000        0x0 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/dev_i2c.o
@@ -3816,679 +3809,682 @@ LOAD c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v
                 0x10000000                __isr_vector
  *(.text*)
  .text          0x100001bc       0x40 c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m+fp/softfp/crtbegin.o
+ .text.LDO_startup
+                0x100001fc       0xf8 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/dev_gpio_config.o
+                0x100001fc                LDO_startup
  .text.MAX32665_I2C_Write
-                0x100001fc       0x74 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/dev_i2c.o
-                0x100001fc                MAX32665_I2C_Write
+                0x100002f4       0x74 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/dev_i2c.o
+                0x100002f4                MAX32665_I2C_Write
  .text.MAX32665_I2C_Read
-                0x10000270       0x60 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/dev_i2c.o
-                0x10000270                MAX32665_I2C_Read
+                0x10000368       0x60 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/dev_i2c.o
+                0x10000368                MAX32665_I2C_Read
  .text.usbAppSleep
-                0x100002d0        0xc c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/main.o
+                0x100003c8        0xc c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/main.o
  .text.usbAppWakeup
-                0x100002dc        0xc c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/main.o
+                0x100003d4        0xc c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/main.o
  .text.setfeatureCallback
-                0x100002e8       0x1c c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/main.o
+                0x100003e0       0x1c c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/main.o
  .text.clrfeatureCallback
-                0x10000304       0x18 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/main.o
+                0x100003fc       0x18 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/main.o
  .text.usbReadCallback
-                0x1000031c       0x10 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/main.o
+                0x10000414       0x10 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/main.o
  .text.delay_us
-                0x1000032c        0x8 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/main.o
-                0x1000032c                delay_us
+                0x10000424        0x8 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/main.o
+                0x10000424                delay_us
  .text.eventCallback
-                0x10000334       0xb4 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/main.o
+                0x1000042c       0xb4 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/main.o
  .text.setconfigCallback
-                0x100003e8       0x84 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/main.o
+                0x100004e0       0x84 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/main.o
  .text.usbStartupCallback
-                0x1000046c       0x34 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/main.o
-                0x1000046c                usbStartupCallback
+                0x10000564       0x34 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/main.o
+                0x10000564                usbStartupCallback
  .text.usbShutdownCallback
-                0x100004a0        0xc c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/main.o
-                0x100004a0                usbShutdownCallback
+                0x10000598        0xc c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/main.o
+                0x10000598                usbShutdownCallback
  .text.debugPrint
-                0x100004ac       0x30 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/main.o
-                0x100004ac                debugPrint
- *fill*         0x100004dc        0x4 
+                0x100005a4       0x30 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/main.o
+                0x100005a4                debugPrint
+ *fill*         0x100005d4        0x4 
  .text.Fuel_gauge_data_collect
-                0x100004e0      0x394 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/main.o
-                0x100004e0                Fuel_gauge_data_collect
- .text.main     0x10000874      0x2a8 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/main.o
-                0x10000874                main
+                0x100005d8      0x394 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/main.o
+                0x100005d8                Fuel_gauge_data_collect
+ .text.main     0x1000096c      0x1c0 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/main.o
+                0x1000096c                main
  .text.USB_IRQHandler
-                0x10000b1c        0x8 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/main.o
-                0x10000b1c                USB_IRQHandler
+                0x10000b2c        0x8 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/main.o
+                0x10000b2c                USB_IRQHandler
  .text.SysTick_Handler
-                0x10000b24        0x8 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/main.o
-                0x10000b24                SysTick_Handler
+                0x10000b34        0x8 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/main.o
+                0x10000b34                SysTick_Handler
  .text.max17261_write_reg
-                0x10000b2c       0x2a c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/MAX17261.o
-                0x10000b2c                max17261_write_reg
+                0x10000b3c       0x2a c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/MAX17261.o
+                0x10000b3c                max17261_write_reg
  .text.max17261_read_reg
-                0x10000b56        0x8 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/MAX17261.o
-                0x10000b56                max17261_read_reg
- *fill*         0x10000b5e        0x2 
+                0x10000b66        0x8 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/MAX17261.o
+                0x10000b66                max17261_read_reg
+ *fill*         0x10000b6e        0x2 
  .text.max17261_i2c_test
-                0x10000b60       0x98 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/MAX17261.o
-                0x10000b60                max17261_i2c_test
+                0x10000b70       0x98 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/MAX17261.o
+                0x10000b70                max17261_i2c_test
  .text.max17261_soft_reset
-                0x10000bf8       0x3c c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/MAX17261.o
-                0x10000bf8                max17261_soft_reset
+                0x10000c08       0x3c c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/MAX17261.o
+                0x10000c08                max17261_soft_reset
  .text.max17261_por_detected
-                0x10000c34       0x4c c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/MAX17261.o
-                0x10000c34                max17261_por_detected
+                0x10000c44       0x4c c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/MAX17261.o
+                0x10000c44                max17261_por_detected
  .text.max17261_clear_por_bit
-                0x10000c80       0x2c c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/MAX17261.o
-                0x10000c80                max17261_clear_por_bit
+                0x10000c90       0x2c c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/MAX17261.o
+                0x10000c90                max17261_clear_por_bit
  .text.max17261_wait_dnr
-                0x10000cac       0x48 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/MAX17261.o
-                0x10000cac                max17261_wait_dnr
+                0x10000cbc       0x48 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/MAX17261.o
+                0x10000cbc                max17261_wait_dnr
  .text.max17261_config_ez
-                0x10000cf4       0xe0 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/MAX17261.o
-                0x10000cf4                max17261_config_ez
+                0x10000d04       0xe0 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/MAX17261.o
+                0x10000d04                max17261_config_ez
  .text.max17261_read_repsoc
-                0x10000dd4       0x18 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/MAX17261.o
-                0x10000dd4                max17261_read_repsoc
+                0x10000de4       0x18 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/MAX17261.o
+                0x10000de4                max17261_read_repsoc
  .text.mxc_assert
-                0x10000dec        0x2 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/board.o
-                0x10000dec                mxc_assert
+                0x10000dfc        0x2 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/board.o
+                0x10000dfc                mxc_assert
  .text.GPIO1_IRQHandler
-                0x10000dee        0xa c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/board.o
-                0x10000dee                GPIO1_IRQHandler
+                0x10000dfe        0xa c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/board.o
+                0x10000dfe                GPIO1_IRQHandler
  .text.Console_Init
-                0x10000df8       0x18 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/board.o
-                0x10000df8                Console_Init
+                0x10000e08       0x18 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/board.o
+                0x10000e08                Console_Init
  .text.Board_Init
-                0x10000e10       0x34 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/board.o
-                0x10000e10                Board_Init
+                0x10000e20       0x34 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/board.o
+                0x10000e20                Board_Init
  .text.NMI_Handler
-                0x10000e44        0x4 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/board.o
-                0x10000e44                NMI_Handler
- .text._close   0x10000e48        0x6 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/stdio.o
-                0x10000e48                _close
- .text._isatty  0x10000e4e        0x6 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/stdio.o
-                0x10000e4e                _isatty
- .text._lseek   0x10000e54        0x6 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/stdio.o
-                0x10000e54                _lseek
- .text._fstat   0x10000e5a        0x6 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/stdio.o
-                0x10000e5a                _fstat
- .text._read    0x10000e60       0x50 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/stdio.o
-                0x10000e60                _read
- .text._write   0x10000eb0       0x58 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/stdio.o
-                0x10000eb0                _write
- .text.LED_Off  0x10000f08       0x44 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/led.o
-                0x10000f08                LED_Off
+                0x10000e54        0x4 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/board.o
+                0x10000e54                NMI_Handler
+ .text._close   0x10000e58        0x6 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/stdio.o
+                0x10000e58                _close
+ .text._isatty  0x10000e5e        0x6 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/stdio.o
+                0x10000e5e                _isatty
+ .text._lseek   0x10000e64        0x6 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/stdio.o
+                0x10000e64                _lseek
+ .text._fstat   0x10000e6a        0x6 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/stdio.o
+                0x10000e6a                _fstat
+ .text._read    0x10000e70       0x50 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/stdio.o
+                0x10000e70                _read
+ .text._write   0x10000ec0       0x58 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/stdio.o
+                0x10000ec0                _write
+ .text.LED_Off  0x10000f18       0x44 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/led.o
+                0x10000f18                LED_Off
  .text.LED_Init
-                0x10000f4c       0x3c c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/led.o
-                0x10000f4c                LED_Init
- .text.PB_Init  0x10000f88       0x38 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/pb.o
-                0x10000f88                PB_Init
- .text          0x10000fc0      0x134 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/startup_max32665.o
-                0x10000fc0                Reset_Handler
-                0x10000ffe                HardFault_Handler
-                0x10001000                MemManage_Handler
-                0x10001002                BusFault_Handler
-                0x10001004                UsageFault_Handler
-                0x10001006                SVC_Handler
-                0x10001008                PendSV_Handler
-                0x1000100a                Default_Handler
-                0x1000100c                PF_IRQHandler
-                0x1000100e                WDT0_IRQHandler
-                0x10001012                RTC_IRQHandler
-                0x10001014                TRNG_IRQHandler
-                0x10001016                TMR0_IRQHandler
-                0x10001018                TMR1_IRQHandler
-                0x1000101a                TMR2_IRQHandler
-                0x1000101c                TMR3_IRQHandler
-                0x1000101e                TMR4_IRQHandler
-                0x10001020                TMR5_IRQHandler
-                0x10001022                RSV11_IRQHandler
-                0x10001024                RSV12_IRQHandler
-                0x10001026                I2C0_IRQHandler
-                0x10001028                UART0_IRQHandler
-                0x1000102a                UART1_IRQHandler
-                0x1000102c                SPI1_IRQHandler
-                0x1000102e                SPI2_IRQHandler
-                0x10001030                RSV18_IRQHandler
-                0x10001032                RSV19_IRQHandler
-                0x10001034                ADC_IRQHandler
-                0x10001036                RSV21_IRQHandler
-                0x10001038                RSV22_IRQHandler
-                0x1000103a                FLC0_IRQHandler
-                0x1000103c                GPIO0_IRQHandler
-                0x10001040                RSV26_IRQHandler
-                0x10001042                TPU_IRQHandler
-                0x10001044                DMA0_IRQHandler
-                0x10001046                DMA1_IRQHandler
-                0x10001048                DMA2_IRQHandler
-                0x1000104a                DMA3_IRQHandler
-                0x1000104c                RSV32_IRQHandler
-                0x1000104e                RSV33_IRQHandler
-                0x10001050                UART2_IRQHandler
-                0x10001052                RSV35_IRQHandler
-                0x10001054                I2C1_IRQHandler
-                0x10001056                RSV37_IRQHandler
-                0x10001058                SPIXFC_IRQHandler
-                0x1000105a                BTLE_TX_DONE_IRQHandler
-                0x1000105c                BTLE_RX_RCVD_IRQHandler
-                0x1000105e                BTLE_RX_ENG_DET_IRQHandler
-                0x10001060                BTLE_SFD_DET_IRQHandler
-                0x10001062                BTLE_SFD_TO_IRQHandler
-                0x10001064                BTLE_GP_EVENT_IRQHandler
-                0x10001066                BTLE_CFO_IRQHandler
-                0x10001068                BTLE_SIG_DET_IRQHandler
-                0x1000106a                BTLE_AGC_EVENT_IRQHandler
-                0x1000106c                BTLE_RFFE_SPIM_IRQHandler
-                0x1000106e                BTLE_TX_AES_IRQHandler
-                0x10001070                BTLE_RX_AES_IRQHandler
-                0x10001072                BTLE_INV_APB_ADDR_IRQHandler
-                0x10001074                BTLE_IQ_DATA_VALID_IRQHandler
-                0x10001076                WUT_IRQHandler
-                0x10001078                GPIOWAKE_IRQHandler
-                0x1000107a                RSV55_IRQHandler
-                0x1000107c                SPI0_IRQHandler
-                0x1000107e                WDT1_IRQHandler
-                0x10001080                RSV58_IRQHandler
-                0x10001082                PT_IRQHandler
-                0x10001084                SDMA0_IRQHandler
-                0x10001086                RSV61_IRQHandler
-                0x10001088                I2C2_IRQHandler
-                0x1000108a                RSV63_IRQHandler
-                0x1000108c                RSV64_IRQHandler
-                0x1000108e                RSV65_IRQHandler
-                0x10001090                SDHC_IRQHandler
-                0x10001092                OWM_IRQHandler
-                0x10001094                DMA4_IRQHandler
-                0x10001096                DMA5_IRQHandler
-                0x10001098                DMA6_IRQHandler
-                0x1000109a                DMA7_IRQHandler
-                0x1000109c                DMA8_IRQHandler
-                0x1000109e                DMA9_IRQHandler
-                0x100010a0                DMA10_IRQHandler
-                0x100010a2                DMA11_IRQHandler
-                0x100010a4                DMA12_IRQHandler
-                0x100010a6                DMA13_IRQHandler
-                0x100010a8                DMA14_IRQHandler
-                0x100010aa                DMA15_IRQHandler
-                0x100010ac                USBDMA_IRQHandler
-                0x100010ae                WDT2_IRQHandler
-                0x100010b0                ECC_IRQHandler
-                0x100010b2                DVS_IRQHandler
-                0x100010b4                SIMO_IRQHandler
-                0x100010b6                SCA_IRQHandler
-                0x100010b8                AUDIO_IRQHandler
-                0x100010ba                FLC1_IRQHandler
-                0x100010bc                RSV88_IRQHandler
-                0x100010be                RSV89_IRQHandler
-                0x100010c0                RSV90_IRQHandler
-                0x100010c2                RSV91_IRQHandler
-                0x100010c4                RSV92_IRQHandler
-                0x100010c6                HTMR0_IRQHandler
-                0x100010c8                HTMR1_IRQHandler
- .text._sbrk    0x100010f4       0x40 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/heap.o
-                0x100010f4                _sbrk
- .text._getpid  0x10001134        0x6 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/system_max32665.o
-                0x10001134                _getpid
- .text._kill    0x1000113a        0x6 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/system_max32665.o
-                0x1000113a                _kill
+                0x10000f5c       0x3c c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/led.o
+                0x10000f5c                LED_Init
+ .text.PB_Init  0x10000f98       0x38 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/pb.o
+                0x10000f98                PB_Init
+ .text          0x10000fd0      0x134 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/startup_max32665.o
+                0x10000fd0                Reset_Handler
+                0x1000100e                HardFault_Handler
+                0x10001010                MemManage_Handler
+                0x10001012                BusFault_Handler
+                0x10001014                UsageFault_Handler
+                0x10001016                SVC_Handler
+                0x10001018                PendSV_Handler
+                0x1000101a                Default_Handler
+                0x1000101c                PF_IRQHandler
+                0x1000101e                WDT0_IRQHandler
+                0x10001022                RTC_IRQHandler
+                0x10001024                TRNG_IRQHandler
+                0x10001026                TMR0_IRQHandler
+                0x10001028                TMR1_IRQHandler
+                0x1000102a                TMR2_IRQHandler
+                0x1000102c                TMR3_IRQHandler
+                0x1000102e                TMR4_IRQHandler
+                0x10001030                TMR5_IRQHandler
+                0x10001032                RSV11_IRQHandler
+                0x10001034                RSV12_IRQHandler
+                0x10001036                I2C0_IRQHandler
+                0x10001038                UART0_IRQHandler
+                0x1000103a                UART1_IRQHandler
+                0x1000103c                SPI1_IRQHandler
+                0x1000103e                SPI2_IRQHandler
+                0x10001040                RSV18_IRQHandler
+                0x10001042                RSV19_IRQHandler
+                0x10001044                ADC_IRQHandler
+                0x10001046                RSV21_IRQHandler
+                0x10001048                RSV22_IRQHandler
+                0x1000104a                FLC0_IRQHandler
+                0x1000104c                GPIO0_IRQHandler
+                0x10001050                RSV26_IRQHandler
+                0x10001052                TPU_IRQHandler
+                0x10001054                DMA0_IRQHandler
+                0x10001056                DMA1_IRQHandler
+                0x10001058                DMA2_IRQHandler
+                0x1000105a                DMA3_IRQHandler
+                0x1000105c                RSV32_IRQHandler
+                0x1000105e                RSV33_IRQHandler
+                0x10001060                UART2_IRQHandler
+                0x10001062                RSV35_IRQHandler
+                0x10001064                I2C1_IRQHandler
+                0x10001066                RSV37_IRQHandler
+                0x10001068                SPIXFC_IRQHandler
+                0x1000106a                BTLE_TX_DONE_IRQHandler
+                0x1000106c                BTLE_RX_RCVD_IRQHandler
+                0x1000106e                BTLE_RX_ENG_DET_IRQHandler
+                0x10001070                BTLE_SFD_DET_IRQHandler
+                0x10001072                BTLE_SFD_TO_IRQHandler
+                0x10001074                BTLE_GP_EVENT_IRQHandler
+                0x10001076                BTLE_CFO_IRQHandler
+                0x10001078                BTLE_SIG_DET_IRQHandler
+                0x1000107a                BTLE_AGC_EVENT_IRQHandler
+                0x1000107c                BTLE_RFFE_SPIM_IRQHandler
+                0x1000107e                BTLE_TX_AES_IRQHandler
+                0x10001080                BTLE_RX_AES_IRQHandler
+                0x10001082                BTLE_INV_APB_ADDR_IRQHandler
+                0x10001084                BTLE_IQ_DATA_VALID_IRQHandler
+                0x10001086                WUT_IRQHandler
+                0x10001088                GPIOWAKE_IRQHandler
+                0x1000108a                RSV55_IRQHandler
+                0x1000108c                SPI0_IRQHandler
+                0x1000108e                WDT1_IRQHandler
+                0x10001090                RSV58_IRQHandler
+                0x10001092                PT_IRQHandler
+                0x10001094                SDMA0_IRQHandler
+                0x10001096                RSV61_IRQHandler
+                0x10001098                I2C2_IRQHandler
+                0x1000109a                RSV63_IRQHandler
+                0x1000109c                RSV64_IRQHandler
+                0x1000109e                RSV65_IRQHandler
+                0x100010a0                SDHC_IRQHandler
+                0x100010a2                OWM_IRQHandler
+                0x100010a4                DMA4_IRQHandler
+                0x100010a6                DMA5_IRQHandler
+                0x100010a8                DMA6_IRQHandler
+                0x100010aa                DMA7_IRQHandler
+                0x100010ac                DMA8_IRQHandler
+                0x100010ae                DMA9_IRQHandler
+                0x100010b0                DMA10_IRQHandler
+                0x100010b2                DMA11_IRQHandler
+                0x100010b4                DMA12_IRQHandler
+                0x100010b6                DMA13_IRQHandler
+                0x100010b8                DMA14_IRQHandler
+                0x100010ba                DMA15_IRQHandler
+                0x100010bc                USBDMA_IRQHandler
+                0x100010be                WDT2_IRQHandler
+                0x100010c0                ECC_IRQHandler
+                0x100010c2                DVS_IRQHandler
+                0x100010c4                SIMO_IRQHandler
+                0x100010c6                SCA_IRQHandler
+                0x100010c8                AUDIO_IRQHandler
+                0x100010ca                FLC1_IRQHandler
+                0x100010cc                RSV88_IRQHandler
+                0x100010ce                RSV89_IRQHandler
+                0x100010d0                RSV90_IRQHandler
+                0x100010d2                RSV91_IRQHandler
+                0x100010d4                RSV92_IRQHandler
+                0x100010d6                HTMR0_IRQHandler
+                0x100010d8                HTMR1_IRQHandler
+ .text._sbrk    0x10001104       0x40 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/heap.o
+                0x10001104                _sbrk
+ .text._getpid  0x10001144        0x6 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/system_max32665.o
+                0x10001144                _getpid
+ .text._kill    0x1000114a        0x6 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/system_max32665.o
+                0x1000114a                _kill
  .text.SystemCoreClockUpdate
-                0x10001140       0x6c c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/system_max32665.o
-                0x10001140                SystemCoreClockUpdate
- .text.PreInit  0x100011ac       0x60 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/system_max32665.o
-                0x100011ac                PreInit
+                0x10001150       0x6c c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/system_max32665.o
+                0x10001150                SystemCoreClockUpdate
+ .text.PreInit  0x100011bc       0x60 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/system_max32665.o
+                0x100011bc                PreInit
  .text.PalSysInit
-                0x1000120c        0x2 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/system_max32665.o
-                0x1000120c                PalSysInit
- *fill*         0x1000120e        0x2 
+                0x1000121c        0x2 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/system_max32665.o
+                0x1000121c                PalSysInit
+ *fill*         0x1000121e        0x2 
  .text.SystemInit
-                0x10001210      0x110 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/system_max32665.o
-                0x10001210                SystemInit
+                0x10001220      0x110 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/system_max32665.o
+                0x10001220                SystemInit
  .text.MXC_DelayInit
-                0x10001320       0x84 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(mxc_delay.o)
+                0x10001330       0x84 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(mxc_delay.o)
  .text.MXC_DelayAsync
-                0x100013a4       0x44 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(mxc_delay.o)
-                0x100013a4                MXC_DelayAsync
+                0x100013b4       0x44 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(mxc_delay.o)
+                0x100013b4                MXC_DelayAsync
  .text.MXC_DelayAbort
-                0x100013e8       0x34 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(mxc_delay.o)
-                0x100013e8                MXC_DelayAbort
+                0x100013f8       0x34 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(mxc_delay.o)
+                0x100013f8                MXC_DelayAbort
  .text.MXC_DelayHandler
-                0x1000141c       0x40 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(mxc_delay.o)
-                0x1000141c                MXC_DelayHandler
+                0x1000142c       0x40 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(mxc_delay.o)
+                0x1000142c                MXC_DelayHandler
  .text.MXC_DelayCheck
-                0x1000145c       0x64 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(mxc_delay.o)
-                0x1000145c                MXC_DelayCheck
+                0x1000146c       0x64 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(mxc_delay.o)
+                0x1000146c                MXC_DelayCheck
  .text.MXC_Delay
-                0x100014c0       0x58 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(mxc_delay.o)
-                0x100014c0                MXC_Delay
+                0x100014d0       0x58 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(mxc_delay.o)
+                0x100014d0                MXC_Delay
  .text.MXC_SYS_ClockDisable
-                0x10001518       0x2c C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(sys_me14.o)
-                0x10001518                MXC_SYS_ClockDisable
+                0x10001528       0x2c C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(sys_me14.o)
+                0x10001528                MXC_SYS_ClockDisable
  .text.MXC_SYS_ClockEnable
-                0x10001544       0x30 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(sys_me14.o)
-                0x10001544                MXC_SYS_ClockEnable
+                0x10001554       0x30 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(sys_me14.o)
+                0x10001554                MXC_SYS_ClockEnable
  .text.MXC_SYS_Clock_Timeout
-                0x10001574       0x30 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(sys_me14.o)
-                0x10001574                MXC_SYS_Clock_Timeout
+                0x10001584       0x30 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(sys_me14.o)
+                0x10001584                MXC_SYS_Clock_Timeout
  .text.MXC_SYS_Clock_Select
-                0x100015a4      0x18c C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(sys_me14.o)
-                0x100015a4                MXC_SYS_Clock_Select
+                0x100015b4      0x18c C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(sys_me14.o)
+                0x100015b4                MXC_SYS_Clock_Select
  .text.MXC_SYS_Reset_Periph
-                0x10001730       0x38 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(sys_me14.o)
-                0x10001730                MXC_SYS_Reset_Periph
+                0x10001740       0x38 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(sys_me14.o)
+                0x10001740                MXC_SYS_Reset_Periph
  .text.MXC_GPIO_OutSet
-                0x10001768        0x8 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(gpio_me14.o)
-                0x10001768                MXC_GPIO_OutSet
- .text.MXC_GPIO_Handler
-                0x10001770        0x8 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(gpio_me14.o)
-                0x10001770                MXC_GPIO_Handler
- .text.MXC_GPIO_ClearFlags
                 0x10001778        0x8 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(gpio_me14.o)
-                0x10001778                MXC_GPIO_ClearFlags
- .text.MXC_GPIO_GetFlags
+                0x10001778                MXC_GPIO_OutSet
+ .text.MXC_GPIO_Handler
                 0x10001780        0x8 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(gpio_me14.o)
-                0x10001780                MXC_GPIO_GetFlags
- .text.MXC_GPIO_SetVSSEL
+                0x10001780                MXC_GPIO_Handler
+ .text.MXC_GPIO_ClearFlags
                 0x10001788        0x8 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(gpio_me14.o)
-                0x10001788                MXC_GPIO_SetVSSEL
+                0x10001788                MXC_GPIO_ClearFlags
+ .text.MXC_GPIO_GetFlags
+                0x10001790        0x8 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(gpio_me14.o)
+                0x10001790                MXC_GPIO_GetFlags
+ .text.MXC_GPIO_SetVSSEL
+                0x10001798        0x8 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(gpio_me14.o)
+                0x10001798                MXC_GPIO_SetVSSEL
  .text.MXC_GPIO_Config
-                0x10001790       0xd2 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(gpio_me14.o)
-                0x10001790                MXC_GPIO_Config
+                0x100017a0       0xd2 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(gpio_me14.o)
+                0x100017a0                MXC_GPIO_Config
  .text.MXC_GPIO_RevA_OutSet
-                0x10001862        0x4 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(gpio_reva.o)
-                0x10001862                MXC_GPIO_RevA_OutSet
+                0x10001872        0x4 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(gpio_reva.o)
+                0x10001872                MXC_GPIO_RevA_OutSet
  .text.MXC_GPIO_RevA_ClearFlags
-                0x10001866        0x4 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(gpio_reva.o)
-                0x10001866                MXC_GPIO_RevA_ClearFlags
+                0x10001876        0x4 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(gpio_reva.o)
+                0x10001876                MXC_GPIO_RevA_ClearFlags
  .text.MXC_GPIO_RevA_GetFlags
-                0x1000186a        0x4 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(gpio_reva.o)
-                0x1000186a                MXC_GPIO_RevA_GetFlags
+                0x1000187a        0x4 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(gpio_reva.o)
+                0x1000187a                MXC_GPIO_RevA_GetFlags
  .text.MXC_GPIO_RevA_SetVSSEL
-                0x1000186e       0x2a C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(gpio_reva.o)
-                0x1000186e                MXC_GPIO_RevA_SetVSSEL
+                0x1000187e       0x2a C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(gpio_reva.o)
+                0x1000187e                MXC_GPIO_RevA_SetVSSEL
  .text.MXC_GPIO_RevA_SetAF
-                0x10001898       0x74 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(gpio_reva.o)
-                0x10001898                MXC_GPIO_RevA_SetAF
+                0x100018a8       0x74 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(gpio_reva.o)
+                0x100018a8                MXC_GPIO_RevA_SetAF
  .text.MXC_I2C_SetSlaveAddr
-                0x1000190c       0x10 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(i2c_me14.o)
-                0x1000190c                MXC_I2C_SetSlaveAddr
+                0x1000191c       0x10 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(i2c_me14.o)
+                0x1000191c                MXC_I2C_SetSlaveAddr
  .text.MXC_I2C_Shutdown
-                0x1000191c       0xa0 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(i2c_me14.o)
-                0x1000191c                MXC_I2C_Shutdown
+                0x1000192c       0xa0 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(i2c_me14.o)
+                0x1000192c                MXC_I2C_Shutdown
  .text.MXC_I2C_Init
-                0x100019bc       0x90 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(i2c_me14.o)
-                0x100019bc                MXC_I2C_Init
+                0x100019cc       0x90 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(i2c_me14.o)
+                0x100019cc                MXC_I2C_Init
  .text.MXC_I2C_SetFrequency
-                0x10001a4c        0x8 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(i2c_me14.o)
-                0x10001a4c                MXC_I2C_SetFrequency
- .text.MXC_I2C_GetFrequency
-                0x10001a54        0x8 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(i2c_me14.o)
-                0x10001a54                MXC_I2C_GetFrequency
- .text.MXC_I2C_Start
                 0x10001a5c        0x8 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(i2c_me14.o)
-                0x10001a5c                MXC_I2C_Start
- .text.MXC_I2C_Stop
+                0x10001a5c                MXC_I2C_SetFrequency
+ .text.MXC_I2C_GetFrequency
                 0x10001a64        0x8 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(i2c_me14.o)
-                0x10001a64                MXC_I2C_Stop
- .text.MXC_I2C_ReadRXFIFO
+                0x10001a64                MXC_I2C_GetFrequency
+ .text.MXC_I2C_Start
                 0x10001a6c        0x8 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(i2c_me14.o)
-                0x10001a6c                MXC_I2C_ReadRXFIFO
- .text.MXC_I2C_WriteTXFIFO
+                0x10001a6c                MXC_I2C_Start
+ .text.MXC_I2C_Stop
                 0x10001a74        0x8 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(i2c_me14.o)
-                0x10001a74                MXC_I2C_WriteTXFIFO
- .text.MXC_I2C_ClearRXFIFO
+                0x10001a74                MXC_I2C_Stop
+ .text.MXC_I2C_ReadRXFIFO
                 0x10001a7c        0x8 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(i2c_me14.o)
-                0x10001a7c                MXC_I2C_ClearRXFIFO
- .text.MXC_I2C_ClearTXFIFO
+                0x10001a7c                MXC_I2C_ReadRXFIFO
+ .text.MXC_I2C_WriteTXFIFO
                 0x10001a84        0x8 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(i2c_me14.o)
-                0x10001a84                MXC_I2C_ClearTXFIFO
- .text.MXC_I2C_ClearFlags
+                0x10001a84                MXC_I2C_WriteTXFIFO
+ .text.MXC_I2C_ClearRXFIFO
                 0x10001a8c        0x8 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(i2c_me14.o)
-                0x10001a8c                MXC_I2C_ClearFlags
- .text.MXC_I2C_Recover
+                0x10001a8c                MXC_I2C_ClearRXFIFO
+ .text.MXC_I2C_ClearTXFIFO
                 0x10001a94        0x8 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(i2c_me14.o)
-                0x10001a94                MXC_I2C_Recover
- .text.MXC_I2C_MasterTransaction
+                0x10001a94                MXC_I2C_ClearTXFIFO
+ .text.MXC_I2C_ClearFlags
                 0x10001a9c        0x8 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(i2c_me14.o)
-                0x10001a9c                MXC_I2C_MasterTransaction
- .text.MXC_I2C_SetRXThreshold
+                0x10001a9c                MXC_I2C_ClearFlags
+ .text.MXC_I2C_Recover
                 0x10001aa4        0x8 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(i2c_me14.o)
-                0x10001aa4                MXC_I2C_SetRXThreshold
- .text.MXC_I2C_SetTXThreshold
+                0x10001aa4                MXC_I2C_Recover
+ .text.MXC_I2C_MasterTransaction
                 0x10001aac        0x8 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(i2c_me14.o)
-                0x10001aac                MXC_I2C_SetTXThreshold
+                0x10001aac                MXC_I2C_MasterTransaction
+ .text.MXC_I2C_SetRXThreshold
+                0x10001ab4        0x8 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(i2c_me14.o)
+                0x10001ab4                MXC_I2C_SetRXThreshold
+ .text.MXC_I2C_SetTXThreshold
+                0x10001abc        0x8 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(i2c_me14.o)
+                0x10001abc                MXC_I2C_SetTXThreshold
  .text.MXC_I2C_RevA_Init
-                0x10001ab4      0x188 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(i2c_reva.o)
-                0x10001ab4                MXC_I2C_RevA_Init
+                0x10001ac4      0x188 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(i2c_reva.o)
+                0x10001ac4                MXC_I2C_RevA_Init
  .text.MXC_I2C_RevA_SetSlaveAddr
-                0x10001c3c       0x54 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(i2c_reva.o)
-                0x10001c3c                MXC_I2C_RevA_SetSlaveAddr
+                0x10001c4c       0x54 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(i2c_reva.o)
+                0x10001c4c                MXC_I2C_RevA_SetSlaveAddr
  .text.MXC_I2C_RevA_Shutdown
-                0x10001c90       0xd8 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(i2c_reva.o)
-                0x10001c90                MXC_I2C_RevA_Shutdown
+                0x10001ca0       0xd8 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(i2c_reva.o)
+                0x10001ca0                MXC_I2C_RevA_Shutdown
  .text.MXC_I2C_RevA_SetFrequency
-                0x10001d68       0xd4 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(i2c_reva.o)
-                0x10001d68                MXC_I2C_RevA_SetFrequency
+                0x10001d78       0xd4 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(i2c_reva.o)
+                0x10001d78                MXC_I2C_RevA_SetFrequency
  .text.MXC_I2C_RevA_GetFrequency
-                0x10001e3c       0x38 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(i2c_reva.o)
-                0x10001e3c                MXC_I2C_RevA_GetFrequency
+                0x10001e4c       0x38 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(i2c_reva.o)
+                0x10001e4c                MXC_I2C_RevA_GetFrequency
  .text.MXC_I2C_RevA_Start
-                0x10001e74       0x28 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(i2c_reva.o)
-                0x10001e74                MXC_I2C_RevA_Start
+                0x10001e84       0x28 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(i2c_reva.o)
+                0x10001e84                MXC_I2C_RevA_Start
  .text.MXC_I2C_RevA_Stop
-                0x10001e9c       0x1e C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(i2c_reva.o)
-                0x10001e9c                MXC_I2C_RevA_Stop
+                0x10001eac       0x1e C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(i2c_reva.o)
+                0x10001eac                MXC_I2C_RevA_Stop
  .text.MXC_I2C_RevA_ReadRXFIFO
-                0x10001eba       0x30 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(i2c_reva.o)
-                0x10001eba                MXC_I2C_RevA_ReadRXFIFO
+                0x10001eca       0x30 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(i2c_reva.o)
+                0x10001eca                MXC_I2C_RevA_ReadRXFIFO
  .text.MXC_I2C_RevA_GetRXFIFOAvailable
-                0x10001eea       0x10 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(i2c_reva.o)
-                0x10001eea                MXC_I2C_RevA_GetRXFIFOAvailable
+                0x10001efa       0x10 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(i2c_reva.o)
+                0x10001efa                MXC_I2C_RevA_GetRXFIFOAvailable
  .text.MXC_I2C_RevA_WriteTXFIFO
-                0x10001efa       0x30 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(i2c_reva.o)
-                0x10001efa                MXC_I2C_RevA_WriteTXFIFO
+                0x10001f0a       0x30 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(i2c_reva.o)
+                0x10001f0a                MXC_I2C_RevA_WriteTXFIFO
  .text.MXC_I2C_RevA_ClearRXFIFO
-                0x10001f2a       0x12 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(i2c_reva.o)
-                0x10001f2a                MXC_I2C_RevA_ClearRXFIFO
+                0x10001f3a       0x12 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(i2c_reva.o)
+                0x10001f3a                MXC_I2C_RevA_ClearRXFIFO
  .text.MXC_I2C_RevA_ClearTXFIFO
-                0x10001f3c       0x12 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(i2c_reva.o)
-                0x10001f3c                MXC_I2C_RevA_ClearTXFIFO
+                0x10001f4c       0x12 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(i2c_reva.o)
+                0x10001f4c                MXC_I2C_RevA_ClearTXFIFO
  .text.MXC_I2C_RevA_ClearFlags
-                0x10001f4e        0x6 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(i2c_reva.o)
-                0x10001f4e                MXC_I2C_RevA_ClearFlags
+                0x10001f5e        0x6 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(i2c_reva.o)
+                0x10001f5e                MXC_I2C_RevA_ClearFlags
  .text.MXC_I2C_RevA_Recover
-                0x10001f54       0xd8 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(i2c_reva.o)
-                0x10001f54                MXC_I2C_RevA_Recover
+                0x10001f64       0xd8 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(i2c_reva.o)
+                0x10001f64                MXC_I2C_RevA_Recover
  .text.MXC_I2C_RevA_MasterTransaction
-                0x1000202c      0x1bc C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(i2c_reva.o)
-                0x1000202c                MXC_I2C_RevA_MasterTransaction
+                0x1000203c      0x1bc C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(i2c_reva.o)
+                0x1000203c                MXC_I2C_RevA_MasterTransaction
  .text.MXC_I2C_RevA_SetRXThreshold
-                0x100021e8       0x1e C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(i2c_reva.o)
-                0x100021e8                MXC_I2C_RevA_SetRXThreshold
+                0x100021f8       0x1e C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(i2c_reva.o)
+                0x100021f8                MXC_I2C_RevA_SetRXThreshold
  .text.MXC_I2C_RevA_SetTXThreshold
-                0x10002206       0x20 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(i2c_reva.o)
-                0x10002206                MXC_I2C_RevA_SetTXThreshold
- *fill*         0x10002226        0x2 
+                0x10002216       0x20 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(i2c_reva.o)
+                0x10002216                MXC_I2C_RevA_SetTXThreshold
+ *fill*         0x10002236        0x2 
  .text.MXC_UART_Shutdown
-                0x10002228       0x50 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(uart_me14.o)
-                0x10002228                MXC_UART_Shutdown
+                0x10002238       0x50 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(uart_me14.o)
+                0x10002238                MXC_UART_Shutdown
  .text.MXC_UART_Init
-                0x10002278       0x98 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(uart_me14.o)
-                0x10002278                MXC_UART_Init
+                0x10002288       0x98 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(uart_me14.o)
+                0x10002288                MXC_UART_Init
  .text.MXC_UART_SetFrequency
-                0x10002310        0x8 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(uart_me14.o)
-                0x10002310                MXC_UART_SetFrequency
- .text.MXC_UART_GetFrequency
-                0x10002318        0x8 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(uart_me14.o)
-                0x10002318                MXC_UART_GetFrequency
- .text.MXC_UART_SetDataSize
                 0x10002320        0x8 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(uart_me14.o)
-                0x10002320                MXC_UART_SetDataSize
- .text.MXC_UART_SetStopBits
+                0x10002320                MXC_UART_SetFrequency
+ .text.MXC_UART_GetFrequency
                 0x10002328        0x8 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(uart_me14.o)
-                0x10002328                MXC_UART_SetStopBits
- .text.MXC_UART_SetParity
+                0x10002328                MXC_UART_GetFrequency
+ .text.MXC_UART_SetDataSize
                 0x10002330        0x8 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(uart_me14.o)
-                0x10002330                MXC_UART_SetParity
- .text.MXC_UART_ReadCharacterRaw
+                0x10002330                MXC_UART_SetDataSize
+ .text.MXC_UART_SetStopBits
                 0x10002338        0x8 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(uart_me14.o)
-                0x10002338                MXC_UART_ReadCharacterRaw
- .text.MXC_UART_WriteCharacterRaw
+                0x10002338                MXC_UART_SetStopBits
+ .text.MXC_UART_SetParity
                 0x10002340        0x8 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(uart_me14.o)
-                0x10002340                MXC_UART_WriteCharacterRaw
- .text.MXC_UART_ReadCharacter
+                0x10002340                MXC_UART_SetParity
+ .text.MXC_UART_ReadCharacterRaw
                 0x10002348        0x8 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(uart_me14.o)
-                0x10002348                MXC_UART_ReadCharacter
- .text.MXC_UART_WriteCharacter
+                0x10002348                MXC_UART_ReadCharacterRaw
+ .text.MXC_UART_WriteCharacterRaw
                 0x10002350        0x8 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(uart_me14.o)
-                0x10002350                MXC_UART_WriteCharacter
- .text.MXC_UART_GetRXFIFOAvailable
+                0x10002350                MXC_UART_WriteCharacterRaw
+ .text.MXC_UART_ReadCharacter
                 0x10002358        0x8 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(uart_me14.o)
-                0x10002358                MXC_UART_GetRXFIFOAvailable
- .text.MXC_UART_GetTXFIFOAvailable
+                0x10002358                MXC_UART_ReadCharacter
+ .text.MXC_UART_WriteCharacter
                 0x10002360        0x8 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(uart_me14.o)
-                0x10002360                MXC_UART_GetTXFIFOAvailable
- .text.MXC_UART_SetRXThreshold
+                0x10002360                MXC_UART_WriteCharacter
+ .text.MXC_UART_GetRXFIFOAvailable
                 0x10002368        0x8 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(uart_me14.o)
-                0x10002368                MXC_UART_SetRXThreshold
- .text.MXC_UART_SetTXThreshold
+                0x10002368                MXC_UART_GetRXFIFOAvailable
+ .text.MXC_UART_GetTXFIFOAvailable
                 0x10002370        0x8 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(uart_me14.o)
-                0x10002370                MXC_UART_SetTXThreshold
+                0x10002370                MXC_UART_GetTXFIFOAvailable
+ .text.MXC_UART_SetRXThreshold
+                0x10002378        0x8 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(uart_me14.o)
+                0x10002378                MXC_UART_SetRXThreshold
+ .text.MXC_UART_SetTXThreshold
+                0x10002380        0x8 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(uart_me14.o)
+                0x10002380                MXC_UART_SetTXThreshold
  .text.MXC_UART_RevA_Init
-                0x10002378       0xd4 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(uart_reva.o)
-                0x10002378                MXC_UART_RevA_Init
+                0x10002388       0xd4 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(uart_reva.o)
+                0x10002388                MXC_UART_RevA_Init
  .text.MXC_UART_RevA_SetFrequency
-                0x1000244c      0x108 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(uart_reva.o)
-                0x1000244c                MXC_UART_RevA_SetFrequency
+                0x1000245c      0x108 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(uart_reva.o)
+                0x1000245c                MXC_UART_RevA_SetFrequency
  .text.MXC_UART_RevA_GetFrequency
-                0x10002554       0xb4 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(uart_reva.o)
-                0x10002554                MXC_UART_RevA_GetFrequency
+                0x10002564       0xb4 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(uart_reva.o)
+                0x10002564                MXC_UART_RevA_GetFrequency
  .text.MXC_UART_RevA_SetDataSize
-                0x10002608       0x20 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(uart_reva.o)
-                0x10002608                MXC_UART_RevA_SetDataSize
+                0x10002618       0x20 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(uart_reva.o)
+                0x10002618                MXC_UART_RevA_SetDataSize
  .text.MXC_UART_RevA_SetStopBits
-                0x10002628       0x24 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(uart_reva.o)
-                0x10002628                MXC_UART_RevA_SetStopBits
+                0x10002638       0x24 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(uart_reva.o)
+                0x10002638                MXC_UART_RevA_SetStopBits
  .text.MXC_UART_RevA_SetParity
-                0x1000264c      0x11a C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(uart_reva.o)
-                0x1000264c                MXC_UART_RevA_SetParity
+                0x1000265c      0x11a C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(uart_reva.o)
+                0x1000265c                MXC_UART_RevA_SetParity
  .text.MXC_UART_RevA_ReadCharacterRaw
-                0x10002766       0x12 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(uart_reva.o)
-                0x10002766                MXC_UART_RevA_ReadCharacterRaw
+                0x10002776       0x12 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(uart_reva.o)
+                0x10002776                MXC_UART_RevA_ReadCharacterRaw
  .text.MXC_UART_RevA_WriteCharacterRaw
-                0x10002778       0x14 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(uart_reva.o)
-                0x10002778                MXC_UART_RevA_WriteCharacterRaw
+                0x10002788       0x14 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(uart_reva.o)
+                0x10002788                MXC_UART_RevA_WriteCharacterRaw
  .text.MXC_UART_RevA_GetRXFIFOAvailable
-                0x1000278c        0x8 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(uart_reva.o)
-                0x1000278c                MXC_UART_RevA_GetRXFIFOAvailable
+                0x1000279c        0x8 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(uart_reva.o)
+                0x1000279c                MXC_UART_RevA_GetRXFIFOAvailable
  .text.MXC_UART_RevA_GetTXFIFOAvailable
-                0x10002794        0xc C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(uart_reva.o)
-                0x10002794                MXC_UART_RevA_GetTXFIFOAvailable
+                0x100027a4        0xc C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(uart_reva.o)
+                0x100027a4                MXC_UART_RevA_GetTXFIFOAvailable
  .text.MXC_UART_RevA_SetRXThreshold
-                0x100027a0       0x1e C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(uart_reva.o)
-                0x100027a0                MXC_UART_RevA_SetRXThreshold
+                0x100027b0       0x1e C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(uart_reva.o)
+                0x100027b0                MXC_UART_RevA_SetRXThreshold
  .text.MXC_UART_RevA_SetTXThreshold
-                0x100027be       0x20 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(uart_reva.o)
-                0x100027be                MXC_UART_RevA_SetTXThreshold
+                0x100027ce       0x20 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(uart_reva.o)
+                0x100027ce                MXC_UART_RevA_SetTXThreshold
  .text.MXC_DMA_DeInit
-                0x100027de        0x8 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(dma_me14.o)
-                0x100027de                MXC_DMA_DeInit
+                0x100027ee        0x8 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(dma_me14.o)
+                0x100027ee                MXC_DMA_DeInit
  .text.MXC_DMA_ReleaseChannel
-                0x100027e6        0x8 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(dma_me14.o)
-                0x100027e6                MXC_DMA_ReleaseChannel
- *fill*         0x100027ee        0x2 
+                0x100027f6        0x8 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(dma_me14.o)
+                0x100027f6                MXC_DMA_ReleaseChannel
+ *fill*         0x100027fe        0x2 
  .text.MXC_DMA_RevA_DeInit
-                0x100027f0       0x40 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(dma_reva.o)
-                0x100027f0                MXC_DMA_RevA_DeInit
+                0x10002800       0x40 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(dma_reva.o)
+                0x10002800                MXC_DMA_RevA_DeInit
  .text.MXC_DMA_RevA_ReleaseChannel
-                0x10002830       0x60 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(dma_reva.o)
-                0x10002830                MXC_DMA_RevA_ReleaseChannel
+                0x10002840       0x60 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(dma_reva.o)
+                0x10002840                MXC_DMA_RevA_ReleaseChannel
  .text.MXC_GPIO_Common_Handler
-                0x10002890       0x78 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(gpio_common.o)
-                0x10002890                MXC_GPIO_Common_Handler
+                0x100028a0       0x78 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(gpio_common.o)
+                0x100028a0                MXC_GPIO_Common_Handler
  .text.MXC_UART_Common_ReadCharacter
-                0x10002908       0x16 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(uart_common.o)
-                0x10002908                MXC_UART_Common_ReadCharacter
+                0x10002918       0x16 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(uart_common.o)
+                0x10002918                MXC_UART_Common_ReadCharacter
  .text.MXC_UART_Common_WriteCharacter
-                0x1000291e       0x1a C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(uart_common.o)
-                0x1000291e                MXC_UART_Common_WriteCharacter
+                0x1000292e       0x1a C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(uart_common.o)
+                0x1000292e                MXC_UART_Common_WriteCharacter
  .text.MXC_GetLock
-                0x10002938       0x1c C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(mxc_lock.o)
-                0x10002938                MXC_GetLock
+                0x10002948       0x1c C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(mxc_lock.o)
+                0x10002948                MXC_GetLock
  .text.MXC_FreeLock
-                0x10002954        0xa C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(mxc_lock.o)
-                0x10002954                MXC_FreeLock
- *fill*         0x1000295e        0x2 
+                0x10002964        0xa C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(mxc_lock.o)
+                0x10002964                MXC_FreeLock
+ *fill*         0x1000296e        0x2 
  .text.MXC_SYS_Crit_Enter
-                0x10002960       0x20 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/MAXUSB/maxusb.a(usb.o)
+                0x10002970       0x20 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/MAXUSB/maxusb.a(usb.o)
  .text.load_fifo
-                0x10002980       0x28 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/MAXUSB/maxusb.a(usb.o)
+                0x10002990       0x28 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/MAXUSB/maxusb.a(usb.o)
  .text.unload_fifo
-                0x100029a8       0x28 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/MAXUSB/maxusb.a(usb.o)
+                0x100029b8       0x28 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/MAXUSB/maxusb.a(usb.o)
  .text.MXC_SYS_Crit_Exit
-                0x100029d0       0x20 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/MAXUSB/maxusb.a(usb.o)
+                0x100029e0       0x20 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/MAXUSB/maxusb.a(usb.o)
  .text.MXC_USB_Connect
-                0x100029f0       0x34 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/MAXUSB/maxusb.a(usb.o)
-                0x100029f0                MXC_USB_Connect
+                0x10002a00       0x34 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/MAXUSB/maxusb.a(usb.o)
+                0x10002a00                MXC_USB_Connect
  .text.MXC_USB_Disconnect
-                0x10002a24       0x1c c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/MAXUSB/maxusb.a(usb.o)
-                0x10002a24                MXC_USB_Disconnect
+                0x10002a34       0x1c c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/MAXUSB/maxusb.a(usb.o)
+                0x10002a34                MXC_USB_Disconnect
  .text.MXC_USB_Stall
-                0x10002a40       0x78 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/MAXUSB/maxusb.a(usb.o)
-                0x10002a40                MXC_USB_Stall
+                0x10002a50       0x78 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/MAXUSB/maxusb.a(usb.o)
+                0x10002a50                MXC_USB_Stall
  .text.MXC_USB_Unstall
-                0x10002ab8       0x4c c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/MAXUSB/maxusb.a(usb.o)
-                0x10002ab8                MXC_USB_Unstall
+                0x10002ac8       0x4c c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/MAXUSB/maxusb.a(usb.o)
+                0x10002ac8                MXC_USB_Unstall
  .text.MXC_USB_IsStalled
-                0x10002b04       0x28 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/MAXUSB/maxusb.a(usb.o)
-                0x10002b04                MXC_USB_IsStalled
+                0x10002b14       0x28 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/MAXUSB/maxusb.a(usb.o)
+                0x10002b14                MXC_USB_IsStalled
  .text.MXC_USB_ResetEp
-                0x10002b2c       0xa4 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/MAXUSB/maxusb.a(usb.o)
-                0x10002b2c                MXC_USB_ResetEp
+                0x10002b3c       0xa4 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/MAXUSB/maxusb.a(usb.o)
+                0x10002b3c                MXC_USB_ResetEp
  .text.MXC_USB_Init
-                0x10002bd0       0xa4 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/MAXUSB/maxusb.a(usb.o)
-                0x10002bd0                MXC_USB_Init
+                0x10002be0       0xa4 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/MAXUSB/maxusb.a(usb.o)
+                0x10002be0                MXC_USB_Init
  .text.MXC_USB_ConfigEp
-                0x10002c74       0x8c c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/MAXUSB/maxusb.a(usb.o)
-                0x10002c74                MXC_USB_ConfigEp
+                0x10002c84       0x8c c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/MAXUSB/maxusb.a(usb.o)
+                0x10002c84                MXC_USB_ConfigEp
  .text.MXC_USB_Ackstat
-                0x10002d00       0x3c c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/MAXUSB/maxusb.a(usb.o)
-                0x10002d00                MXC_USB_Ackstat
+                0x10002d10       0x3c c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/MAXUSB/maxusb.a(usb.o)
+                0x10002d10                MXC_USB_Ackstat
  .text.MXC_USB_IrqHandler
-                0x10002d3c      0x274 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/MAXUSB/maxusb.a(usb.o)
-                0x10002d3c                MXC_USB_IrqHandler
+                0x10002d4c      0x274 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/MAXUSB/maxusb.a(usb.o)
+                0x10002d4c                MXC_USB_IrqHandler
  .text.MXC_USB_IrqEnable
-                0x10002fb0       0x78 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/MAXUSB/maxusb.a(usb.o)
-                0x10002fb0                MXC_USB_IrqEnable
+                0x10002fc0       0x78 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/MAXUSB/maxusb.a(usb.o)
+                0x10002fc0                MXC_USB_IrqEnable
  .text.MXC_USB_IrqDisable
-                0x10003028       0x78 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/MAXUSB/maxusb.a(usb.o)
-                0x10003028                MXC_USB_IrqDisable
+                0x10003038       0x78 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/MAXUSB/maxusb.a(usb.o)
+                0x10003038                MXC_USB_IrqDisable
  .text.MXC_USB_IrqClear
-                0x100030a0        0x4 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/MAXUSB/maxusb.a(usb.o)
-                0x100030a0                MXC_USB_IrqClear
+                0x100030b0        0x4 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/MAXUSB/maxusb.a(usb.o)
+                0x100030b0                MXC_USB_IrqClear
  .text.MXC_USB_GetSetup
-                0x100030a4       0x88 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/MAXUSB/maxusb.a(usb.o)
-                0x100030a4                MXC_USB_GetSetup
+                0x100030b4       0x88 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/MAXUSB/maxusb.a(usb.o)
+                0x100030b4                MXC_USB_GetSetup
  .text.MXC_USB_SetFuncAddr
-                0x1000312c       0x18 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/MAXUSB/maxusb.a(usb.o)
-                0x1000312c                MXC_USB_SetFuncAddr
+                0x1000313c       0x18 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/MAXUSB/maxusb.a(usb.o)
+                0x1000313c                MXC_USB_SetFuncAddr
  .text.MXC_USB_RemoveRequest
-                0x10003144       0x38 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/MAXUSB/maxusb.a(usb.o)
-                0x10003144                MXC_USB_RemoveRequest
+                0x10003154       0x38 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/MAXUSB/maxusb.a(usb.o)
+                0x10003154                MXC_USB_RemoveRequest
  .text.MXC_USB_WriteEndpoint
-                0x1000317c       0x94 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/MAXUSB/maxusb.a(usb.o)
-                0x1000317c                MXC_USB_WriteEndpoint
+                0x1000318c       0x94 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/MAXUSB/maxusb.a(usb.o)
+                0x1000318c                MXC_USB_WriteEndpoint
  .text.MXC_USB_ReadEndpoint
-                0x10003210       0xc4 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/MAXUSB/maxusb.a(usb.o)
-                0x10003210                MXC_USB_ReadEndpoint
+                0x10003220       0xc4 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/MAXUSB/maxusb.a(usb.o)
+                0x10003220                MXC_USB_ReadEndpoint
  .text.MXC_USB_EventEnable
-                0x100032d4       0x2c c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/MAXUSB/maxusb.a(usb_event.o)
-                0x100032d4                MXC_USB_EventEnable
+                0x100032e4       0x2c c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/MAXUSB/maxusb.a(usb_event.o)
+                0x100032e4                MXC_USB_EventEnable
  .text.MXC_USB_EventDisable
-                0x10003300       0x28 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/MAXUSB/maxusb.a(usb_event.o)
-                0x10003300                MXC_USB_EventDisable
+                0x10003310       0x28 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/MAXUSB/maxusb.a(usb_event.o)
+                0x10003310                MXC_USB_EventDisable
  .text.MXC_USB_EventClear
-                0x10003328        0xe c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/MAXUSB/maxusb.a(usb_event.o)
-                0x10003328                MXC_USB_EventClear
- *fill*         0x10003336        0x2 
+                0x10003338        0xe c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/MAXUSB/maxusb.a(usb_event.o)
+                0x10003338                MXC_USB_EventClear
+ *fill*         0x10003346        0x2 
  .text.MXC_USB_EventHandler
-                0x10003338       0xbc c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/MAXUSB/maxusb.a(usb_event.o)
-                0x10003338                MXC_USB_EventHandler
+                0x10003348       0xbc c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/MAXUSB/maxusb.a(usb_event.o)
+                0x10003348                MXC_USB_EventHandler
  .text.status_stage_callback
-                0x100033f4       0x22 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/MAXUSB/maxusb.a(enumerate.o)
- *fill*         0x10003416        0x2 
- .text.setup    0x10003418      0x3e8 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/MAXUSB/maxusb.a(enumerate.o)
+                0x10003404       0x22 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/MAXUSB/maxusb.a(enumerate.o)
+ *fill*         0x10003426        0x2 
+ .text.setup    0x10003428      0x3e8 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/MAXUSB/maxusb.a(enumerate.o)
  .text.enum_init
-                0x10003800       0x38 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/MAXUSB/maxusb.a(enumerate.o)
-                0x10003800                enum_init
+                0x10003810       0x38 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/MAXUSB/maxusb.a(enumerate.o)
+                0x10003810                enum_init
  .text.enum_register_callback
-                0x10003838       0x20 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/MAXUSB/maxusb.a(enumerate.o)
-                0x10003838                enum_register_callback
+                0x10003848       0x20 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/MAXUSB/maxusb.a(enumerate.o)
+                0x10003848                enum_register_callback
  .text.enum_query_callback
-                0x10003858       0x28 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/MAXUSB/maxusb.a(enumerate.o)
-                0x10003858                enum_query_callback
+                0x10003868       0x28 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/MAXUSB/maxusb.a(enumerate.o)
+                0x10003868                enum_query_callback
  .text.enum_register_descriptor
-                0x10003880       0x40 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/MAXUSB/maxusb.a(enumerate.o)
-                0x10003880                enum_register_descriptor
+                0x10003890       0x40 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/MAXUSB/maxusb.a(enumerate.o)
+                0x10003890                enum_register_descriptor
  .text.enum_clearconfig
-                0x100038c0        0xc c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/MAXUSB/maxusb.a(enumerate.o)
-                0x100038c0                enum_clearconfig
+                0x100038d0        0xc c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/MAXUSB/maxusb.a(enumerate.o)
+                0x100038d0                enum_clearconfig
  .text.get_line_coding_callback
-                0x100038cc        0xe c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/MAXUSB/maxusb.a(cdc_acm.o)
- *fill*         0x100038da        0x2 
+                0x100038dc        0xe c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/MAXUSB/maxusb.a(cdc_acm.o)
+ *fill*         0x100038ea        0x2 
  .text.class_req
-                0x100038dc      0x104 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/MAXUSB/maxusb.a(cdc_acm.o)
+                0x100038ec      0x104 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/MAXUSB/maxusb.a(cdc_acm.o)
  .text.set_line_coding_callback
-                0x100039e0       0x2c c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/MAXUSB/maxusb.a(cdc_acm.o)
+                0x100039f0       0x2c c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/MAXUSB/maxusb.a(cdc_acm.o)
  .text.svc_out_from_host
-                0x10003a0c       0x8c c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/MAXUSB/maxusb.a(cdc_acm.o)
+                0x10003a1c       0x8c c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/MAXUSB/maxusb.a(cdc_acm.o)
  .text.out_callback
-                0x10003a98       0x10 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/MAXUSB/maxusb.a(cdc_acm.o)
+                0x10003aa8       0x10 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/MAXUSB/maxusb.a(cdc_acm.o)
  .text.svc_in_to_host
-                0x10003aa8       0x68 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/MAXUSB/maxusb.a(cdc_acm.o)
+                0x10003ab8       0x68 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/MAXUSB/maxusb.a(cdc_acm.o)
  .text.acm_init
-                0x10003b10       0x5c c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/MAXUSB/maxusb.a(cdc_acm.o)
-                0x10003b10                acm_init
+                0x10003b20       0x5c c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/MAXUSB/maxusb.a(cdc_acm.o)
+                0x10003b20                acm_init
  .text.acm_register_callback
-                0x10003b6c       0x18 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/MAXUSB/maxusb.a(cdc_acm.o)
-                0x10003b6c                acm_register_callback
+                0x10003b7c       0x18 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/MAXUSB/maxusb.a(cdc_acm.o)
+                0x10003b7c                acm_register_callback
  .text.acm_deconfigure
-                0x10003b84       0x6c c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/MAXUSB/maxusb.a(cdc_acm.o)
-                0x10003b84                acm_deconfigure
+                0x10003b94       0x6c c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/MAXUSB/maxusb.a(cdc_acm.o)
+                0x10003b94                acm_deconfigure
  .text.acm_configure
-                0x10003bf0      0x130 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/MAXUSB/maxusb.a(cdc_acm.o)
-                0x10003bf0                acm_configure
+                0x10003c00      0x130 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/MAXUSB/maxusb.a(cdc_acm.o)
+                0x10003c00                acm_configure
  .text.acm_write
-                0x10003d20       0x48 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/MAXUSB/maxusb.a(cdc_acm.o)
-                0x10003d20                acm_write
+                0x10003d30       0x48 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/MAXUSB/maxusb.a(cdc_acm.o)
+                0x10003d30                acm_write
  .text.MXC_SYS_Crit_Enter
-                0x10003d68       0x20 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/MAXUSB/maxusb.a(fifo.o)
+                0x10003d78       0x20 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/MAXUSB/maxusb.a(fifo.o)
  .text.MXC_SYS_Crit_Exit
-                0x10003d88       0x20 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/MAXUSB/maxusb.a(fifo.o)
+                0x10003d98       0x20 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/MAXUSB/maxusb.a(fifo.o)
  .text.fifo_init
-                0x10003da8       0x1a c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/MAXUSB/maxusb.a(fifo.o)
-                0x10003da8                fifo_init
+                0x10003db8       0x1a c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/MAXUSB/maxusb.a(fifo.o)
+                0x10003db8                fifo_init
  .text.fifo_put8
-                0x10003dc2       0x3c c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/MAXUSB/maxusb.a(fifo.o)
-                0x10003dc2                fifo_put8
+                0x10003dd2       0x3c c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/MAXUSB/maxusb.a(fifo.o)
+                0x10003dd2                fifo_put8
  .text.fifo_get8
-                0x10003dfe       0x32 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/MAXUSB/maxusb.a(fifo.o)
-                0x10003dfe                fifo_get8
+                0x10003e0e       0x32 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/MAXUSB/maxusb.a(fifo.o)
+                0x10003e0e                fifo_get8
  .text.fifo_clear
-                0x10003e30       0x14 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/MAXUSB/maxusb.a(fifo.o)
-                0x10003e30                fifo_clear
+                0x10003e40       0x14 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/MAXUSB/maxusb.a(fifo.o)
+                0x10003e40                fifo_clear
  .text.fifo_empty
-                0x10003e44        0xc c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/MAXUSB/maxusb.a(fifo.o)
-                0x10003e44                fifo_empty
- .text.__errno  0x10003e50        0xc c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-errno.o)
-                0x10003e50                __errno
+                0x10003e54        0xc c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/MAXUSB/maxusb.a(fifo.o)
+                0x10003e54                fifo_empty
+ .text.__errno  0x10003e60        0xc c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-errno.o)
+                0x10003e60                __errno
  .text.__libc_init_array
-                0x10003e5c       0x48 c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-init.o)
-                0x10003e5c                __libc_init_array
- .text.malloc   0x10003ea4       0x10 c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-malloc.o)
-                0x10003ea4                malloc
- .text.free     0x10003eb4       0x10 c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-malloc.o)
-                0x10003eb4                free
+                0x10003e6c       0x48 c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-init.o)
+                0x10003e6c                __libc_init_array
+ .text.malloc   0x10003eb4       0x10 c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-malloc.o)
+                0x10003eb4                malloc
+ .text.free     0x10003ec4       0x10 c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-malloc.o)
+                0x10003ec4                free
  .text._malloc_r
-                0x10003ec4      0x560 c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-mallocr.o)
-                0x10003ec4                _malloc_r
- .text          0x10004424      0x134 c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-memcpy.o)
-                0x10004424                memcpy
- .text.memset   0x10004558       0xa4 c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-memset.o)
-                0x10004558                memset
+                0x10003ed4      0x560 c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-mallocr.o)
+                0x10003ed4                _malloc_r
+ .text          0x10004434      0x134 c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-memcpy.o)
+                0x10004434                memcpy
+ .text.memset   0x10004568       0xa4 c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-memset.o)
+                0x10004568                memset
  .text.__malloc_lock
-                0x100045fc        0xc c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-mlock.o)
-                0x100045fc                __malloc_lock
+                0x1000460c        0xc c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-mlock.o)
+                0x1000460c                __malloc_lock
  .text.__malloc_unlock
-                0x10004608        0xc c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-mlock.o)
-                0x10004608                __malloc_unlock
- .text.printf   0x10004614       0x28 c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-printf.o)
-                0x10004614                printf
- .text._puts_r  0x1000463c       0x9c c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-puts.o)
-                0x1000463c                _puts_r
- .text.puts     0x100046d8       0x10 c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-puts.o)
-                0x100046d8                puts
- .text._sbrk_r  0x100046e8       0x24 c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-sbrkr.o)
-                0x100046e8                _sbrk_r
- *fill*         0x1000470c       0x34 
+                0x10004618        0xc c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-mlock.o)
+                0x10004618                __malloc_unlock
+ .text.printf   0x10004624       0x28 c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-printf.o)
+                0x10004624                printf
+ .text._puts_r  0x1000464c       0x9c c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-puts.o)
+                0x1000464c                _puts_r
+ .text.puts     0x100046e8       0x10 c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-puts.o)
+                0x100046e8                puts
+ .text._sbrk_r  0x100046f8       0x24 c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-sbrkr.o)
+                0x100046f8                _sbrk_r
+ *fill*         0x1000471c       0x24 
  .text          0x10004740       0xdc c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-strlen.o)
                 0x10004740                strlen
  *fill*         0x1000481c        0x4 
@@ -4742,17 +4738,20 @@ LOAD c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v
                 0x1000cafc                __aeabi_idiv0
                 0x1000cafc                __aeabi_ldiv0
  *(.rodata*)
+ .rodata.LDO_startup.str1.4
+                0x1000cb00      0x115 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/dev_gpio_config.o
+ *fill*         0x1000cc15        0x3 
  .rodata.MAX32665_I2C_Write.str1.4
-                0x1000cb00       0x78 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/dev_i2c.o
+                0x1000cc18       0x78 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/dev_i2c.o
  .rodata.MAX32665_I2C_Read.str1.4
-                0x1000cb78       0x77 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/dev_i2c.o
- *fill*         0x1000cbef        0x1 
+                0x1000cc90       0x77 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/dev_i2c.o
+ *fill*         0x1000cd07        0x1 
  .rodata.Fuel_gauge_data_collect.str1.4
-                0x1000cbf0      0x126 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/main.o
- *fill*         0x1000cd16        0x2 
+                0x1000cd08      0x126 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/main.o
+ *fill*         0x1000ce2e        0x2 
  .rodata.main.str1.4
-                0x1000cd18      0x208 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/main.o
-                                0x20b (size before relaxing)
+                0x1000ce30       0xf0 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/main.o
+                                 0xf3 (size before relaxing)
  .rodata.max17261_i2c_test.str1.4
                 0x1000cf20       0xde c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/MAX17261.o
  *fill*         0x1000cffe        0x2 
@@ -5200,207 +5199,210 @@ LOAD linker stubs
  .ARM.attributes
                 0x0000001e       0x32 c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m+fp/softfp/crtbegin.o
  .ARM.attributes
-                0x00000050       0x30 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/dev_i2c.o
+                0x00000050       0x30 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/dev_gpio_config.o
  .ARM.attributes
-                0x00000080       0x30 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/main.o
+                0x00000080       0x30 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/dev_i2c.o
  .ARM.attributes
-                0x000000b0       0x30 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/MAX17261.o
+                0x000000b0       0x30 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/main.o
  .ARM.attributes
-                0x000000e0       0x30 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/board.o
+                0x000000e0       0x30 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/MAX17261.o
  .ARM.attributes
-                0x00000110       0x30 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/stdio.o
+                0x00000110       0x30 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/board.o
  .ARM.attributes
-                0x00000140       0x30 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/led.o
+                0x00000140       0x30 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/stdio.o
  .ARM.attributes
-                0x00000170       0x30 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/pb.o
+                0x00000170       0x30 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/led.o
  .ARM.attributes
-                0x000001a0       0x1b c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/startup_max32665.o
+                0x000001a0       0x30 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/pb.o
  .ARM.attributes
-                0x000001bb       0x30 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/heap.o
+                0x000001d0       0x1b c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/startup_max32665.o
  .ARM.attributes
-                0x000001eb       0x30 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/system_max32665.o
+                0x000001eb       0x30 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/heap.o
  .ARM.attributes
-                0x0000021b       0x30 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(mxc_delay.o)
+                0x0000021b       0x30 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/system_max32665.o
  .ARM.attributes
-                0x0000024b       0x30 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(sys_me14.o)
+                0x0000024b       0x30 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(mxc_delay.o)
  .ARM.attributes
-                0x0000027b       0x30 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(gpio_me14.o)
+                0x0000027b       0x30 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(sys_me14.o)
  .ARM.attributes
-                0x000002ab       0x30 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(gpio_reva.o)
+                0x000002ab       0x30 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(gpio_me14.o)
  .ARM.attributes
-                0x000002db       0x30 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(i2c_me14.o)
+                0x000002db       0x30 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(gpio_reva.o)
  .ARM.attributes
-                0x0000030b       0x30 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(i2c_reva.o)
+                0x0000030b       0x30 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(i2c_me14.o)
  .ARM.attributes
-                0x0000033b       0x30 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(uart_me14.o)
+                0x0000033b       0x30 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(i2c_reva.o)
  .ARM.attributes
-                0x0000036b       0x30 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(uart_reva.o)
+                0x0000036b       0x30 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(uart_me14.o)
  .ARM.attributes
-                0x0000039b       0x30 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(pins_me14.o)
+                0x0000039b       0x30 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(uart_reva.o)
  .ARM.attributes
-                0x000003cb       0x30 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(dma_me14.o)
+                0x000003cb       0x30 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(pins_me14.o)
  .ARM.attributes
-                0x000003fb       0x30 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(dma_reva.o)
+                0x000003fb       0x30 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(dma_me14.o)
  .ARM.attributes
-                0x0000042b       0x30 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(gpio_common.o)
+                0x0000042b       0x30 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(dma_reva.o)
  .ARM.attributes
-                0x0000045b       0x30 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(uart_common.o)
+                0x0000045b       0x30 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(gpio_common.o)
  .ARM.attributes
-                0x0000048b       0x30 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(mxc_lock.o)
+                0x0000048b       0x30 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(uart_common.o)
  .ARM.attributes
-                0x000004bb       0x30 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/MAXUSB/maxusb.a(usb.o)
+                0x000004bb       0x30 C:/MaximSDK/Libraries/PeriphDrivers/bin/MAX32665/softfp/libPeriphDriver_softfp.a(mxc_lock.o)
  .ARM.attributes
-                0x000004eb       0x30 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/MAXUSB/maxusb.a(usb_event.o)
+                0x000004eb       0x30 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/MAXUSB/maxusb.a(usb.o)
  .ARM.attributes
-                0x0000051b       0x30 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/MAXUSB/maxusb.a(enumerate.o)
+                0x0000051b       0x30 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/MAXUSB/maxusb.a(usb_event.o)
  .ARM.attributes
-                0x0000054b       0x30 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/MAXUSB/maxusb.a(cdc_acm.o)
+                0x0000054b       0x30 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/MAXUSB/maxusb.a(enumerate.o)
  .ARM.attributes
-                0x0000057b       0x30 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/MAXUSB/maxusb.a(fifo.o)
+                0x0000057b       0x30 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/MAXUSB/maxusb.a(cdc_acm.o)
  .ARM.attributes
-                0x000005ab       0x32 c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-errno.o)
+                0x000005ab       0x30 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/MAXUSB/maxusb.a(fifo.o)
  .ARM.attributes
-                0x000005dd       0x32 c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-impure.o)
+                0x000005db       0x32 c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-errno.o)
  .ARM.attributes
-                0x0000060f       0x32 c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-init.o)
+                0x0000060d       0x32 c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-impure.o)
  .ARM.attributes
-                0x00000641       0x32 c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-malloc.o)
+                0x0000063f       0x32 c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-init.o)
  .ARM.attributes
-                0x00000673       0x32 c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-mallocr.o)
+                0x00000671       0x32 c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-malloc.o)
  .ARM.attributes
-                0x000006a5       0x1c c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-memcpy.o)
+                0x000006a3       0x32 c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-mallocr.o)
  .ARM.attributes
-                0x000006c1       0x32 c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-memset.o)
+                0x000006d5       0x1c c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-memcpy.o)
  .ARM.attributes
-                0x000006f3       0x32 c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-mlock.o)
+                0x000006f1       0x32 c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-memset.o)
  .ARM.attributes
-                0x00000725       0x32 c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-printf.o)
+                0x00000723       0x32 c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-mlock.o)
  .ARM.attributes
-                0x00000757       0x32 c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-puts.o)
+                0x00000755       0x32 c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-printf.o)
  .ARM.attributes
-                0x00000789       0x32 c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-sbrkr.o)
+                0x00000787       0x32 c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-puts.o)
  .ARM.attributes
-                0x000007bb       0x1c c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-strlen.o)
+                0x000007b9       0x32 c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-sbrkr.o)
  .ARM.attributes
-                0x000007d7       0x32 c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-vfprintf.o)
+                0x000007eb       0x1c c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-strlen.o)
  .ARM.attributes
-                0x00000809       0x32 c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-vsnprintf.o)
+                0x00000807       0x32 c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-vfprintf.o)
  .ARM.attributes
-                0x0000083b       0x32 c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-wsetup.o)
+                0x00000839       0x32 c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-vsnprintf.o)
  .ARM.attributes
-                0x0000086d       0x32 c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-__call_atexit.o)
+                0x0000086b       0x32 c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-wsetup.o)
  .ARM.attributes
-                0x0000089f       0x32 c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-atexit.o)
+                0x0000089d       0x32 c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-__call_atexit.o)
  .ARM.attributes
-                0x000008d1       0x32 c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-dtoa.o)
+                0x000008cf       0x32 c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-atexit.o)
  .ARM.attributes
-                0x00000903       0x32 c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-fflush.o)
+                0x00000901       0x32 c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-dtoa.o)
  .ARM.attributes
-                0x00000935       0x32 c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-findfp.o)
+                0x00000933       0x32 c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-fflush.o)
  .ARM.attributes
-                0x00000967       0x32 c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-fini.o)
+                0x00000965       0x32 c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-findfp.o)
  .ARM.attributes
-                0x00000999       0x32 c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-freer.o)
+                0x00000997       0x32 c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-fini.o)
  .ARM.attributes
-                0x000009cb       0x32 c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-fvwrite.o)
+                0x000009c9       0x32 c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-freer.o)
  .ARM.attributes
-                0x000009fd       0x32 c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-fwalk.o)
+                0x000009fb       0x32 c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-fvwrite.o)
  .ARM.attributes
-                0x00000a2f       0x32 c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-localeconv.o)
+                0x00000a2d       0x32 c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-fwalk.o)
  .ARM.attributes
-                0x00000a61       0x32 c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-lock.o)
+                0x00000a5f       0x32 c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-localeconv.o)
  .ARM.attributes
-                0x00000a93       0x32 c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-makebuf.o)
+                0x00000a91       0x32 c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-lock.o)
  .ARM.attributes
-                0x00000ac5       0x1c c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-memchr.o)
+                0x00000ac3       0x32 c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-makebuf.o)
  .ARM.attributes
-                0x00000ae1       0x32 c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-memmove.o)
+                0x00000af5       0x1c c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-memchr.o)
  .ARM.attributes
-                0x00000b13       0x32 c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-mprec.o)
+                0x00000b11       0x32 c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-memmove.o)
  .ARM.attributes
-                0x00000b45       0x32 c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-reallocr.o)
+                0x00000b43       0x32 c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-mprec.o)
  .ARM.attributes
-                0x00000b77       0x32 c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-reent.o)
+                0x00000b75       0x32 c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-reallocr.o)
  .ARM.attributes
-                0x00000ba9       0x32 c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-s_frexp.o)
+                0x00000ba7       0x32 c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-reent.o)
  .ARM.attributes
-                0x00000bdb       0x32 c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-stdio.o)
+                0x00000bd9       0x32 c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-s_frexp.o)
  .ARM.attributes
-                0x00000c0d       0x32 c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-strncpy.o)
+                0x00000c0b       0x32 c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-stdio.o)
  .ARM.attributes
-                0x00000c3f       0x32 c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-svfprintf.o)
+                0x00000c3d       0x32 c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-strncpy.o)
  .ARM.attributes
-                0x00000c71       0x32 c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-vfiprintf.o)
+                0x00000c6f       0x32 c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-svfprintf.o)
  .ARM.attributes
-                0x00000ca3       0x32 c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-wbuf.o)
+                0x00000ca1       0x32 c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-vfiprintf.o)
  .ARM.attributes
-                0x00000cd5       0x32 c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-writer.o)
+                0x00000cd3       0x32 c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-wbuf.o)
  .ARM.attributes
-                0x00000d07       0x32 c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-__atexit.o)
+                0x00000d05       0x32 c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-writer.o)
  .ARM.attributes
-                0x00000d39       0x32 c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-assert.o)
+                0x00000d37       0x32 c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-__atexit.o)
  .ARM.attributes
-                0x00000d6b       0x32 c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-callocr.o)
+                0x00000d69       0x32 c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-assert.o)
  .ARM.attributes
-                0x00000d9d       0x32 c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-closer.o)
+                0x00000d9b       0x32 c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-callocr.o)
  .ARM.attributes
-                0x00000dcf       0x32 c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-ctype_.o)
+                0x00000dcd       0x32 c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-closer.o)
  .ARM.attributes
-                0x00000e01       0x32 c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-fclose.o)
+                0x00000dff       0x32 c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-ctype_.o)
  .ARM.attributes
-                0x00000e33       0x32 c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-fiprintf.o)
+                0x00000e31       0x32 c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-fclose.o)
  .ARM.attributes
-                0x00000e65       0x32 c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-fputwc.o)
+                0x00000e63       0x32 c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-fiprintf.o)
  .ARM.attributes
-                0x00000e97       0x32 c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-fstatr.o)
+                0x00000e95       0x32 c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-fputwc.o)
  .ARM.attributes
-                0x00000ec9       0x32 c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-isattyr.o)
+                0x00000ec7       0x32 c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-fstatr.o)
  .ARM.attributes
-                0x00000efb       0x32 c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-locale.o)
+                0x00000ef9       0x32 c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-isattyr.o)
  .ARM.attributes
-                0x00000f2d       0x32 c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-lseekr.o)
+                0x00000f2b       0x32 c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-locale.o)
  .ARM.attributes
-                0x00000f5f       0x32 c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-mbtowc_r.o)
+                0x00000f5d       0x32 c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-lseekr.o)
  .ARM.attributes
-                0x00000f91       0x32 c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-readr.o)
+                0x00000f8f       0x32 c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-mbtowc_r.o)
  .ARM.attributes
-                0x00000fc3       0x32 c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-svfiprintf.o)
+                0x00000fc1       0x32 c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-readr.o)
  .ARM.attributes
-                0x00000ff5       0x32 c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-wcrtomb.o)
+                0x00000ff3       0x32 c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-svfiprintf.o)
  .ARM.attributes
-                0x00001027       0x32 c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-wctomb_r.o)
+                0x00001025       0x32 c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-wcrtomb.o)
  .ARM.attributes
-                0x00001059       0x32 c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-abort.o)
+                0x00001057       0x32 c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-wctomb_r.o)
  .ARM.attributes
-                0x0000108b       0x32 c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-signal.o)
+                0x00001089       0x32 c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-abort.o)
  .ARM.attributes
-                0x000010bd       0x32 c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-signalr.o)
+                0x000010bb       0x32 c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-signal.o)
  .ARM.attributes
-                0x000010ef       0x32 c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libnosys.a(_exit.o)
+                0x000010ed       0x32 c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libc.a(lib_a-signalr.o)
  .ARM.attributes
-                0x00001121       0x1e c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m+fp/softfp\libgcc.a(_arm_addsubdf3.o)
+                0x0000111f       0x32 c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/softfp\libnosys.a(_exit.o)
  .ARM.attributes
-                0x0000113f       0x1e c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m+fp/softfp\libgcc.a(_arm_muldivdf3.o)
+                0x00001151       0x1e c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m+fp/softfp\libgcc.a(_arm_addsubdf3.o)
  .ARM.attributes
-                0x0000115d       0x1e c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m+fp/softfp\libgcc.a(_arm_cmpdf2.o)
+                0x0000116f       0x1e c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m+fp/softfp\libgcc.a(_arm_muldivdf3.o)
  .ARM.attributes
-                0x0000117b       0x1e c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m+fp/softfp\libgcc.a(_arm_unorddf2.o)
+                0x0000118d       0x1e c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m+fp/softfp\libgcc.a(_arm_cmpdf2.o)
  .ARM.attributes
-                0x00001199       0x1e c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m+fp/softfp\libgcc.a(_arm_fixdfsi.o)
+                0x000011ab       0x1e c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m+fp/softfp\libgcc.a(_arm_unorddf2.o)
  .ARM.attributes
-                0x000011b7       0x1e c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m+fp/softfp\libgcc.a(_aeabi_uldivmod.o)
+                0x000011c9       0x1e c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m+fp/softfp\libgcc.a(_arm_fixdfsi.o)
  .ARM.attributes
-                0x000011d5       0x32 c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m+fp/softfp\libgcc.a(_udivmoddi4.o)
+                0x000011e7       0x1e c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m+fp/softfp\libgcc.a(_aeabi_uldivmod.o)
  .ARM.attributes
-                0x00001207       0x1e c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m+fp/softfp\libgcc.a(_dvmd_tls.o)
+                0x00001205       0x32 c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m+fp/softfp\libgcc.a(_udivmoddi4.o)
  .ARM.attributes
-                0x00001225       0x32 c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m+fp/softfp/crtend.o
+                0x00001237       0x1e c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m+fp/softfp\libgcc.a(_dvmd_tls.o)
  .ARM.attributes
-                0x00001257       0x1e c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m+fp/softfp/crtn.o
+                0x00001255       0x32 c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m+fp/softfp/crtend.o
+ .ARM.attributes
+                0x00001287       0x1e c:/maximsdk/tools/gnutools/10.3/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m+fp/softfp/crtn.o
 
 .comment        0x00000000       0x49
- .comment       0x00000000       0x49 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/dev_i2c.o
+ .comment       0x00000000       0x49 c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/dev_gpio_config.o
                                  0x4a (size before relaxing)
+ .comment       0x00000049       0x4a c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/dev_i2c.o
  .comment       0x00000049       0x4a c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/main.o
  .comment       0x00000049       0x4a c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/MAX17261.o
  .comment       0x00000049       0x4a c:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie_MAX17261_VBUS/build/board.o
