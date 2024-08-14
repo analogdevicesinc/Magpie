@@ -1,6 +1,39 @@
 {
     "configurations": [
         {
+            "name": "Segger J-Link",
+            "cwd": "${workspaceRoot}",
+            "executable": "${workspaceFolder}/build/${config:program_file}",
+            "loadFiles": [
+                "${workspaceFolder}/build/${config:program_file}"
+            ],
+            "symbolFiles": [
+                {
+                    "file": "${workspaceFolder}/build/${config:symbol_file}"
+                }
+            ],
+            "request": "launch",
+            "type": "cortex-debug",
+            "servertype": "jlink",
+            "windows": {
+                "gdbPath": "${config:ARM_GCC_path}/bin/arm-none-eabi-gdb.exe",
+                "serverpath": "C:/Program Files/SEGGER/JLink_V796t/JLinkGDBServerCL.exe",
+                "serverArgs": []
+            },
+            "device": "MAX32666",
+            "searchDir": [
+                "${config:OCD_path}/scripts"
+            ],
+            "configFiles": [
+                "${config:OCD_path}/scripts/interface/jlink.cfg",
+                "${config:OCD_path}/scripts/target/max32665.cfg"
+            ],
+            "jlinkscript": "null",
+            "interface": "swd",
+            "runToEntryPoint": "main",
+            "svdFile": "${config:MAXIM_PATH}/Libraries/CMSIS/Device/Maxim/${config:target}/Include/${config:target}.svd"
+        },
+        {
             "name": "Debug Arm (Cortex-debug)",
             "cwd":"${workspaceRoot}",
             "executable": "${workspaceFolder}/build/${config:program_file}",

@@ -100,21 +100,27 @@ enum registers_addr
 
 
 /* MAX17262 specific channels */
-enum max17262_channel
+enum max17261_channel
 {
-	MAX17262_COULOMB_COUNTER,
+	MAX17261_COULOMB_COUNTER,
 };
 
 // Fuel Gauge I2C Address
 #define MAX17261_I2C_ADDR 0x36u //7 bit address, you can verify this by running I2C_Scan() function
 
+/* Public enumerations -----------------------------------------------------------------------------------------------*/
 
+/**
+ * @brief MAX17261 errors are represented here
+ */
+typedef enum
+{
+    MAX17261_ERROR_ALL_OK,
+    MAX17261_ERROR_FG_ERROR,
+} MAX17261_Error_t;
 
 /***** Functions *****/
 
-/**
- * I2C functions used in this code
- */
 
 /***** Function Prototypes *****/
 
@@ -124,9 +130,10 @@ enum max17262_channel
  * @param[out]  reg_addr. The 1-byte address of the register on the I2C slave to start writing to.
  * @param[in]  *reg_data. Array of uint8_t data to write to the I2C slave.
  * @param[out]  len. Number of uint16_t registers to write.
+* @retval         MAX17261_ERROR_ALL_OK if operation is suceeded, else an error code
  ****************************************************************************/
 
-void max17261_write_reg(uint8_t dev_addr, uint8_t reg_addr, uint8_t *reg_data, uint16_t len);
+MAX17261_Error_t max17261_write_reg(uint8_t dev_addr, uint8_t reg_addr, uint8_t *reg_data, uint16_t len);
 
 
 /**
@@ -135,8 +142,9 @@ void max17261_write_reg(uint8_t dev_addr, uint8_t reg_addr, uint8_t *reg_data, u
  * @param[out]  reg_addr. The 1-byte address of the register on the I2C slave to start reading from.
  * @param[in]  *reg_data. Array of uint8_t data to read from the I2C slave.
  * @param[out]  len. Number of uint16_t registers to read.
+ * @retval         MAX17261_ERROR_ALL_OK if operation is suceeded, else an error code
  ****************************************************************************/
-void max17261_read_reg(uint8_t dev_addr, uint8_t reg_addr, uint8_t *reg_data, uint16_t len);
+MAX17261_Error_t max17261_read_reg(uint8_t dev_addr, uint8_t reg_addr, uint8_t *reg_data, uint16_t len);
 
 /**
  * @brief   max17261_write_verify_reg. Generic function to read max17261 registers.
@@ -151,16 +159,16 @@ bool max17261_write_verify_reg(uint8_t dev_addr, uint8_t reg_addr, uint8_t *reg_
 
 /**
  * @brief    max17261_i2c_test(). Function to check that MAX17261 is present and
- * responding on I2C bus.
- * @return         true on success, false on failure
+ * responding on I2C bus.  This finction also initializes the I2C and then checks for MAX17261
+ * @retval         MAX17261_ERROR_ALL_OK if operation is suceeded, else an error code
  ****************************************************************************/
-int max17261_i2c_test(void);
+MAX17261_Error_t max17261_i2c_test(void);
 
 /**
  * @brief    max17261_soft_reset(). Function to "soft reset" the MAX17261 device completely.
- * @return         true on success, false on failure
+ * @retval         MAX17261_ERROR_ALL_OK if operation is suceeded, else an error code
  ****************************************************************************/
-void max17261_soft_reset(void);
+MAX17261_Error_t max17261_soft_reset(void);
 
 /**
  * @brief    max17261_por_detected(). Function to check if a power-on-reset
@@ -223,6 +231,7 @@ void max17261_config_ez(void);
  * @param[out]  char * OutputString.  This is the output string of fuel gauge readings.
  *
  ****************************************************************************/
-void Fuel_gauge_data_collect(unsigned long timer_count_value, char * OutputString);
+void Fuel_gauge_data_collect();
+
 
 #endif /* MAX17261_H_ */

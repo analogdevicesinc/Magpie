@@ -53,7 +53,11 @@
         "${config:MAXIM_PATH}/Libraries/MiscDrivers/LED",
         "${config:MAXIM_PATH}/Libraries/MiscDrivers/PMIC",
         "${config:MAXIM_PATH}/Libraries/MiscDrivers/PushButton",
-        "${config:MAXIM_PATH}/Libraries/MiscDrivers/Touchscreen"
+        "${config:MAXIM_PATH}/Libraries/MiscDrivers/Touchscreen",
+        "${config:MAXIM_PATH}/Libraries/MAXUSB/include/core",
+        "${config:MAXIM_PATH}/Libraries/MAXUSB/include/core/musbhsfc",
+        "${config:MAXIM_PATH}/Libraries/MAXUSB/include/enumerate",
+        "${config:MAXIM_PATH}/Libraries/MAXUSB/include/devclass",
     ],
     "C_Cpp.default.browse.path": [
         "${workspaceFolder}",
@@ -67,13 +71,24 @@
         "${config:MAXIM_PATH}/Libraries/MiscDrivers/PMIC",
         "${config:MAXIM_PATH}/Libraries/MiscDrivers/PushButton",
         "${config:MAXIM_PATH}/Libraries/MiscDrivers/Touchscreen",
-        "${config:MAXIM_PATH}/Libraries/MiscDrivers"
+        "${config:MAXIM_PATH}/Libraries/MiscDrivers",
+        "${config:MAXIM_PATH}/Libraries/MAXUSB/include/core",
+        "${config:MAXIM_PATH}/Libraries/MAXUSB/include/core/musbhsfc",
+        "${config:MAXIM_PATH}/Libraries/MAXUSB/include/enumerate",
+        "${config:MAXIM_PATH}/Libraries/MAXUSB/include/devclass",
     ],
     "C_Cpp.default.defines": [
         
     ],
     "C_Cpp.default.forcedInclude": [
         "${workspaceFolder}/build/project_defines.h"
-    ]
+    ],
+    "files.associations": {
+        "stdarg.h": "c",
+        "usb.h": "c",
+        "usb_event.h": "c",
+        "enumerate.h": "c",
+        "descriptors.h": "c"
+    }
 }
 

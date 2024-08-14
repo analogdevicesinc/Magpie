@@ -1,5 +1,6 @@
-C:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie-MAX17261/build/main.o: \
- main.c c:\maximsdk\tools\gnutools\10.3\arm-none-eabi\include\stdio.h \
+C:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie-MAX17261/build/dev_gpio_config.o: \
+ dev_gpio_config.c \
+ c:\maximsdk\tools\gnutools\10.3\arm-none-eabi\include\stdio.h \
  c:\maximsdk\tools\gnutools\10.3\arm-none-eabi\include\_ansi.h \
  c:\maximsdk\tools\gnutools\10.3\arm-none-eabi\include\newlib.h \
  c:\maximsdk\tools\gnutools\10.3\arm-none-eabi\include\_newlib_version.h \
@@ -32,20 +33,11 @@ C:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie-MAX17261/bu
  c:\maximsdk\tools\gnutools\10.3\arm-none-eabi\include\sys\_locale.h \
  c:\maximsdk\tools\gnutools\10.3\arm-none-eabi\include\strings.h \
  c:\maximsdk\tools\gnutools\10.3\arm-none-eabi\include\sys\string.h \
- C:/MaximSDK/Libraries/MiscDrivers/LED/led.h \
- C:/MaximSDK/Libraries/PeriphDrivers/Include/MAX32665/mxc_assert.h \
- C:/MaximSDK/Libraries/Boards/MAX32665/FTHR/Include/board.h \
- C:/MaximSDK/Libraries/PeriphDrivers/Include/MAX32665/gpio.h \
- C:/MaximSDK/Libraries/CMSIS/Device/Maxim/MAX32665/Include/gpio_regs.h \
+ C:/MaximSDK/Libraries/PeriphDrivers/Include/MAX32665/mxc_device.h \
+ C:/MaximSDK/Libraries/CMSIS/Device/Maxim/MAX32665/Include/max32665.h \
  c:\maximsdk\tools\gnutools\10.3\lib\gcc\arm-none-eabi\10.3.1\include\stdint.h \
  c:\maximsdk\tools\gnutools\10.3\arm-none-eabi\include\stdint.h \
  c:\maximsdk\tools\gnutools\10.3\arm-none-eabi\include\sys\_intsup.h \
- C:/MaximSDK/Libraries/MiscDrivers/PushButton/pb.h \
- C:/MaximSDK/Libraries/PeriphDrivers/Include/MAX32665/mxc_delay.h \
- C:/MaximSDK/Libraries/CMSIS/Device/Maxim/MAX32665/Include/gcr_regs.h \
- C:/MaximSDK/Libraries/PeriphDrivers/Include/MAX32665/mxc_sys.h \
- C:/MaximSDK/Libraries/PeriphDrivers/Include/MAX32665/mxc_device.h \
- C:/MaximSDK/Libraries/CMSIS/Device/Maxim/MAX32665/Include/max32665.h \
  C:/MaximSDK/Libraries/CMSIS/5.9.0/Core/Include/core_cm4.h \
  C:/MaximSDK/Libraries/CMSIS/5.9.0/Core/Include/cmsis_version.h \
  C:/MaximSDK/Libraries/CMSIS/5.9.0/Core/Include/cmsis_compiler.h \
@@ -55,20 +47,8 @@ C:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie-MAX17261/bu
  C:/MaximSDK/Libraries/PeriphDrivers/Include/MAX32665/mxc_errors.h \
  C:/MaximSDK/Libraries/PeriphDrivers/Include/MAX32665/mxc_pins.h \
  C:/MaximSDK/Libraries/PeriphDrivers/Include/MAX32665/gpio.h \
- C:/MaximSDK/Libraries/PeriphDrivers/Include/MAX32665/spi.h \
- C:/MaximSDK/Libraries/CMSIS/Device/Maxim/MAX32665/Include/spi_regs.h \
- C:/MaximSDK/Libraries/PeriphDrivers/Include/MAX32665/mxc_sys.h \
- C:/MaximSDK/Libraries/PeriphDrivers/Include/MAX32665/mxc_assert.h \
- C:/MaximSDK/Libraries/PeriphDrivers/Include/MAX32665/dma.h \
- c:\maximsdk\tools\gnutools\10.3\lib\gcc\arm-none-eabi\10.3.1\include\stdbool.h \
- C:/MaximSDK/Libraries/CMSIS/Device/Maxim/MAX32665/Include/dma_regs.h \
- C:/MaximSDK/Libraries/PeriphDrivers/Include/MAX32665/mxc_lock.h \
- C:/MaximSDK/Libraries/PeriphDrivers/Include/MAX32665/nvic_table.h \
- C:/MaximSDK/Libraries/PeriphDrivers/Include/MAX32665/mxc_device.h \
- dev_gpio_config.h \
- C:/MaximSDK/Libraries/PeriphDrivers/Include/MAX32665/tmr.h \
- C:/MaximSDK/Libraries/CMSIS/Device/Maxim/MAX32665/Include/tmr_regs.h \
+ C:/MaximSDK/Libraries/CMSIS/Device/Maxim/MAX32665/Include/gpio_regs.h \
+ C:/MaximSDK/Libraries/Boards/MAX32665/FTHR/Include/board.h \
+ C:/MaximSDK/Libraries/PeriphDrivers/Include/MAX32665/gpio.h \
  C:/MaximSDK/Libraries/PeriphDrivers/Include/MAX32665/mxc_delay.h \
- MAX17261.h C:/MaximSDK/Libraries/PeriphDrivers/Include/MAX32665/i2c.h \
- C:/MaximSDK/Libraries/CMSIS/Device/Maxim/MAX32665/Include/i2c_regs.h \
- dev_i2c.h
+ dev_gpio_config.h

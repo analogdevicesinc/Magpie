@@ -13,3 +13,5 @@
 # For more information on how sing process works, see
 # https://www.analog.com/en/education/education-library/videos/6313214207112.html
 SBT=0
+VPATH += RTT
+IPATH += RTT

@@ -108,7 +108,8 @@ int8_t MAX32665_I2C_Write(uint8_t dev_addr, uint8_t reg_addr, uint8_t *data, uin
 
 //Read functions to read specific I2C register
 
-int8_t MAX32665_I2C_Read(uint8_t dev_addr, uint8_t reg_addr, uint8_t *data, uint16_t len){
+int8_t MAX32665_I2C_Read(uint8_t dev_addr, uint8_t reg_addr, uint8_t *data, uint16_t len)
+{
 
 	//TODO: Setup I2C read
 	int rslt = E_SUCCESS;
@@ -120,7 +121,8 @@ int8_t MAX32665_I2C_Read(uint8_t dev_addr, uint8_t reg_addr, uint8_t *data, uint
 	reqMaster.rx_buf = data;            //Pointer to structure to store read values
 	reqMaster.rx_len = len;             //Number of bytes to read
 
-	if ((rslt = MXC_I2C_MasterTransaction(&reqMaster)) != E_NO_ERROR) {
+	if ((rslt = MXC_I2C_MasterTransaction(&reqMaster)) != E_NO_ERROR) 
+	{
 
 		//Communication error
 		if(rslt != 1){

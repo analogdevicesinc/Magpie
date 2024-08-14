@@ -48,6 +48,25 @@
             "dependsOn":["build"]
         },
         {
+            "label": "JLink-Flash",
+            "type": "shell", 
+            "group": "build",
+            "problemMatcher": [],           
+            "dependsOrder": "sequence",
+            "dependsOn": ["Copy ELF","JLink Flash Upload",],
+
+        },
+         {
+            "label": "Copy ELF",
+            "type": "shell",
+            "command": "copy/y ${workspaceFolder}\\build\\${config:program_file} c:\\MaximSDK\\temp_jlink\\temp.elf;",            
+        },
+        {            
+            "label": "JLink Flash Upload",
+            "type": "shell",
+            "command": "\"c:/Program Files/SEGGER/JLink_V796t/jlink.exe\" -device MAX32666 -CommandFile ${workspaceFolder}\\.vscode\\FlashScript.jlink",            
+        },
+        {
             "label": "flash & run",
             "type": "shell",
             "command": "arm-none-eabi-gdb",
