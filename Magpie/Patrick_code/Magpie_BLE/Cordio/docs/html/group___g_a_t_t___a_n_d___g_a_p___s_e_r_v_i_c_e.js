@@ -1,0 +1,36 @@
+var group___g_a_t_t___a_n_d___g_a_p___s_e_r_v_i_c_e =
+[
+    [ "GAP_END_HDL", "group___g_a_t_t___a_n_d___g_a_p___s_e_r_v_i_c_e.html#gaac3fdc5027990da8012e6d58625734b2", null ],
+    [ "GAP_START_HDL", "group___g_a_t_t___a_n_d___g_a_p___s_e_r_v_i_c_e.html#ga2a3a277ad4fdbd7c3297f3e2171f43b0", null ],
+    [ "GATT_END_HDL", "group___g_a_t_t___a_n_d___g_a_p___s_e_r_v_i_c_e.html#ga14207e710d52817af680ef31b97efcc4", null ],
+    [ "GATT_START_HDL", "group___g_a_t_t___a_n_d___g_a_p___s_e_r_v_i_c_e.html#gadae016ff8dad088192b372250fb2d9d4", [
+      [ "GAP_SVC_HDL", "group___g_a_t_t___a_n_d___g_a_p___s_e_r_v_i_c_e.html#gga871a83db4e53fc6c6872b5ac7cc94f39a4ba750058139d512f58368ede9031a10", null ],
+      [ "GAP_DN_CH_HDL", "group___g_a_t_t___a_n_d___g_a_p___s_e_r_v_i_c_e.html#gga871a83db4e53fc6c6872b5ac7cc94f39a11c004560d7940d16cecf67a981e1634", null ],
+      [ "GAP_DN_HDL", "group___g_a_t_t___a_n_d___g_a_p___s_e_r_v_i_c_e.html#gga871a83db4e53fc6c6872b5ac7cc94f39ab02712809f799537c4ab8315e4ed8e82", null ],
+      [ "GAP_AP_CH_HDL", "group___g_a_t_t___a_n_d___g_a_p___s_e_r_v_i_c_e.html#gga871a83db4e53fc6c6872b5ac7cc94f39aabd6998b08d573ada36094f8c8084238", null ],
+      [ "GAP_AP_HDL", "group___g_a_t_t___a_n_d___g_a_p___s_e_r_v_i_c_e.html#gga871a83db4e53fc6c6872b5ac7cc94f39acdbd40b5749623ed5e927ffc9a2eca5f", null ],
+      [ "GAP_CAR_CH_HDL", "group___g_a_t_t___a_n_d___g_a_p___s_e_r_v_i_c_e.html#gga871a83db4e53fc6c6872b5ac7cc94f39a84bda9bb614fe27ee4b7d988a0211daa", null ],
+      [ "GAP_CAR_HDL", "group___g_a_t_t___a_n_d___g_a_p___s_e_r_v_i_c_e.html#gga871a83db4e53fc6c6872b5ac7cc94f39a29a0495e6455969e1b65bd86e8543f18", null ],
+      [ "GAP_RPAO_CH_HDL", "group___g_a_t_t___a_n_d___g_a_p___s_e_r_v_i_c_e.html#gga871a83db4e53fc6c6872b5ac7cc94f39aea5ec2d05c57454c650ee169441f9615", null ],
+      [ "GAP_RPAO_HDL", "group___g_a_t_t___a_n_d___g_a_p___s_e_r_v_i_c_e.html#gga871a83db4e53fc6c6872b5ac7cc94f39aa6f9de27e0e6c5ac5daf05663b2e78bb", null ],
+      [ "GAP_MAX_HDL", "group___g_a_t_t___a_n_d___g_a_p___s_e_r_v_i_c_e.html#gga871a83db4e53fc6c6872b5ac7cc94f39a9c365be96447018f33396ac679cf0464", null ],
+      [ "GATT_SVC_HDL", "group___g_a_t_t___a_n_d___g_a_p___s_e_r_v_i_c_e.html#gga337d6b8d9f9cc2b4d207e433a70d3987abe960a0abc19842050d61408d468ed24", null ],
+      [ "GATT_SC_CH_HDL", "group___g_a_t_t___a_n_d___g_a_p___s_e_r_v_i_c_e.html#gga337d6b8d9f9cc2b4d207e433a70d3987a0da17f1ac982533afcd6a38ddcd7bb7e", null ],
+      [ "GATT_SC_HDL", "group___g_a_t_t___a_n_d___g_a_p___s_e_r_v_i_c_e.html#gga337d6b8d9f9cc2b4d207e433a70d3987af29b0a408646c4ce5ba4fb5006916286", null ],
+      [ "GATT_SC_CH_CCC_HDL", "group___g_a_t_t___a_n_d___g_a_p___s_e_r_v_i_c_e.html#gga337d6b8d9f9cc2b4d207e433a70d3987a739e81b8db142cc36b345774deadfa2f", null ],
+      [ "GATT_CSF_CH_HDL", "group___g_a_t_t___a_n_d___g_a_p___s_e_r_v_i_c_e.html#gga337d6b8d9f9cc2b4d207e433a70d3987a4d61bd03b76ae8f1a2086272c979fd02", null ],
+      [ "GATT_CSF_HDL", "group___g_a_t_t___a_n_d___g_a_p___s_e_r_v_i_c_e.html#gga337d6b8d9f9cc2b4d207e433a70d3987ad9f55813600891a7dfef364939c31b7d", null ],
+      [ "GATT_DBH_CH_HDL", "group___g_a_t_t___a_n_d___g_a_p___s_e_r_v_i_c_e.html#gga337d6b8d9f9cc2b4d207e433a70d3987a3a1f45ad3d851ab3b3d4121e8cb40877", null ],
+      [ "GATT_DBH_HDL", "group___g_a_t_t___a_n_d___g_a_p___s_e_r_v_i_c_e.html#gga337d6b8d9f9cc2b4d207e433a70d3987ae17dc80854e273c3ef7959fadac9740d", null ],
+      [ "GATT_SSF_CH_HDL", "group___g_a_t_t___a_n_d___g_a_p___s_e_r_v_i_c_e.html#gga337d6b8d9f9cc2b4d207e433a70d3987ad5df763a1a3e165aa322cd4d98ee129f", null ],
+      [ "GATT_SSF_HDL", "group___g_a_t_t___a_n_d___g_a_p___s_e_r_v_i_c_e.html#gga337d6b8d9f9cc2b4d207e433a70d3987af35a4b9ec8199910ab5459be4143af57", null ],
+      [ "GATT_MAX_HDL", "group___g_a_t_t___a_n_d___g_a_p___s_e_r_v_i_c_e.html#gga337d6b8d9f9cc2b4d207e433a70d3987afe790fce98f58c732f08f9923f76c07b", null ]
+    ] ],
+    [ "SvcCoreAddGroup", "group___g_a_t_t___a_n_d___g_a_p___s_e_r_v_i_c_e.html#ga40f18f82c18b0f503719aeaf811eda5f", null ],
+    [ "SvcCoreGapAddRpaoCh", "group___g_a_t_t___a_n_d___g_a_p___s_e_r_v_i_c_e.html#ga0a989c08ca71513e3040f315ad0f9472", null ],
+    [ "SvcCoreGapCbackRegister", "group___g_a_t_t___a_n_d___g_a_p___s_e_r_v_i_c_e.html#gad0e31e2f51a03c54d46737f2ffae63c3", null ],
+    [ "SvcCoreGapCentAddrResUpdate", "group___g_a_t_t___a_n_d___g_a_p___s_e_r_v_i_c_e.html#ga1064ac2c1a95eb28552f247a2d84fb3a", null ],
+    [ "SvcCoreGattCbackRegister", "group___g_a_t_t___a_n_d___g_a_p___s_e_r_v_i_c_e.html#gadcd42764365e0ad2fe95ee343dbacda0", null ],
+    [ "SvcCoreGattSetSsf", "group___g_a_t_t___a_n_d___g_a_p___s_e_r_v_i_c_e.html#ga3cf8d8c188b96dc3096caa51e7015026", null ],
+    [ "SvcCoreRemoveGroup", "group___g_a_t_t___a_n_d___g_a_p___s_e_r_v_i_c_e.html#gaba7f8078ce6961f40468e5a74d3905cc", null ]
+];

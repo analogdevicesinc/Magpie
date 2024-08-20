@@ -1,0 +1,6 @@
+var group___model_gen_battery_sr_structmmdl_gen_battery_sr_current_state__t =
+[
+    [ "elemId", "group___model_gen_battery_sr.html#a6f284f52dd638be12f8be1efbd280060", null ],
+    [ "hdr", "group___model_gen_battery_sr.html#a30db164981dd6b8dc1c5b1ce430bdfe5", null ],
+    [ "state", "group___model_gen_battery_sr.html#aa9869ee5993ab62de9249567c160925d", null ]
+];

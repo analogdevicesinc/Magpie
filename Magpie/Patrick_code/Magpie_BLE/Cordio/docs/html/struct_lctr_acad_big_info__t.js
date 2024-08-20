@@ -1,0 +1,27 @@
+var struct_lctr_acad_big_info__t =
+[
+    [ "baseCrcInit", "struct_lctr_acad_big_info__t.html#a0c698f7fb57334b989290f221261dc84", null ],
+    [ "bigAnchorPoint", "struct_lctr_acad_big_info__t.html#af55ad20fc1a3713f9fe9c5e9ea679ab6", null ],
+    [ "bigOffs", "struct_lctr_acad_big_info__t.html#aff0239550d31f7f2c90d2545df217c10", null ],
+    [ "bigOffsUnits", "struct_lctr_acad_big_info__t.html#a336d3a903e82747512a7744973cbedd5", null ],
+    [ "bisPldCtr", "struct_lctr_acad_big_info__t.html#ae016070d013d28a005aa6b9d3d37bb56", null ],
+    [ "bisSpaceUsec", "struct_lctr_acad_big_info__t.html#a91c2943b6bfc5a0f9e471a3b8038b881", null ],
+    [ "bn", "struct_lctr_acad_big_info__t.html#a9675968e240ddfffec4efa4051c277b9", null ],
+    [ "chanMap", "struct_lctr_acad_big_info__t.html#a6c2bfca3fba579b1f4bc4c877d5dd9f8", null ],
+    [ "encrypt", "struct_lctr_acad_big_info__t.html#a3a9954847057a9c4c373abdf2ed73958", null ],
+    [ "framing", "struct_lctr_acad_big_info__t.html#a47be64b082cc85f74d22de7546de098c", null ],
+    [ "giv", "struct_lctr_acad_big_info__t.html#adc12d1a2d4c62c4f209f161980b95f1a", null ],
+    [ "gskd", "struct_lctr_acad_big_info__t.html#a3aaab433b72542d64750e5e866595e67", null ],
+    [ "hdr", "struct_lctr_acad_big_info__t.html#aa7bc70612e965c5f6947079640ceda26", null ],
+    [ "irc", "struct_lctr_acad_big_info__t.html#a80969c6f0ad6b31b9fd72f50a2a0d374", null ],
+    [ "isoInter", "struct_lctr_acad_big_info__t.html#a473fa7eb121fd6835fdac42702e6aee7", null ],
+    [ "maxPdu", "struct_lctr_acad_big_info__t.html#af0bdc5b5f1ad3b0d5a13290cb347deb8", null ],
+    [ "maxSdu", "struct_lctr_acad_big_info__t.html#a6c9d672958d7c8934490706ddb8ae9b7", null ],
+    [ "nse", "struct_lctr_acad_big_info__t.html#ad75411cb46f846c9519a60db467c464c", null ],
+    [ "numBis", "struct_lctr_acad_big_info__t.html#a322da1bba41acb126ab696d4646b729a", null ],
+    [ "phy", "struct_lctr_acad_big_info__t.html#a5f0a425c8eb6451cb6e7bf29deaacfe5", null ],
+    [ "pto", "struct_lctr_acad_big_info__t.html#a7026f50ffa813dbe17ab46ecc3d62d9c", null ],
+    [ "sduInterUsec", "struct_lctr_acad_big_info__t.html#a06c3acf2a119ce4902b93167d056a0ec", null ],
+    [ "seedAccAddr", "struct_lctr_acad_big_info__t.html#a8e84ec17ee759f965ac3e362e3a8cc12", null ],
+    [ "subEvtInterUsec", "struct_lctr_acad_big_info__t.html#a1bc7e212150c878e5bb03529f746a714", null ]
+];

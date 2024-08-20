@@ -1,0 +1,22 @@
+C:/Users/ptcha/OneDrive/Documents/GitHub/CodePlayGround/Magpie_BLE//build/wsf_trace.o: \
+ c:\users\ptcha\onedrive\documents\github\codeplayground\magpie_ble\cordio\wsf\sources\targets\baremetal\wsf_trace.c \
+ c:\users\ptcha\onedrive\documents\github\codeplayground\magpie_ble\cordio\wsf\include\wsf_types.h \
+ c:\maximsdk\tools\gnutools\10.3\lib\gcc\arm-none-eabi\10.3.1\include\stdint.h \
+ c:\maximsdk\tools\gnutools\10.3\arm-none-eabi\include\stdint.h \
+ c:\maximsdk\tools\gnutools\10.3\arm-none-eabi\include\machine\_default_types.h \
+ c:\maximsdk\tools\gnutools\10.3\arm-none-eabi\include\sys\features.h \
+ c:\maximsdk\tools\gnutools\10.3\arm-none-eabi\include\_newlib_version.h \
+ c:\maximsdk\tools\gnutools\10.3\arm-none-eabi\include\sys\_intsup.h \
+ c:\maximsdk\tools\gnutools\10.3\arm-none-eabi\include\sys\_stdint.h \
+ c:\maximsdk\tools\gnutools\10.3\lib\gcc\arm-none-eabi\10.3.1\include\stddef.h \
+ c:\users\ptcha\onedrive\documents\github\codeplayground\magpie_ble\cordio\wsf\include\wsf_trace.h \
+ c:\maximsdk\tools\gnutools\10.3\lib\gcc\arm-none-eabi\10.3.1\include\stdarg.h \
+ c:\users\ptcha\onedrive\documents\github\codeplayground\magpie_ble\cordio\wsf\include\wsf_types.h \
+ c:\users\ptcha\onedrive\documents\github\codeplayground\magpie_ble\cordio\wsf\include\wsf_bufio.h \
+ c:\users\ptcha\onedrive\documents\github\codeplayground\magpie_ble\cordio\wsf\include\wsf_buf.h \
+ c:\users\ptcha\onedrive\documents\github\codeplayground\magpie_ble\cordio\wsf\include\util\print.h \
+ c:\users\ptcha\onedrive\documents\github\codeplayground\magpie_ble\cordio\platform\include\pal_sys.h \
+ c:\users\ptcha\onedrive\documents\github\codeplayground\magpie_ble\cordio\platform\include\pal_types.h \
+ c:\users\ptcha\onedrive\documents\github\codeplayground\magpie_ble\cordio\wsf\include\wsf_assert.h \
+ c:\users\ptcha\onedrive\documents\github\codeplayground\magpie_ble\cordio\wsf\include\wsf_trace.h \
+ c:\users\ptcha\onedrive\documents\github\codeplayground\magpie_ble\cordio\wsf\include\wsf_cs.h

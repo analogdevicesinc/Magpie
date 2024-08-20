@@ -1,0 +1,25 @@
+C:/Users/ptcha/OneDrive/Documents/GitHub/CodePlayGround/Magpie_BLE//build/init_ctr.o: \
+ c:\users\ptcha\onedrive\documents\github\codeplayground\magpie_ble\cordio\controller\sources\ble\init\init_ctr.c \
+ c:\users\ptcha\onedrive\documents\github\codeplayground\magpie_ble\cordio\controller\include\ble\ll_init_api.h \
+ c:\users\ptcha\onedrive\documents\github\codeplayground\magpie_ble\cordio\wsf\include\wsf_types.h \
+ c:\maximsdk\tools\gnutools\10.3\lib\gcc\arm-none-eabi\10.3.1\include\stdint.h \
+ c:\maximsdk\tools\gnutools\10.3\arm-none-eabi\include\stdint.h \
+ c:\maximsdk\tools\gnutools\10.3\arm-none-eabi\include\machine\_default_types.h \
+ c:\maximsdk\tools\gnutools\10.3\arm-none-eabi\include\sys\features.h \
+ c:\maximsdk\tools\gnutools\10.3\arm-none-eabi\include\_newlib_version.h \
+ c:\maximsdk\tools\gnutools\10.3\arm-none-eabi\include\sys\_intsup.h \
+ c:\maximsdk\tools\gnutools\10.3\arm-none-eabi\include\sys\_stdint.h \
+ c:\maximsdk\tools\gnutools\10.3\lib\gcc\arm-none-eabi\10.3.1\include\stddef.h \
+ c:\users\ptcha\onedrive\documents\github\codeplayground\magpie_ble\cordio\controller\include\common\bb_api.h \
+ c:\users\ptcha\onedrive\documents\github\codeplayground\magpie_ble\cordio\controller\include\common\cfg_mac.h \
+ c:\users\ptcha\onedrive\documents\github\codeplayground\magpie_ble\cordio\platform\include\pal_bb.h \
+ c:\users\ptcha\onedrive\documents\github\codeplayground\magpie_ble\cordio\platform\include\pal_types.h \
+ c:\users\ptcha\onedrive\documents\github\codeplayground\magpie_ble\cordio\controller\include\ble\ll_api.h \
+ c:\users\ptcha\onedrive\documents\github\codeplayground\magpie_ble\cordio\wsf\include\wsf_os.h \
+ c:\users\ptcha\onedrive\documents\github\codeplayground\magpie_ble\cordio\wsf\include\wsf_types.h \
+ c:\users\ptcha\onedrive\documents\github\codeplayground\magpie_ble\cordio\wsf\include\wsf_queue.h \
+ c:\users\ptcha\onedrive\documents\github\codeplayground\magpie_ble\cordio\wsf\include\util\bda.h \
+ c:\users\ptcha\onedrive\documents\github\codeplayground\magpie_ble\cordio\controller\include\common\cfg_mac_ble.h \
+ c:\users\ptcha\onedrive\documents\github\codeplayground\magpie_ble\cordio\wsf\include\ll_defs.h \
+ c:\users\ptcha\onedrive\documents\github\codeplayground\magpie_ble\cordio\controller\include\ble\lhci_api.h \
+ c:\users\ptcha\onedrive\documents\github\codeplayground\magpie_ble\cordio\controller\include\common\chci_api.h
