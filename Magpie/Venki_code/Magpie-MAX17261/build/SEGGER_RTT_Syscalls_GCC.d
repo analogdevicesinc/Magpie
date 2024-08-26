@@ -1,4 +1,4 @@
-C:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie-MAX17261/build/SEGGER_RTT_Syscalls_GCC.o: \
+C:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/Magpie/Venki_code/Magpie-MAX17261/build/SEGGER_RTT_Syscalls_GCC.o: \
  RTT/SEGGER_RTT_Syscalls_GCC.c \
  c:\maximsdk\tools\gnutools\10.3\arm-none-eabi\include\reent.h \
  c:\maximsdk\tools\gnutools\10.3\arm-none-eabi\include\sys\reent.h \

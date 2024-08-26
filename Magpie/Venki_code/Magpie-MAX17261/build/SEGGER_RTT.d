@@ -1,4 +1,4 @@
-C:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie-MAX17261/build/SEGGER_RTT.o: \
+C:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/Magpie/Venki_code/Magpie-MAX17261/build/SEGGER_RTT.o: \
  RTT/SEGGER_RTT.c RTT/SEGGER_RTT.h RTT/SEGGER_RTT_Conf.h \
  c:\maximsdk\tools\gnutools\10.3\arm-none-eabi\include\stdlib.h \
  c:\maximsdk\tools\gnutools\10.3\arm-none-eabi\include\machine\ieeefp.h \

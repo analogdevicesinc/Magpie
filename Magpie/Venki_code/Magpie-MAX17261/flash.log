@@ -1,2 +1,9 @@
-Error: unable to find a matching CMSIS-DAP device
+Info : CMSIS-DAP: SWD supported
+Info : CMSIS-DAP: FW Version = 1.0
+Info : CMSIS-DAP: Interface Initialised (SWD)
+Info : SWCLK/TCK = 0 SWDIO/TMS = 0 TDI = 0 TDO = 0 nTRST = 0 nRESET = 0
+Info : CMSIS-DAP: Interface ready
+Info : clock speed 2000 kHz
+Error: Error connecting DP: cannot read IDR
+
 

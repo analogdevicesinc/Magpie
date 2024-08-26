@@ -1,4 +1,4 @@
-C:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/VSCode/Magpie-MAX17261/build/led.o: \
+C:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/Magpie/Venki_code/Magpie-MAX17261/build/led.o: \
  C:/MaximSDK/Libraries/MiscDrivers/LED/led.c \
  C:/MaximSDK/Libraries/Boards/MAX32665/FTHR/Include/board.h \
  c:\maximsdk\tools\gnutools\10.3\arm-none-eabi\include\stdio.h \
