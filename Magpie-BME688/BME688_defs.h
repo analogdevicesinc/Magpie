@@ -13,7 +13,7 @@
 
 
 #define BME68X_SOFT_RESET_CMD   (0xB6u) /* Soft reset command */
-#define I2C_ADDR (0x76u);  //Device I2C address
+#define I2C_ADDR (0x77u);  //Device I2C address
 /* BME68X unique chip identifier */
 #define BME68X_CHIP_ID                            UINT8_C(0x61)
 
@@ -361,6 +361,7 @@
 
 /* Disable heater */
 #define BME68X_DISABLE_HEATER                    (0x01u)
+#define BME68X_USE_FPU 1
 
 #ifdef BME68X_USE_FPU
 

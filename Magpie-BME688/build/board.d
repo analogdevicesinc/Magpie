@@ -1,4 +1,4 @@
-C:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/Magpie-BME688/build/board.o: \
+C:/Users/ATarmu/Desktop/Swift/Magpie-BME688/build/board.o: \
  C:/MaximSDK/Libraries/Boards/MAX32665/FTHR/Source/board.c \
  c:\maximsdk\tools\gnutools\10.3\arm-none-eabi\include\stdio.h \
  c:\maximsdk\tools\gnutools\10.3\arm-none-eabi\include\_ansi.h \

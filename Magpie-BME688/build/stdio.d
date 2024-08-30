@@ -1,4 +1,4 @@
-C:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/Magpie-BME688/build/stdio.o: \
+C:/Users/ATarmu/Desktop/Swift/Magpie-BME688/build/stdio.o: \
  C:/MaximSDK/Libraries/MiscDrivers/stdio.c \
  c:\maximsdk\tools\gnutools\10.3\arm-none-eabi\include\sys\errno.h \
  c:\maximsdk\tools\gnutools\10.3\arm-none-eabi\include\sys\reent.h \

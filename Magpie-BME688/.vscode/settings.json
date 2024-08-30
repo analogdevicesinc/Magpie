@@ -15,7 +15,7 @@
     },
     
     "target":"MAX32665",
-    "board":"EvKit_V1",
+    "board":"FTHR",
 
     "project_name":"${workspaceFolderBasename}",
 
@@ -39,6 +39,7 @@
     "C_Cpp.default.includePath": [
         "${workspaceFolder}",
         "${workspaceFolder}/**",
+        "${workspaceFolder}/***",
         "${config:MAXIM_PATH}/Libraries/Boards/${config:target}/Include",
         "${config:MAXIM_PATH}/Libraries/Boards/${config:target}/${config:board}/Include",
         "${config:MAXIM_PATH}/Libraries/CMSIS/Device/Maxim/${config:target}/Include",
@@ -73,7 +74,13 @@
         
     ],
     "C_Cpp.default.forcedInclude": [
-        "${workspaceFolder}/build/project_defines.h"
-    ]
+        "${workspaceFolder}/build/project_defines.h",
+
+    ],
+    "files.associations": {
+        "mxc_delay.h": "c",
+        "nvic_table.h": "c",
+        "bme68x.h": "c"
+    }
 }
 

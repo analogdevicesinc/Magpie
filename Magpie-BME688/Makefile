@@ -60,7 +60,7 @@ TARGET_LC := $(subst M,m,$(subst A,a,$(subst X,x,$(TARGET))))
 endif
 
 # Default board.
-BOARD ?= EvKit_V1
+BOARD ?= FTHR_RevA
 
 # *******************************************************************************
 # Locate the MaximSDK
@@ -158,11 +158,17 @@ export CMSIS_ROOT
 # Where to find source files for this project.
 VPATH += .
 VPATH += src
+# VPATH += C:/Users/ATarmu/Desktop/Swift/Magpie-BME688/BME68x_SensorAPI/examples/sequential_mode
+# VPATH += C:/Users/ATarmu/Desktop/Swift/Magpie-BME688/BME68x_SensorAPI/examples/common
+# VPATH += C:/Users/ATarmu/Desktop/Swift/Magpie-BME688/BME68x_SensorAPI
 VPATH := $(VPATH)
 
 # Where to find header files for this project
 IPATH += .
 IPATH += include
+# IPATH += include
+# IPATH += C:/Users/ATarmu/Desktop/Swift/Magpie-BME688/BME68x_SensorAPI/examples/common
+# IPATH += C:/Users/ATarmu/Desktop/Swift/Magpie-BME688/BME68x_SensorAPI
 IPATH := $(IPATH)
 
 AUTOSEARCH ?= 1
@@ -354,8 +360,9 @@ include $(LIBS_DIR)/libs.mk
 
 # Include the rules for building for this target. All other makefiles should be
 # included before this one.
-include $(CMSIS_ROOT)/Device/Maxim/$(TARGET_UC)/Source/$(COMPILER)/$(TARGET_LC).mk
+# include C:/Users/ATarmu/Desktop/Swift/Magpie-BME688/BME68x_SensorAPI/examples/sequential_mode/Makefile
 
+include $(CMSIS_ROOT)/Device/Maxim/$(TARGET_UC)/Source/$(COMPILER)/$(TARGET_LC).mk
 # Include the rules that integrate the SBTs.  SBTs are a special case that must be
 # include after the core gcc rules to extend them.
 ifeq ($(SBT), 1)
