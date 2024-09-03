@@ -62,12 +62,12 @@
 		</cconfiguration>
 	</storageModule>
 	<storageModule moduleId="cdtBuildSystem" version="4.0.0">
-		<project id="max14662_sandbox.null.923778415" name="max14662_sandbox"/>
+		<project id="TPS22994.null.923778415" name="TPS22994"/>
 	</storageModule>
 	<storageModule moduleId="org.eclipse.cdt.core.LanguageSettingsProviders"/>
 	<storageModule moduleId="refreshScope" versionNumber="2">
 		<configuration configurationName="Default">
-			<resource resourceType="PROJECT" workspacePath="/max14662_sandbox"/>
+			<resource resourceType="PROJECT" workspacePath="/TPS22994"/>
 		</configuration>
 	</storageModule>
 	<storageModule moduleId="org.eclipse.cdt.make.core.buildtargets"/>
