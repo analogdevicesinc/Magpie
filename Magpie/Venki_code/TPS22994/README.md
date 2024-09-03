@@ -19,31 +19,6 @@ Universal instructions on building, flashing, and debugging this project can be 
 
 ## Expected Output
 
-The Console UART of the device will output these messages:
 
-```
-******** I2C AFE GAIN MUX EXAMPLE *********
 
-This example rotates through the various gain setting of the MAX14662 AFE gain MUX
-Uses I2C0 (SCL - P0.6, SDA - P0.7).
--->I2C Master Initialization Complete
-
-Setting gain to:   0x40
-Reading gain back: 0x40
-
-Setting gain to:   0x01
-Reading gain back: 0x01
-
-Setting gain to:   0x08
-Reading gain back: 0x08
-
-Setting gain to:   0x40
-Reading gain back: 0x40
-
-Setting gain to:   0x01
-Reading gain back: 0x01
-
-... the gain pattern repeats ...
-```
-
-If there is a problem writing or reading to the MAX14662, or if the gain written does not match the gain that is read back, then an error message will be shown in the terminal.
+If there is a problem writing or reading to the TPS22994, or if the gain written does not match the gain that is read back, then an error message will be shown in the terminal.
