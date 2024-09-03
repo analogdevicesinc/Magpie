@@ -274,8 +274,6 @@ int getVariantId(uint8_t* Variant_ID){
         printf("Variant Id recieved");
         return r;
     }
-    printf("Variant ID: 0x%x  \r\n",Variant_ID);
-
 }
 /**
  * @brief Initializes the I2C interface, sets its frequency, performs a soft reset on the BME688 sensor,
@@ -327,7 +325,7 @@ int init(uint8_t* Variant_ID){
 
     return error;
 }
-int main(){
+int tsting(){
 	printf("\n******** I2C tst BME688 *********\n");
 	uint8_t Chip_ID, rslt, Variant_ID=0x99u;
     struct bme68x_dev bme;
@@ -345,35 +343,61 @@ int main(){
     printf("START TEST");
     fflush(stdout);
     // rslt = bme68x_set_op_mode(BME68X_SEQUENTIAL_MODE, &bme);
-    BME688_Write(0x74,0x10,1);
+    BME688_Write(0x74,0x10,2);
+    MXC_Delay(MXC_DELAY_MSEC(1000));
     BME688_Read(0x74,&dataBack,1);
     printf("\nRX DATA: %x\n", dataBack);
     fflush(stdout);
+    // while(1){
+    //     BME688_Write(0x70,0x15,2);
+    //     MXC_Delay(MXC_DELAY_MSEC(1000));
+    //     getVariantId(&Variant_ID);
+    //     MXC_Delay(MXC_DELAY_MSEC(1000));
+    //     printf("\n VAR ID: %x\n", Variant_ID);
+    //     BME688_Read(0x71,&dataBack,0);
 
+    //     MXC_Delay(MXC_DELAY_MSEC(1000));
+    //     printf("\nRX DATA: %x\n", dataBack);
+
+
+    // }// return;
+    BME688_Write(0x70,0x15,2);
+    BME688_Read(0x74,&dataBack,1);
+    printf("\nRX DATA: %x\n", dataBack);
+    fflush(stdout);
+    // return;
     // BME688_Write(0x71,data,1);
     // printf("\nDATA: %x\n", data);
     // fflush(stdout);
     // BME688_Write(0x72,0xbb,1);
     // printf("\nDATA: %x\n", 0xbb);
     // fflush(stdout);
-    for(int i= 0x5e; i<0x73; i++){
-        BME688_Write(i,i,1);
-        printf("\nDATA: %x\n", i);
-        fflush(stdout);
-        BME688_Read(0x74,&dataBack,1);
-        printf("\nRX DATA: %x\n", dataBack);
-        fflush(stdout);
+    while (1)
+    {
+        /* code */
+    
+        for(int i= 0x5e; i<0x73; i++){
+            BME688_Write(i,i,2);
+            printf("\nDATA: %x\n", i);
+            fflush(stdout);
+            MXC_Delay(MXC_DELAY_MSEC(1000));
 
+            BME688_Read(0x74,&dataBack,1);
+            printf("\nRX DATA: %x\n", dataBack);
+            fflush(stdout);
+        }
+        MXC_Delay(MXC_DELAY_MSEC(3000));
     }
-    BME688_Write(0x74,0x10,1);
-    BME688_Read(0x74,&dataBack,1);
+    
+    // BME688_Write(0x74,0x10,1);
+    // BME688_Read(0x74,&dataBack,1);
     printf("\nRX DATA: %x\n", dataBack);
     fflush(stdout);
     return 0;
 
 
 }
-int tst()
+int main()
 {
 	printf("\n******** I2C example to read BME688 *********\n");
 	printf("\nsame bus as I2C0 (SCL - P0.6, SDA - P0.7).");

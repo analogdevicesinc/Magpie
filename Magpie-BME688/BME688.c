@@ -313,13 +313,17 @@ int8_t BME688_Read(uint8_t reg_addr, uint8_t *data, uint8_t rx_len)
 	// the format for reading is [addr, dummy data, data_read]
     printf("\nCALLED READ FUNCTION! \n");
 	tx_buff[0] = reg_addr;
+	// tx_buff[1] = *data;
+
 	int rslt=BME68X_OK;
 
 	mxc_i2c_req_t req;
 	req.i2c =  MXC_I2C0_BUS0;
 	req.addr = I2C_ADDR;
 	req.tx_buf = tx_buff;
-	req.tx_len = BME688_TX_BUFF_LEN;
+	// req.tx_len = BME688_TX_BUFF_LEN;
+	req.tx_len = 1;
+    
 	req.rx_buf = data;
 	req.rx_len = rx_len;
 	req.restart = 0;
