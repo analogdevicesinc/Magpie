@@ -21,4 +21,4 @@ Universal instructions on building, flashing, and debugging this project can be 
 
 
 
-If there is a problem writing or reading to the TPS22994, or if the gain written does not match the gain that is read back, then an error message will be shown in the terminal.
+If there is a problem writing or reading to the TPS22994, or if load switch does not respond, then an error message will be shown in the terminal.
