@@ -339,7 +339,6 @@ int main(){
     rslt = init(&Variant_ID,&bme);
     printf("START TEST");
     fflush(stdout);
-    // rslt = bme68x_set_op_mode(BME68X_SEQUENTIAL_MODE, &bme);
     uint8_t dataTst[5]={0x1,0x5b,0x3,0x5c,0x5};
     BME688_Write(0x5a,dataTst,5);
     BME688_Read(0x5a,dataBack,5);
