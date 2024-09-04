@@ -1,5 +1,5 @@
-C:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/Magpie-BME688/build/board.o: \
- C:/MaximSDK/Libraries/Boards/MAX32665/FTHR/Source/board.c \
+C:/Users/ATarmu/Desktop/Magpie/Magpie/Magpie-BME688/build/board.o: \
+ C:/MaximSDK/Libraries/Boards/MAX32665/EvKit_V1/Source/board.c \
  c:\maximsdk\tools\gnutools\10.3\arm-none-eabi\include\stdio.h \
  c:\maximsdk\tools\gnutools\10.3\arm-none-eabi\include\_ansi.h \
  c:\maximsdk\tools\gnutools\10.3\arm-none-eabi\include\newlib.h \
@@ -48,7 +48,7 @@ C:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/Magpie-BME688/build/board
  C:/MaximSDK/Libraries/PeriphDrivers/Include/MAX32665/mxc_device.h \
  C:/MaximSDK/Libraries/CMSIS/Device/Maxim/MAX32665/Include/gcr_regs.h \
  C:/MaximSDK/Libraries/PeriphDrivers/Include/MAX32665/mxc_assert.h \
- C:/MaximSDK/Libraries/Boards/MAX32665/FTHR/Include/board.h \
+ C:/MaximSDK/Libraries/Boards/MAX32665/EvKit_V1/Include/board.h \
  C:/MaximSDK/Libraries/PeriphDrivers/Include/MAX32665/uart.h \
  c:\maximsdk\tools\gnutools\10.3\lib\gcc\arm-none-eabi\10.3.1\include\stdbool.h \
  C:/MaximSDK/Libraries/CMSIS/Device/Maxim/MAX32665/Include/uart_regs.h \
@@ -61,7 +61,14 @@ C:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/Magpie-BME688/build/board
  C:/MaximSDK/Libraries/MiscDrivers/PushButton/pb.h \
  C:/MaximSDK/Libraries/PeriphDrivers/Include/MAX32665/i2c.h \
  C:/MaximSDK/Libraries/CMSIS/Device/Maxim/MAX32665/Include/i2c_regs.h \
+ C:/MaximSDK/Libraries/PeriphDrivers/Include/MAX32665/spi.h \
+ C:/MaximSDK/Libraries/CMSIS/Device/Maxim/MAX32665/Include/spi_regs.h \
+ C:/MaximSDK/Libraries/PeriphDrivers/Include/MAX32665/mxc_assert.h \
+ C:/MaximSDK/Libraries/PeriphDrivers/Include/MAX32665/mxc_lock.h \
  C:/MaximSDK/Libraries/PeriphDrivers/Include/MAX32665/spixf.h \
  C:/MaximSDK/Libraries/CMSIS/Device/Maxim/MAX32665/Include/spixfc_regs.h \
  C:/MaximSDK/Libraries/CMSIS/Device/Maxim/MAX32665/Include/spixfm_regs.h \
- C:/MaximSDK/Libraries/CMSIS/Device/Maxim/MAX32665/Include/spixfc_fifo_regs.h
+ C:/MaximSDK/Libraries/CMSIS/Device/Maxim/MAX32665/Include/spixfc_fifo_regs.h \
+ C:/MaximSDK/Libraries/MiscDrivers/ExtMemory/Ext_Flash.h \
+ C:/MaximSDK/Libraries/MiscDrivers/Display/sharp_mip.h \
+ C:/MaximSDK/Libraries/MiscDrivers/Display/display.h

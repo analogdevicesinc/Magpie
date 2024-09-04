@@ -1,4 +1,4 @@
-C:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/Magpie-BME688/build/BME688.o: \
+C:/Users/ATarmu/Desktop/Magpie/Magpie/Magpie-BME688/build/BME688.o: \
  BME688.c BME688.h \
  c:\maximsdk\tools\gnutools\10.3\arm-none-eabi\include\stdio.h \
  c:\maximsdk\tools\gnutools\10.3\arm-none-eabi\include\_ansi.h \

@@ -1,4 +1,4 @@
-C:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/Magpie-BME688/build/system_max32665.o: \
+C:/Users/ATarmu/Desktop/Magpie/Magpie/Magpie-BME688/build/system_max32665.o: \
  C:/MaximSDK/Libraries/CMSIS/Device/Maxim/MAX32665/Source/system_max32665.c \
  c:\maximsdk\tools\gnutools\10.3\arm-none-eabi\include\string.h \
  c:\maximsdk\tools\gnutools\10.3\arm-none-eabi\include\_ansi.h \

@@ -1,6 +1,6 @@
-C:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/Magpie-BME688/build/led.o: \
+C:/Users/ATarmu/Desktop/Magpie/Magpie/Magpie-BME688/build/led.o: \
  C:/MaximSDK/Libraries/MiscDrivers/LED/led.c \
- C:/MaximSDK/Libraries/Boards/MAX32665/FTHR/Include/board.h \
+ C:/MaximSDK/Libraries/Boards/MAX32665/EvKit_V1/Include/board.h \
  c:\maximsdk\tools\gnutools\10.3\arm-none-eabi\include\stdio.h \
  c:\maximsdk\tools\gnutools\10.3\arm-none-eabi\include\_ansi.h \
  c:\maximsdk\tools\gnutools\10.3\arm-none-eabi\include\newlib.h \

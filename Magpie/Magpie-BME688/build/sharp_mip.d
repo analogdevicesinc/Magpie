@@ -1,4 +1,6 @@
-C:/Users/ATarmu/Desktop/Magpie/Magpie/Magpie-BME688/build/main.o: main.c \
+C:/Users/ATarmu/Desktop/Magpie/Magpie/Magpie-BME688/build/sharp_mip.o: \
+ C:/MaximSDK/Libraries/MiscDrivers/Display/sharp_mip.c \
+ C:/MaximSDK/Libraries/MiscDrivers/Display/sharp_mip.h \
  c:\maximsdk\tools\gnutools\10.3\arm-none-eabi\include\stdio.h \
  c:\maximsdk\tools\gnutools\10.3\arm-none-eabi\include\_ansi.h \
  c:\maximsdk\tools\gnutools\10.3\arm-none-eabi\include\newlib.h \
@@ -31,31 +33,7 @@ C:/Users/ATarmu/Desktop/Magpie/Magpie/Magpie-BME688/build/main.o: main.c \
  c:\maximsdk\tools\gnutools\10.3\lib\gcc\arm-none-eabi\10.3.1\include\stdint.h \
  c:\maximsdk\tools\gnutools\10.3\arm-none-eabi\include\stdint.h \
  c:\maximsdk\tools\gnutools\10.3\arm-none-eabi\include\sys\_intsup.h \
- c:\maximsdk\tools\gnutools\10.3\arm-none-eabi\include\string.h \
- c:\maximsdk\tools\gnutools\10.3\arm-none-eabi\include\sys\_locale.h \
- c:\maximsdk\tools\gnutools\10.3\arm-none-eabi\include\strings.h \
- c:\maximsdk\tools\gnutools\10.3\arm-none-eabi\include\sys\string.h \
- C:/MaximSDK/Libraries/PeriphDrivers/Include/MAX32665/mxc_device.h \
- C:/MaximSDK/Libraries/CMSIS/Device/Maxim/MAX32665/Include/max32665.h \
- C:/MaximSDK/Libraries/CMSIS/5.9.0/Core/Include/core_cm4.h \
- C:/MaximSDK/Libraries/CMSIS/5.9.0/Core/Include/cmsis_version.h \
- C:/MaximSDK/Libraries/CMSIS/5.9.0/Core/Include/cmsis_compiler.h \
- C:/MaximSDK/Libraries/CMSIS/5.9.0/Core/Include/cmsis_gcc.h \
- C:/MaximSDK/Libraries/CMSIS/5.9.0/Core/Include/mpu_armv7.h \
- C:/MaximSDK/Libraries/CMSIS/Device/Maxim/MAX32665/Include/system_max32665.h \
- C:/MaximSDK/Libraries/PeriphDrivers/Include/MAX32665/mxc_errors.h \
- C:/MaximSDK/Libraries/PeriphDrivers/Include/MAX32665/mxc_pins.h \
  C:/MaximSDK/Libraries/PeriphDrivers/Include/MAX32665/gpio.h \
  C:/MaximSDK/Libraries/CMSIS/Device/Maxim/MAX32665/Include/gpio_regs.h \
- C:/MaximSDK/Libraries/PeriphDrivers/Include/MAX32665/mxc_delay.h \
- C:/MaximSDK/Libraries/PeriphDrivers/Include/MAX32665/nvic_table.h \
- C:/MaximSDK/Libraries/PeriphDrivers/Include/MAX32665/i2c.h \
- c:\maximsdk\tools\gnutools\10.3\lib\gcc\arm-none-eabi\10.3.1\include\stdbool.h \
- C:/MaximSDK/Libraries/PeriphDrivers/Include/MAX32665/mxc_sys.h \
- C:/MaximSDK/Libraries/PeriphDrivers/Include/MAX32665/mxc_device.h \
- C:/MaximSDK/Libraries/CMSIS/Device/Maxim/MAX32665/Include/gcr_regs.h \
- C:/MaximSDK/Libraries/CMSIS/Device/Maxim/MAX32665/Include/i2c_regs.h \
- C:/MaximSDK/Libraries/PeriphDrivers/Include/MAX32665/dma.h \
- C:/MaximSDK/Libraries/CMSIS/Device/Maxim/MAX32665/Include/dma_regs.h \
- C:/MaximSDK/Libraries/Boards/MAX32665/EvKit_V1/Include/board.h BME688.h \
- BME688_defs.h
+ C:/MaximSDK/Libraries/MiscDrivers/Display/display.h \
+ c:\maximsdk\tools\gnutools\10.3\lib\gcc\arm-none-eabi\10.3.1\include\stdbool.h
