@@ -40,6 +40,8 @@
 // #include "C:/Users/ATarmu/Desktop/Swift/Magpie-BME688/BME68x_SensorAPI/bme68x.h"
 // #include "C:/Users/ATarmu/Desktop/Swift/Magpie-BME688/BME68x_SensorAPI/examples/sequential_mode/sequential_mode.c"
 // #define MASTERDMA //Comment this line out if standard I2C transaction is required
+// #define SAMPLE_COUNT  UINT16_C(300)
+#define SAMPLE_COUNT  UINT16_C(1)
 
 #define I2C_MASTER MXC_I2C0_BUS0
 #if defined(BOARD_FTHR2)
@@ -161,24 +163,6 @@ int slaveHandler(mxc_i2c_regs_t *i2c, mxc_i2c_slave_event_t event, void *data)
 
 
 
-//was having issues w/ it not working doing the following fixed it will investigate why later.
-int reset_test(){
-	uint8_t temp=0xfe, readTemp=0;
-	int t= BME688_Write(0xE0, temp,1);
-	if(t!=0){
-		printf("err on write %d",t);
-		return -99;
-	}
-	t= BME688_Read(0xe0, &readTemp,1);
-	if(t!=0){
-		printf("err on read %d",t);
-		return -99;
-	}
-		printf("Data Read: 0x%x  \r\n",readTemp);
-
-	return 0;
-}
-
 
 // // *****************************************************************************
 // float bme688_read_humidity(void) {
@@ -218,51 +202,51 @@ int reset_test(){
 
 /*
  * @brief This API is used to get the remaining duration that can be used for heating.
- */
-uint32_t bme68x_get_meas_dur(const uint8_t op_mode, struct bme68x_conf *conf)
-{
-    int8_t rslt;
-    uint32_t meas_dur = 0; /* Calculate in us */
-    uint32_t meas_cycles;
-    uint8_t os_to_meas_cycles[6] = { 0, 1, 2, 4, 8, 16 };
+//  */
+// uint32_t bme68x_get_meas_dur(const uint8_t op_mode, struct bme68x_conf *conf)
+// {
+//     int8_t rslt;
+//     uint32_t meas_dur = 0; /* Calculate in us */
+//     uint32_t meas_cycles;
+//     uint8_t os_to_meas_cycles[6] = { 0, 1, 2, 4, 8, 16 };
 
-    if (conf != NULL)
-    {
-        /* Boundary check for temperature oversampling */
-        rslt = boundary_check(&conf->os_temp, BME68X_OS_16X, 0);
+//     if (conf != NULL)
+//     {
+//         /* Boundary check for temperature oversampling */
+//         rslt = boundary_check(&conf->os_temp, BME68X_OS_16X, 0);
 
-        if (rslt == BME68X_OK)
-        {
-            /* Boundary check for pressure oversampling */
-            rslt = boundary_check(&conf->os_pres, BME68X_OS_16X, 0);
-        }
+//         if (rslt == BME68X_OK)
+//         {
+//             /* Boundary check for pressure oversampling */
+//             rslt = boundary_check(&conf->os_pres, BME68X_OS_16X, 0);
+//         }
 
-        if (rslt == BME68X_OK)
-        {
-            /* Boundary check for humidity oversampling */
-            rslt = boundary_check(&conf->os_hum, BME68X_OS_16X, 0);
-        }
+//         if (rslt == BME68X_OK)
+//         {
+//             /* Boundary check for humidity oversampling */
+//             rslt = boundary_check(&conf->os_hum, BME68X_OS_16X, 0);
+//         }
 
-        if (rslt == BME68X_OK)
-        {
-            meas_cycles = os_to_meas_cycles[conf->os_temp];
-            meas_cycles += os_to_meas_cycles[conf->os_pres];
-            meas_cycles += os_to_meas_cycles[conf->os_hum];
+//         if (rslt == BME68X_OK)
+//         {
+//             meas_cycles = os_to_meas_cycles[conf->os_temp];
+//             meas_cycles += os_to_meas_cycles[conf->os_pres];
+//             meas_cycles += os_to_meas_cycles[conf->os_hum];
 
-            /* TPH measurement duration */
-            meas_dur = meas_cycles * UINT32_C(1963);
-            meas_dur += UINT32_C(477 * 4); /* TPH switching duration */
-            meas_dur += UINT32_C(477 * 5); /* Gas measurement duration */
+//             /* TPH measurement duration */
+//             meas_dur = meas_cycles * UINT32_C(1963);
+//             meas_dur += UINT32_C(477 * 4); /* TPH switching duration */
+//             meas_dur += UINT32_C(477 * 5); /* Gas measurement duration */
 
-            if (op_mode != BME68X_PARALLEL_MODE)
-            {
-                meas_dur += UINT32_C(1000); /* Wake up duration of 1ms */
-            }
-        }
-    }
+//             if (op_mode != BME68X_PARALLEL_MODE)
+//             {
+//                 meas_dur += UINT32_C(1000); /* Wake up duration of 1ms */
+//             }
+//         }
+//     }
 
-    return meas_dur;
-}
+//     return meas_dur;
+// }
 
 int getVariantId(uint8_t* Variant_ID){
     int r = BME688_Read(BME68X_REG_VARIANT_ID, Variant_ID,1);
@@ -275,6 +259,20 @@ int getVariantId(uint8_t* Variant_ID){
         return r;
     }
 }
+int BME688_soft_reset()
+{
+	int result;
+	uint8_t reg_addr = BME68X_REG_SOFT_RESET;
+
+	/* 0xb6 is the soft reset command */
+	uint8_t soft_rst_cmd = BME68X_SOFT_RESET_CMD;
+
+	result = BME688_Write(reg_addr, &soft_rst_cmd, 1);
+	MXC_Delay(MXC_DELAY_MSEC(5));
+	return result;
+
+}
+
 /**
  * @brief Initializes the I2C interface, sets its frequency, performs a soft reset on the BME688 sensor,
  *        and retrieves the variant ID of the sensor.
@@ -286,8 +284,14 @@ int getVariantId(uint8_t* Variant_ID){
  * @param Variant_ID  where the sensor's variant ID will be stored.
  * @return int Returns 0 if all operations were successful, or an error code if any operation failed.
  */
+int addr =0x77;
 
-int init(uint8_t* Variant_ID){
+int init(uint8_t* Variant_ID, struct bme68x_dev* bme){
+    bme->intf = BME68X_I2C_INTF;
+    bme->read = BME688_Read;
+    bme->write = BME688_Write;
+    bme->delay_us = MXC_Delay;
+    bme->intf_ptr = &addr;
 	int error = MXC_I2C_Init(MXC_I2C0_BUS0, 1, 0);
     fflush(stdout);
 
@@ -325,14 +329,45 @@ int init(uint8_t* Variant_ID){
 
     return error;
 }
-int tsting(){
+int main(){
+    // TestWritingUsingInterleave();
+    printf("\n******** I2C tst BME688 *********\n");
+	uint8_t Chip_ID, rslt, Variant_ID=0x99u;
+    struct bme68x_dev bme;
+    uint8_t data=0xaa; 
+    uint8_t dataBack[9]={0}; 
+
+    rslt = init(&Variant_ID,&bme);
+    printf("START TEST");
+    fflush(stdout);
+    // rslt = bme68x_set_op_mode(BME68X_SEQUENTIAL_MODE, &bme);
+    uint8_t dataTst[9]={0x1,0x5b,0x3,0x5c,0x5,0x5d,0x6,0x5e,0x7};
+    BME688_Write(0x5a,dataTst,9);
+    MXC_Delay(MXC_DELAY_MSEC(1000));
+    BME688_Read(0x5a,dataBack,9);
+    MXC_Delay(MXC_DELAY_MSEC(1000));
+
+    for (size_t i = 0; i < 5; i++)
+    {
+        printf("\nRX DATA: %x\n", dataBack[i]);
+        fflush(stdout);
+
+    }
+    
+    MXC_Delay(MXC_DELAY_MSEC(1000));
+    printf("HERE at the end");
+    fflush(stdout);
+
+    return 0;
+}
+int TestWritingUsingInterleave(){
 	printf("\n******** I2C tst BME688 *********\n");
 	uint8_t Chip_ID, rslt, Variant_ID=0x99u;
     struct bme68x_dev bme;
     uint8_t data=0xaa; 
-    uint8_t dataBack=0x00; 
+    uint8_t dataBack[5]={0}; 
 
-    rslt = init(&Variant_ID);
+    rslt = init(&Variant_ID,&bme);
     if(rslt<0){
         printf("\nError on setting up the initlization\n");
         fflush(stdout);
@@ -343,93 +378,42 @@ int tsting(){
     printf("START TEST");
     fflush(stdout);
     // rslt = bme68x_set_op_mode(BME68X_SEQUENTIAL_MODE, &bme);
-    BME688_Write(0x74,0x10,2);
-    MXC_Delay(MXC_DELAY_MSEC(1000));
-    BME688_Read(0x74,&dataBack,1);
-    printf("\nRX DATA: %x\n", dataBack);
-    fflush(stdout);
-    // while(1){
-    //     BME688_Write(0x70,0x15,2);
-    //     MXC_Delay(MXC_DELAY_MSEC(1000));
-    //     getVariantId(&Variant_ID);
-    //     MXC_Delay(MXC_DELAY_MSEC(1000));
-    //     printf("\n VAR ID: %x\n", Variant_ID);
-    //     BME688_Read(0x71,&dataBack,0);
-
-    //     MXC_Delay(MXC_DELAY_MSEC(1000));
-    //     printf("\nRX DATA: %x\n", dataBack);
-
-
-    // }// return;
-    BME688_Write(0x70,0x15,2);
-    BME688_Read(0x74,&dataBack,1);
-    printf("\nRX DATA: %x\n", dataBack);
-    fflush(stdout);
-    // return;
-    // BME688_Write(0x71,data,1);
-    // printf("\nDATA: %x\n", data);
-    // fflush(stdout);
-    // BME688_Write(0x72,0xbb,1);
-    // printf("\nDATA: %x\n", 0xbb);
-    // fflush(stdout);
-    while (1)
-    {
-        /* code */
+    uint8_t dataTst[5]={0x1,0x2,0x3,0x4,0x5};
     
-        for(int i= 0x5e; i<0x73; i++){
-            BME688_Write(i,i,2);
-            printf("\nDATA: %x\n", i);
-            fflush(stdout);
-            MXC_Delay(MXC_DELAY_MSEC(1000));
+    BME688_Write_Interleave(0x5a,dataTst,5);
+    MXC_Delay(MXC_DELAY_MSEC(1000));
+    BME688_Read(0x5a,dataBack,5);
+    for (size_t i = 0; i < 5; i++)
+    {
+        printf("\nRX DATA: %x\n", dataBack[i]);
+        fflush(stdout);
 
-            BME688_Read(0x74,&dataBack,1);
-            printf("\nRX DATA: %x\n", dataBack);
-            fflush(stdout);
-        }
-        MXC_Delay(MXC_DELAY_MSEC(3000));
     }
     
-    // BME688_Write(0x74,0x10,1);
-    // BME688_Read(0x74,&dataBack,1);
-    printf("\nRX DATA: %x\n", dataBack);
-    fflush(stdout);
-    return 0;
-
-
+    return;
 }
-int main()
+
+int burst(void)
 {
-	printf("\n******** I2C example to read BME688 *********\n");
-	printf("\nsame bus as I2C0 (SCL - P0.6, SDA - P0.7).");
-    fflush(stdout);
-    int8_t rslt;
-    struct bme68x_conf conf; //the config settings were going to use
-    struct bme68x_heatr_conf heatr_conf; //the config settings specific to the heat sensor
-    struct bme68x_data data[3];
-    struct bme68x_calib_data calib;
     struct bme68x_dev bme;
-    int amb_temp=22;
-    uint8_t nb_conv=0;
+    int8_t rslt;
+    struct bme68x_conf conf;
+    struct bme68x_heatr_conf heatr_conf;
+    struct bme68x_data data;
     uint32_t del_period;
     uint32_t time_ms = 0;
     uint8_t n_fields;
+	uint8_t Chip_ID, Variant_ID=0x99u;
     uint16_t sample_count = 1;
 
-    /* Heater temperature in degree Celsius */
-    uint16_t temp_prof[10] = { 200, 240, 280, 320, 360, 360, 320, 280, 240, 200 };
+    /* Interface preference is updated as a parameter
+     * For I2C : BME68X_I2C_INTF
+     * For SPI : BME68X_SPI_INTF
+     */
+    // rslt = bme68x_interface_init(&bme, BME68X_SPI_INTF);
+    // bme68x_check_rslt("bme68x_interface_init", rslt);
 
-    /* Heating duration in milliseconds */
-    uint16_t dur_prof[10] = { 100, 100, 100, 100, 100, 100, 100, 100, 100, 100 };
-
-	int error;
-	uint8_t Chip_ID, Variant_ID=0x99u;
-	uint8_t temp=0xfeu, addr=0x6eu,readTemp=0xa0u;
-
-
-
-
-	//Setup the I2CM
-	rslt = init(&Variant_ID);
+	rslt = init(&Variant_ID,&bme);
     if(rslt<0){
         printf("Error on setting up the initlization");
         fflush(stdout);
@@ -437,56 +421,165 @@ int main()
         printf("Initilization completed succesfully");
         fflush(stdout);
     }
+    // bme68x_check_rslt("bme68x_init", rslt);
 
-    rslt = bme68x_get_conf(&conf, &bme);
-
+    /* Check if rslt == BME68X_OK, report or handle if otherwise */
     conf.filter = BME68X_FILTER_OFF;
-    conf.odr = BME68X_ODR_NONE; /* This parameter defines the sleep duration after each profile */
+    conf.odr = BME68X_ODR_NONE;
     conf.os_hum = BME68X_OS_16X;
     conf.os_pres = BME68X_OS_1X;
     conf.os_temp = BME68X_OS_2X;
     rslt = bme68x_set_conf(&conf, &bme);
+    // bme68x_check_rslt("bme68x_set_conf", rslt);
 
-
-
-
-
+    /* Check if rslt == BME68X_OK, report or handle if otherwise */
     heatr_conf.enable = BME68X_ENABLE;
-    heatr_conf.heatr_temp_prof = temp_prof;
-    heatr_conf.heatr_dur_prof = dur_prof;
-    // heatr_conf.profile_len = 1;
-    heatr_conf.profile_len = 10;
+    heatr_conf.heatr_temp = 300;
+    heatr_conf.heatr_dur = 100;
+    rslt = bme68x_set_heatr_conf(BME68X_FORCED_MODE, &heatr_conf, &bme);
+    // bme68x_check_rslt("bme68x_set_heatr_conf", rslt);
 
-    rslt = bme68x_set_heatr_conf(BME68X_SEQUENTIAL_MODE, &heatr_conf, amb_temp, &bme,Variant_ID,&calib);
-    // return;
-    rslt = bme68x_set_op_mode(BME68X_SEQUENTIAL_MODE, &bme);
-    printf(
-        "Temperature(deg C), Pressure(Pa), Humidity(%%), Gas resistance(ohm), Status, Profile index, Measurement index\n");
+    printf("Sample, TimeStamp(ms), Temperature(deg C), Pressure(Pa), Humidity(%%), Gas resistance(ohm), Status\n");
 
+    while (sample_count <= SAMPLE_COUNT)
+    {
+        rslt = bme68x_set_op_mode(BME68X_FORCED_MODE, &bme);
+        // bme68x_check_rslt("bme68x_set_op_mode", rslt);
 
-	while(1)
-	{
-        del_period = bme68x_get_meas_dur(BME68X_SEQUENTIAL_MODE, &conf) + (heatr_conf.heatr_dur_prof[0] * 1000);
-        printf("\nDEL PERIOD: %d\n",del_period);
+        /* Calculate delay period in microseconds */
+        del_period = bme68x_get_meas_dur(BME68X_FORCED_MODE, &conf, &bme) + (heatr_conf.heatr_dur * 1000);
+        // bme.delay_us(del_period, bme.intf_ptr);
 		MXC_Delay(MXC_DELAY_MSEC(del_period));
-        rslt = bme68x_get_data(BME68X_SEQUENTIAL_MODE, data, &n_fields, &bme,(int)Variant_ID,&calib);
         
 
-		for (uint8_t i = 0; i < n_fields; i++){
-            printf("%.2f, %.2f, %.2f, %.2f, 0x%x, %d, %d\n",
-                //    sample_count,
-                //    (long unsigned int)time_ms + (i * (del_period / 2000)),
-                   data[i].temperature,
-                   data[i].pressure,
-                   data[i].humidity,
-                   data[i].gas_resistance,
-                   data[i].status,
-                   data[i].gas_index,
-                   data[i].meas_index);
-            		fflush(stdout);
+        // time_ms = coines_get_millis();
+
+        /* Check if rslt == BME68X_OK, report or handle if otherwise */
+        printf("RIght here");
+        fflush(stdout);
+        rslt = bme68x_get_data(BME68X_FORCED_MODE, &data, &n_fields, &bme);
+        // bme68x_check_rslt("bme68x_get_data", rslt);
+        fflush(stdout);
+        if (n_fields)
+        {
+#ifdef BME68X_USE_FPU
+            printf("%u, %lu, %.2f, %.2f, %.2f, %.2f, 0x%x\n",
+                   sample_count,
+                   (long unsigned int)time_ms,
+                   data.temperature,
+                   data.pressure,
+                   data.humidity,
+                   data.gas_resistance,
+                   data.status);
+#else
+            printf("%u, %lu, %d, %lu, %lu, %lu, 0x%x\n",
+                   sample_count,
+                   (long unsigned int)time_ms,
+                   (data.temperature / 100),
+                   (long unsigned int)data.pressure,
+                   (long unsigned int)(data.humidity / 1000),
+                   (long unsigned int)data.gas_resistance,
+                   data.status);
+#endif
+            sample_count++;
         }
-	}
+    }
+
+    // bme68x_coines_deinit();
+
+    return rslt;
+}
+
+// int seq()
+// {
+// 	printf("\n******** I2C example to read BME688 *********\n");
+// 	printf("\nsame bus as I2C0 (SCL - P0.6, SDA - P0.7).");
+//     fflush(stdout);
+//     int8_t rslt;
+//     struct bme68x_conf conf; //the config settings were going to use
+//     struct bme68x_heatr_conf heatr_conf; //the config settings specific to the heat sensor
+//     struct bme68x_data data[3];
+//     struct bme68x_calib_data calib;
+//     struct bme68x_dev bme;
+//     int amb_temp=22;
+//     uint8_t nb_conv=0;
+//     uint32_t del_period;
+//     uint32_t time_ms = 0;
+//     uint8_t n_fields;
+//     uint16_t sample_count = 1;
+
+//     /* Heater temperature in degree Celsius */
+//     uint16_t temp_prof[10] = { 200, 240, 280, 320, 360, 360, 320, 280, 240, 200 };
+
+//     /* Heating duration in milliseconds */
+//     uint16_t dur_prof[10] = { 100, 100, 100, 100, 100, 100, 100, 100, 100, 100 };
+
+// 	int error;
+// 	uint8_t Chip_ID, Variant_ID=0x99u;
+// 	uint8_t temp=0xfeu, addr=0x6eu,readTemp=0xa0u;
+
+
+
+
+// 	//Setup the I2CM
+// 	rslt = init(&Variant_ID);
+//     if(rslt<0){
+//         printf("Error on setting up the initlization");
+//         fflush(stdout);
+//     }else{
+//         printf("Initilization completed succesfully");
+//         fflush(stdout);
+//     }
+
+//     rslt = bme68x_get_conf(&conf, &bme);
+
+//     conf.filter = BME68X_FILTER_OFF;
+//     conf.odr = BME68X_ODR_NONE; /* This parameter defines the sleep duration after each profile */
+//     conf.os_hum = BME68X_OS_16X;
+//     conf.os_pres = BME68X_OS_1X;
+//     conf.os_temp = BME68X_OS_2X;
+//     rslt = bme68x_set_conf(&conf, &bme);
+
+
+
+
+
+//     heatr_conf.enable = BME68X_ENABLE;
+//     heatr_conf.heatr_temp_prof = temp_prof;
+//     heatr_conf.heatr_dur_prof = dur_prof;
+//     // heatr_conf.profile_len = 1;
+//     heatr_conf.profile_len = 10;
+
+//     rslt = bme68x_set_heatr_conf(BME68X_SEQUENTIAL_MODE, &heatr_conf, amb_temp, &bme,Variant_ID,&calib);
+//     // return;
+//     rslt = bme68x_set_op_mode(BME68X_SEQUENTIAL_MODE, &bme);
+//     printf(
+//         "Temperature(deg C), Pressure(Pa), Humidity(%%), Gas resistance(ohm), Status, Profile index, Measurement index\n");
+
+
+// 	while(1)
+// 	{
+//         del_period = bme68x_get_meas_dur(BME68X_SEQUENTIAL_MODE, &conf) + (heatr_conf.heatr_dur_prof[0] * 1000);
+//         printf("\nDEL PERIOD: %d\n",del_period);
+// 		MXC_Delay(MXC_DELAY_MSEC(del_period));
+//         rslt = bme68x_get_data(BME68X_SEQUENTIAL_MODE, data, &n_fields, &bme,(int)Variant_ID,&calib);
+        
+
+// 		for (uint8_t i = 0; i < n_fields; i++){
+//             printf("%.2f, %.2f, %.2f, %.2f, 0x%x, %d, %d\n",
+//                 //    sample_count,
+//                 //    (long unsigned int)time_ms + (i * (del_period / 2000)),
+//                    data[i].temperature,
+//                    data[i].pressure,
+//                    data[i].humidity,
+//                    data[i].gas_resistance,
+//                    data[i].status,
+//                    data[i].gas_index,
+//                    data[i].meas_index);
+//             		fflush(stdout);
+//         }
+// 	}
 
   
-	return E_NO_ERROR;
-}
+// 	return E_NO_ERROR;
+// }

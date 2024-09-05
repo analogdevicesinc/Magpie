@@ -16,6 +16,8 @@
 #include "mxc_delay.h"
 #include "nvic_table.h"
 #include "BME688_defs.h"
+#include "i2c.h"
+
 
 
 
@@ -24,10 +26,6 @@
 //I2C defines
 
 int I2C_device_scan();//  Looks for all the devices on the I2C line
-typedef struct bme68x_dev{
-
-}bme68x_dev;
-
 /*
  * @brief Sensor field data structure
  */
@@ -218,22 +216,326 @@ struct bme68x_heatr_conf
      */
     uint16_t shared_heatr_dur;
 };
-int8_t setMode(const uint8_t op_mode);
-int8_t bme68x_set_op_mode(const uint8_t op_mode, struct bme68x_dev *Empty);
-int8_t bme68x_set_heatr_conf(uint8_t op_mode, const struct bme68x_heatr_conf *conf, int amb_temp, struct bme68x_dev *dev, int Variant_id, struct bme68x_calib_data* calib);
+int8_t BME688_Read(uint8_t reg_addr, uint8_t *data, uint8_t rx_len);
+#define BME68X_INTF_RET_TYPE                      int8_t
+// int8_t BME688_Write(uint8_t reg_addr, uint8_t tx_data, uint8_t tx_len);
+int8_t BME688_Write(uint8_t reg_addr, uint8_t* tx_data, uint8_t tx_len);
+int8_t BME688_Write_Interleave(uint8_t reg_addr, uint8_t* tx_data, uint8_t tx_len);
+
+struct bme68x_dev
+{
+    /*! Chip Id */
+    uint8_t chip_id;
+
+    /*!
+     * The interface pointer is used to enable the user
+     * to link their interface descriptors for reference during the
+     * implementation of the read and write interfaces to the
+     * hardware.
+     */
+    void *intf_ptr;
+
+    /*!
+     *             Variant id
+     * ----------------------------------------
+     *     Value   |           Variant
+     * ----------------------------------------
+     *      0      |   BME68X_VARIANT_GAS_LOW
+     *      1      |   BME68X_VARIANT_GAS_HIGH
+     * ----------------------------------------
+     */
+    uint32_t variant_id;
+
+    /*! SPI/I2C interface */
+    enum bme68x_intf intf;
+
+    /*! Memory page used */
+    uint8_t mem_page;
+
+    /*! Ambient temperature in Degree C*/
+    int8_t amb_temp;
+
+    /*! Sensor calibration data */
+    struct bme68x_calib_data calib;
+
+    /*! Read function pointer */
+    int8_t (*read)(uint8_t reg_addr, uint8_t *data, uint8_t rx_len);
+    // bme68x_read_fptr_t read;
+
+    /*! Write function pointer */
+    int8_t (*write)(uint8_t reg_addr, uint8_t* tx_data, uint8_t tx_len);
+
+    /*! Delay function pointer */
+    int (*delay_us)(uint32_t us);
+
+    /*! To store interface pointer error */
+    BME68X_INTF_RET_TYPE intf_rslt;
+
+    /*! Store the info messages */
+    uint8_t info_msg;
+};
+
+
+
+// int8_t setMode(const uint8_t op_mode);
+// int8_t bme68x_set_op_mode(const uint8_t op_mode, struct bme68x_dev *Empty);
+// int8_t bme68x_set_heatr_conf(uint8_t op_mode, const struct bme68x_heatr_conf *conf, int amb_temp, struct bme68x_dev *dev, int Variant_id, struct bme68x_calib_data* calib);
+// int8_t bme68x_get_regs(uint8_t reg_addr, uint8_t *reg_data, uint32_t len, struct bme68x_dev *dev);
+// int8_t BME688_Write(uint8_t reg_addr, uint8_t data, uint8_t len); //Writes to BME688
+// int8_t bme68x_set_regs(const uint8_t *reg_addr, const uint8_t *reg_data, uint32_t len, struct bme68x_dev *Empty);
+//  int8_t boundary_check(uint8_t *value, uint8_t max, struct bme68x_dev *Empty);
+// int8_t bme68x_get_conf(struct bme68x_conf *conf, struct bme68x_dev *Empty);
+// int8_t BME688_Read(uint8_t reg_addr, uint8_t *data, uint8_t rx_len); //Reads from BME688
+// uint8_t calc_gas_wait(uint16_t dur);
+// int BME688_soft_reset(); //Writing OxE0 to 0XB6 register soft resets the devices which is same as power on reset
+// uint8_t calc_res_heat(uint16_t temp, const struct bme68x_calib_data* calib, float amb_temp);
+// int8_t bme68x_init();
+// static int read_variant_id(); //This function reads variant ID of the device
+// int8_t bme68x_set_conf(struct bme68x_conf *conf, struct bme68x_dev *dev);
+// int8_t bme68x_get_data(uint8_t op_mode, struct bme68x_data *data, uint8_t *n_data, struct bme68x_dev *dev, int variant_id,struct bme68x_calib_data* calib);
+// int8_t set_conf(struct bme68x_heatr_conf *conf, uint8_t op_mode, uint8_t *nb_conv,const struct bme68x_calib_data* calib,int amb_temp);
+// int8_t bme68x_set_conf(struct bme68x_conf *conf, struct bme68x_dev *dev);
+int8_t bme68x_init(struct bme68x_dev *dev);
+
+/**
+ * \ingroup bme68x
+ * \defgroup bme68xApiRegister Registers
+ * @brief Generic API for accessing sensor registers
+ */
+
+/*!
+ * \ingroup bme68xApiRegister
+ * \page bme68x_api_bme68x_set_regs bme68x_set_regs
+ * \code
+ * int8_t bme68x_set_regs(const uint8_t reg_addr, const uint8_t *reg_data, uint32_t len, struct bme68x_dev *dev)
+ * \endcode
+ * @details This API writes the given data to the register address of the sensor
+ *
+ * @param[in] reg_addr : Register addresses to where the data is to be written
+ * @param[in] reg_data : Pointer to data buffer which is to be written
+ *                       in the reg_addr of sensor.
+ * @param[in] len      : No of bytes of data to write
+ * @param[in,out] dev  : Structure instance of bme68x_dev
+ *
+ * @return Result of API execution status
+ * @retval 0 -> Success
+ * @retval < 0 -> Fail
+ */
+int8_t bme68x_set_regs(const uint8_t *reg_addr, const uint8_t *reg_data, uint32_t len, struct bme68x_dev *dev);
+
+/*!
+ * \ingroup bme68xApiRegister
+ * \page bme68x_api_bme68x_get_regs bme68x_get_regs
+ * \code
+ * int8_t bme68x_get_regs(uint8_t reg_addr, uint8_t *reg_data, uint32_t len, struct bme68x_dev *dev)
+ * \endcode
+ * @details This API reads the data from the given register address of sensor.
+ *
+ * @param[in] reg_addr  : Register address from where the data to be read
+ * @param[out] reg_data : Pointer to data buffer to store the read data.
+ * @param[in] len       : No of bytes of data to be read.
+ * @param[in,out] dev   : Structure instance of bme68x_dev.
+ *
+ * @return Result of API execution status
+ * @retval 0 -> Success
+ * @retval < 0 -> Fail
+ */
 int8_t bme68x_get_regs(uint8_t reg_addr, uint8_t *reg_data, uint32_t len, struct bme68x_dev *dev);
-int8_t BME688_Write(uint8_t reg_addr, uint8_t data, uint8_t len); //Writes to BME688
-int8_t bme68x_set_regs(const uint8_t *reg_addr, const uint8_t *reg_data, uint32_t len, struct bme68x_dev *Empty);
- int8_t boundary_check(uint8_t *value, uint8_t max, struct bme68x_dev *Empty);
-int8_t bme68x_get_conf(struct bme68x_conf *conf, struct bme68x_dev *Empty);
-int8_t BME688_Read(uint8_t reg_addr, uint8_t *data, uint8_t rx_len); //Reads from BME688
-uint8_t calc_gas_wait(uint16_t dur);
-int BME688_soft_reset(); //Writing OxE0 to 0XB6 register soft resets the devices which is same as power on reset
-uint8_t calc_res_heat(uint16_t temp, const struct bme68x_calib_data* calib, float amb_temp);
-int8_t bme68x_init();
-static int read_variant_id(); //This function reads variant ID of the device
+
+/**
+ * \ingroup bme68x
+ * \defgroup bme68xApiSystem System
+ * @brief API that performs system-level operations
+ */
+
+/*!
+ * \ingroup bme68xApiSystem
+ * \page bme68x_api_bme68x_soft_reset bme68x_soft_reset
+ * \code
+ * int8_t bme68x_soft_reset(struct bme68x_dev *dev);
+ * \endcode
+ * @details This API soft-resets the sensor.
+ *
+ * @param[in,out] dev : Structure instance of bme68x_dev.
+ *
+ * @return Result of API execution status
+ * @retval 0 -> Success
+ * @retval < 0 -> Fail
+ */
+int8_t bme68x_soft_reset(struct bme68x_dev *dev);
+
+/**
+ * \ingroup bme68x
+ * \defgroup bme68xApiOm Operation mode
+ * @brief API to configure operation mode
+ */
+
+/*!
+ * \ingroup bme68xApiOm
+ * \page bme68x_api_bme68x_set_op_mode bme68x_set_op_mode
+ * \code
+ * int8_t bme68x_set_op_mode(const uint8_t op_mode, struct bme68x_dev *dev);
+ * \endcode
+ * @details This API is used to set the operation mode of the sensor
+ * @param[in] op_mode : Desired operation mode.
+ * @param[in] dev     : Structure instance of bme68x_dev
+ *
+ * @return Result of API execution status
+ * @retval 0 -> Success
+ * @retval < 0 -> Fail
+ */
+int8_t bme68x_set_op_mode(const uint8_t op_mode, struct bme68x_dev *dev);
+
+/*!
+ * \ingroup bme68xApiOm
+ * \page bme68x_api_bme68x_get_op_mode bme68x_get_op_mode
+ * \code
+ * int8_t bme68x_get_op_mode(uint8_t *op_mode, struct bme68x_dev *dev);
+ * \endcode
+ * @details This API is used to get the operation mode of the sensor.
+ *
+ * @param[out] op_mode : Desired operation mode.
+ * @param[in,out] dev : Structure instance of bme68x_dev
+ *
+ * @return Result of API execution status
+ * @retval 0 -> Success
+ * @retval < 0 -> Fail
+ */
+int8_t bme68x_get_op_mode(uint8_t *op_mode, struct bme68x_dev *dev);
+
+/*!
+ * \ingroup bme68xApiConfig
+ * \page bme68x_api_bme68x_get_meas_dur bme68x_get_meas_dur
+ * \code
+ * uint32_t bme68x_get_meas_dur(const uint8_t op_mode, struct bme68x_conf *conf, struct bme68x_dev *dev);
+ * \endcode
+ * @details This API is used to get the remaining duration that can be used for heating.
+ *
+ * @param[in] op_mode : Desired operation mode.
+ * @param[in] conf    : Desired sensor configuration.
+ * @param[in] dev     : Structure instance of bme68x_dev
+ *
+ * @return Measurement duration calculated in microseconds
+ */
+uint32_t bme68x_get_meas_dur(const uint8_t op_mode, struct bme68x_conf *conf, struct bme68x_dev *dev);
+
+/**
+ * \ingroup bme68x
+ * \defgroup bme68xApiData Data Read out
+ * @brief Read our data from the sensor
+ */
+
+/*!
+ * \ingroup bme68xApiData
+ * \page bme68x_api_bme68x_get_data bme68x_get_data
+ * \code
+ * int8_t bme68x_get_data(uint8_t op_mode, struct bme68x_data *data, uint8_t *n_data, struct bme68x_dev *dev);
+ * \endcode
+ * @details This API reads the pressure, temperature and humidity and gas data
+ * from the sensor, compensates the data and store it in the bme68x_data
+ * structure instance passed by the user.
+ *
+ * @param[in]  op_mode : Expected operation mode.
+ * @param[out] data    : Structure instance to hold the data.
+ * @param[out] n_data  : Number of data instances available.
+ * @param[in,out] dev  : Structure instance of bme68x_dev
+ *
+ * @return Result of API execution status
+ * @retval 0 -> Success
+ * @retval < 0 -> Fail
+ */
+int8_t bme68x_get_data(uint8_t op_mode, struct bme68x_data *data, uint8_t *n_data, struct bme68x_dev *dev);
+
+/**
+ * \ingroup bme68x
+ * \defgroup bme68xApiConfig Configuration
+ * @brief Configuration API of sensor
+ */
+
+/*!
+ * \ingroup bme68xApiConfig
+ * \page bme68x_api_bme68x_set_conf bme68x_set_conf
+ * \code
+ * int8_t bme68x_set_conf(struct bme68x_conf *conf, struct bme68x_dev *dev);
+ * \endcode
+ * @details This API is used to set the oversampling, filter and odr configuration
+ *
+ * @param[in] conf    : Desired sensor configuration.
+ * @param[in,out] dev : Structure instance of bme68x_dev.
+ *
+ * @return Result of API execution status
+ * @retval 0 -> Success
+ * @retval < 0 -> Fail
+ */
 int8_t bme68x_set_conf(struct bme68x_conf *conf, struct bme68x_dev *dev);
-int8_t bme68x_get_data(uint8_t op_mode, struct bme68x_data *data, uint8_t *n_data, struct bme68x_dev *dev, int variant_id,struct bme68x_calib_data* calib);
-int8_t set_conf(struct bme68x_heatr_conf *conf, uint8_t op_mode, uint8_t *nb_conv,const struct bme68x_calib_data* calib,int amb_temp);
-int8_t bme68x_set_conf(struct bme68x_conf *conf, struct bme68x_dev *dev);
+
+/*!
+ * \ingroup bme68xApiConfig
+ * \page bme68x_api_bme68x_get_conf bme68x_get_conf
+ * \code
+ * int8_t bme68x_get_conf(struct bme68x_conf *conf, struct bme68x_dev *dev);
+ * \endcode
+ * @details This API is used to get the oversampling, filter and odr
+ * configuration
+ *
+ * @param[out] conf   : Present sensor configuration.
+ * @param[in,out] dev : Structure instance of bme68x_dev.
+ *
+ * @return Result of API execution status
+ * @retval 0 -> Success
+ * @retval < 0 -> Fail
+ */
+int8_t bme68x_get_conf(struct bme68x_conf *conf, struct bme68x_dev *dev);
+
+/*!
+ * \ingroup bme68xApiConfig
+ * \page bme68x_api_bme68x_set_heatr_conf bme68x_set_heatr_conf
+ * \code
+ * int8_t bme68x_set_heatr_conf(uint8_t op_mode, const struct bme68x_heatr_conf *conf, struct bme68x_dev *dev);
+ * \endcode
+ * @details This API is used to set the gas configuration of the sensor.
+ *
+ * @param[in] op_mode : Expected operation mode of the sensor.
+ * @param[in] conf    : Desired heating configuration.
+ * @param[in,out] dev : Structure instance of bme68x_dev.
+ *
+ * @return Result of API execution status
+ * @retval 0 -> Success
+ * @retval < 0 -> Fail
+ */
+int8_t bme68x_set_heatr_conf(uint8_t op_mode, const struct bme68x_heatr_conf *conf, struct bme68x_dev *dev);
+
+/*!
+ * \ingroup bme68xApiConfig
+ * \page bme68x_api_bme68x_get_heatr_conf bme68x_get_heatr_conf
+ * \code
+ * int8_t bme68x_get_heatr_conf(const struct bme68x_heatr_conf *conf, struct bme68x_dev *dev);
+ * \endcode
+ * @details This API is used to get the gas configuration of the sensor.
+ *
+ * @param[out] conf   : Current configurations of the gas sensor.
+ * @param[in,out] dev : Structure instance of bme68x_dev.
+ *
+ * @return Result of API execution status
+ * @retval 0 -> Success
+ * @retval < 0 -> Fail
+ */
+int8_t bme68x_get_heatr_conf(const struct bme68x_heatr_conf *conf, struct bme68x_dev *dev);
+
+/*!
+ * \ingroup bme68xApiSystem
+ * \page bme68x_api_bme68x_selftest_check bme68x_selftest_check
+ * \code
+ * int8_t bme68x_selftest_check(const struct bme68x_dev *dev);
+ * \endcode
+ * @details This API performs Self-test of low gas variant of BME68X
+ *
+ * @param[in, out]   dev  : Structure instance of bme68x_dev
+ *
+ * @return Result of API execution status
+ * @retval 0 -> Success
+ * @retval < 0 -> Fail
+ */
+int8_t bme68x_selftest_check(const struct bme68x_dev *dev);
+
 #endif /* BME688_H_ */

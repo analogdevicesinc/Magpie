@@ -20,7 +20,6 @@
 //=========================================
 /* Register map addresses in I2C */
 //=========================================
-
 /* Register for 3rd group of coefficients */
 #define BME68X_REG_COEFF3       (0x00u)
 
@@ -362,7 +361,12 @@
 /* Disable heater */
 #define BME68X_DISABLE_HEATER                    (0x01u)
 #define BME68X_USE_FPU 1
-
+enum bme68x_intf {
+    /*! SPI interface */
+    BME68X_SPI_INTF,
+    /*! I2C interface */
+    BME68X_I2C_INTF
+};
 #ifdef BME68X_USE_FPU
 
 /* 0 degree Celsius */
@@ -546,6 +550,14 @@
 
 /* Self test fail error */
 #define BME68X_E_SELF_TEST                        -5
+//PULLED FROM THE BME68X GIT
+#define BME68X_PERIOD_RESET                       UINT32_C(10000)
+#define BME68X_PERIOD_POLL                        BME68X_PERIOD_RESET
+/* No new data was found */
+#define BME68X_W_NO_NEW_DATA                      INT8_C(2)
+/* Define a valid operation mode */
+#define BME68X_W_DEFINE_OP_MODE                   INT8_C(1)
+#define BME68X_W_DEFINE_SHD_HEATR_DUR             INT8_C(3)
 
 
 #endif /* BME688_DEFS_H_ */

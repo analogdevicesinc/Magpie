@@ -80,7 +80,10 @@
     "files.associations": {
         "mxc_delay.h": "c",
         "nvic_table.h": "c",
-        "bme68x.h": "c"
+        "bme68x.h": "c",
+        "stddef.h": "c",
+        "bme688.h": "c",
+        "stdio.h": "c"
     }
 }
 
