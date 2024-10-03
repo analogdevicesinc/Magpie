@@ -1,4 +1,4 @@
-C:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/SwiftV2_SD_card/build/Fat32Driver/diskio.o: \
+C:/Users/Vkarra/Documents/GitHub/Magpie/Magpie/Swift_rev2/SwiftV2_SD_card/build/Fat32Driver/diskio.o: \
  source/diskio.c source/ff.h \
  C:/MaximSDK/Libraries/SDHC/ff15/source/conf/ffconf.h \
  c:\maximsdk\tools\gnutools\10.3\lib\gcc\arm-none-eabi\10.3.1\include\stdint.h \

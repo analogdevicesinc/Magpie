@@ -1,4 +1,4 @@
-C:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/SwiftV2_SD_card/build/Fat32Driver/ff.o: \
+C:/Users/Vkarra/Documents/GitHub/Magpie/Magpie/Swift_rev2/SwiftV2_SD_card/build/Fat32Driver/ff.o: \
  source/ff.c \
  c:\maximsdk\tools\gnutools\10.3\arm-none-eabi\include\string.h \
  c:\maximsdk\tools\gnutools\10.3\arm-none-eabi\include\_ansi.h \

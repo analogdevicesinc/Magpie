@@ -1,4 +1,4 @@
-C:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/SwiftV2_SD_card/build/SDHCDriver/sdhc_lib.o: \
+C:/Users/Vkarra/Documents/GitHub/Magpie/Magpie/Swift_rev2/SwiftV2_SD_card/build/SDHCDriver/sdhc_lib.o: \
  Source/sdhc_lib.c \
  c:\maximsdk\tools\gnutools\10.3\lib\gcc\arm-none-eabi\10.3.1\include\stdbool.h \
  C:/MaximSDK/Libraries/PeriphDrivers/Include/MAX32665/mxc_device.h \

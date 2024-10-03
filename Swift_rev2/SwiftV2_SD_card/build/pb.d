@@ -1,7 +1,7 @@
-C:/Users/Vkarra/Documents/GitHub/Swift_DSS/SWIFTV2_DSS/SwiftV2_SD_card/build/pb.o: \
+C:/Users/Vkarra/Documents/GitHub/Magpie/Magpie/Swift_rev2/SwiftV2_SD_card/build/pb.o: \
  C:/MaximSDK/Libraries/MiscDrivers/PushButton/pb.c \
  c:\maximsdk\tools\gnutools\10.3\lib\gcc\arm-none-eabi\10.3.1\include\stddef.h \
- C:/MaximSDK/Libraries/Boards/MAX32665/FTHR/Include/board.h \
+ C:/MaximSDK/Libraries/Boards/MAX32665/FTHR2/Include/board.h \
  c:\maximsdk\tools\gnutools\10.3\arm-none-eabi\include\stdio.h \
  c:\maximsdk\tools\gnutools\10.3\arm-none-eabi\include\_ansi.h \
  c:\maximsdk\tools\gnutools\10.3\arm-none-eabi\include\newlib.h \

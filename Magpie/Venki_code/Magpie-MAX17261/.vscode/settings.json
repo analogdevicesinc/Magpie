@@ -88,7 +88,11 @@
         "usb.h": "c",
         "usb_event.h": "c",
         "enumerate.h": "c",
-        "descriptors.h": "c"
+        "descriptors.h": "c",
+        "board.h": "c",
+        "mxc_sys.h": "c",
+        "mxc_device.h": "c",
+        "max32665.h": "c"
     }
 }
 
