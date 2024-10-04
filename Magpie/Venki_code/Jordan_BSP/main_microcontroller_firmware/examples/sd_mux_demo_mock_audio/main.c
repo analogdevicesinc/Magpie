@@ -82,25 +82,25 @@ int main(void)
   //  =====================================================================================================
  //   This block of code conflicts with the actual bsp ADC pins so do not use in final version
   //  set up the pins for code timing tasks
-    const mxc_gpio_cfg_t file_write_timing_pin = {
-        .port = MXC_GPIO1,
-        .mask = MXC_GPIO_PIN_6,
-        .pad = MXC_GPIO_PAD_NONE,
-        .func = MXC_GPIO_FUNC_OUT,
-        .vssel = MXC_GPIO_VSSEL_VDDIO,
-        .drvstr = MXC_GPIO_DRVSTR_2,
-    };
-    MXC_GPIO_Config(&file_write_timing_pin);
+    // const mxc_gpio_cfg_t file_write_timing_pin = {
+    //     .port = MXC_GPIO1,
+    //     .mask = MXC_GPIO_PIN_6,
+    //     .pad = MXC_GPIO_PAD_NONE,
+    //     .func = MXC_GPIO_FUNC_OUT,
+    //     .vssel = MXC_GPIO_VSSEL_VDDIO,
+    //     .drvstr = MXC_GPIO_DRVSTR_2,
+    // };
+    // MXC_GPIO_Config(&file_write_timing_pin);
 
-    const mxc_gpio_cfg_t buff_write_timing_pin = {
-        .port = MXC_GPIO1,
-        .mask = MXC_GPIO_PIN_8,
-        .pad = MXC_GPIO_PAD_NONE,
-        .func = MXC_GPIO_FUNC_OUT,
-        .vssel = MXC_GPIO_VSSEL_VDDIO,
-        .drvstr = MXC_GPIO_DRVSTR_2,
-    };
-    MXC_GPIO_Config(&buff_write_timing_pin);
+    // const mxc_gpio_cfg_t buff_write_timing_pin = {
+    //     .port = MXC_GPIO1,
+    //     .mask = MXC_GPIO_PIN_8,
+    //     .pad = MXC_GPIO_PAD_NONE,
+    //     .func = MXC_GPIO_FUNC_OUT,
+    //     .vssel = MXC_GPIO_VSSEL_VDDIO,
+    //     .drvstr = MXC_GPIO_DRVSTR_2,
+    // };
+    // MXC_GPIO_Config(&buff_write_timing_pin);
    // ==================================================================================================
 
     // set up the mock sine wave
@@ -158,7 +158,7 @@ if (bsp_3v3_i2c_init() != E_NO_ERROR)
 
         // without a brief delay between card init and mount, there are often mount errors
         MXC_Delay(100000);
-        printf("error error\r\n");
+       
 
         if (sd_card_mount() != SD_CARD_ERROR_ALL_OK)
         {
@@ -199,7 +199,7 @@ if (bsp_3v3_i2c_init() != E_NO_ERROR)
             continue;
         }
         // write all the audio data
-        MXC_GPIO_OutSet(file_write_timing_pin.port, file_write_timing_pin.mask); // whole file timing
+       // MXC_GPIO_OutSet(file_write_timing_pin.port, file_write_timing_pin.mask); // whole file timing
         for (uint32_t buff = 0; buff < NUM_FULL_BUFFERS_IN_WHOLE_FILE; buff++)
         {
             for (uint32_t samp = 0; samp < DEMO_CONFIG_AUDIO_BUFF_LEN_IN_SAMPS; samp++)
@@ -207,7 +207,7 @@ if (bsp_3v3_i2c_init() != E_NO_ERROR)
                 audio_buff[samp] = mock_audio_sine_tick();
             }
 
-            MXC_GPIO_OutSet(buff_write_timing_pin.port, buff_write_timing_pin.mask); // single buffer timing
+         //   MXC_GPIO_OutSet(buff_write_timing_pin.port, buff_write_timing_pin.mask); // single buffer timing
             if (sd_card_fwrite(audio_buff, AUDIO_BUFF_LEN_IN_BYTES, &bytes_written) != SD_CARD_ERROR_ALL_OK)
             {
                 printf("[ERROR]--> Card %d write failed\n", slot);
@@ -221,7 +221,7 @@ if (bsp_3v3_i2c_init() != E_NO_ERROR)
             {
                 printf("[SUCCESS]--> Wrote test file to card %d\n", slot);
             }
-            MXC_GPIO_OutClr(buff_write_timing_pin.port, buff_write_timing_pin.mask); // single buffer timing
+          //  MXC_GPIO_OutClr(buff_write_timing_pin.port, buff_write_timing_pin.mask); // single buffer timing
         }
 
         // // write a simple message
@@ -266,7 +266,7 @@ if (bsp_3v3_i2c_init() != E_NO_ERROR)
             blink_n_times(STATUS_LED_COLOR_GREEN, 10);
         }
 
-        MXC_GPIO_OutClr(file_write_timing_pin.port, file_write_timing_pin.mask); // whole file timing
+       // MXC_GPIO_OutClr(file_write_timing_pin.port, file_write_timing_pin.mask); // whole file timing
 
 
         // close the file, unmount, and unlink the drive in preparation for the next card
