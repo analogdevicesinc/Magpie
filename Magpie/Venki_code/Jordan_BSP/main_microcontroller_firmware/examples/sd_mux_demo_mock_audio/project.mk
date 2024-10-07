@@ -24,6 +24,8 @@ PROJ_CFLAGS+=-mno-unaligned-access
 # this means we need to explicitly set up all the pins for the peripherals we use
 PROJ_CFLAGS += -DMSDK_NO_GPIO_CLK_INIT
 
+LIB_CMSIS_DSP = 1
+
 FATFS_VERSION = ff15
 SDHC_DRIVER_DIR = ../../MSDK_overrides/SDHC/
 
@@ -34,8 +36,14 @@ IPATH += ../../MSDK_overrides/SDHC/Include/
 IPATH += ../../MSDK_overrides/SDHC/ff15/source/
 IPATH += ../../MSDK_overrides/SDHC/ff15/source/conf/
 
+IPATH += ../../lib/audio/
+VPATH += ../../lib/audio/
+
 IPATH += ../../lib/sd_card/
 VPATH += ../../lib/sd_card/
+
+IPATH += ../../lib/utils/
+VPATH += ../../lib/utils/
 
 PROJ_LDFLAGS += -Wl,--print-memory-usage
 
