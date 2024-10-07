@@ -1,8 +1,12 @@
 /* Private includes --------------------------------------------------------------------------------------------------*/
 
+#include <stddef.h> // for NULL
+
 #include "ad4630.h"
 #include "board.h"
+#include "bsp_pins.h"
 #include "bsp_spi.h"
+
 #include "dma.h"
 #include "dma_regs.h"
 #include "mxc_delay.h"
@@ -10,8 +14,6 @@
 #include "nvic_table.h"
 #include "spi.h"
 #include "spi_regs.h"
-
-#include <stddef.h> // for NULL
 
 /* Private defines ---------------------------------------------------------------------------------------------------*/
 
@@ -78,22 +80,6 @@ typedef enum
 static uint8_t cfg_spi_tx_buff[CONFIG_SPI_TX_BUFF_LEN_IN_BYTES];
 static uint8_t cfg_spi_rx_buff[CONFIG_SPI_RX_BUFF_LEN_IN_BYTES];
 static uint8_t data_spi_rx_buff[DATA_SPI_RX_BUFF_LEN_IN_BYTES];
-
-/**
- * SPI request structure for the configuration SPI, used to initialize and set up the ADC
- */
-static mxc_spi_req_t cfg_spi_req = {
-    .spi = bsp_pins_adc_cfg_spi_handle,
-    .txData = cfg_spi_tx_buff,
-    .rxData = cfg_spi_rx_buff,
-    .txLen = CONFIG_SPI_TX_BUFF_LEN_IN_BYTES,
-    .rxLen = 1,
-    .ssIdx = 0,
-    .ssDeassert = 1,
-    .txCnt = 0,
-    .rxCnt = 0,
-    .completeCB = NULL,
-};
 
 /* Private function declarations -------------------------------------------------------------------------------------*/
 
@@ -221,7 +207,7 @@ AD4630_Error_t ad4630_init()
     }
 
     // disable the port
-    BSP_ADC_CH0_DATA_SPI_HANDLE->ctrl0 &= ~(MXC_F_SPI_CTRL0_EN);
+    bsp_pins_adc_ch0_data_spi_handle->ctrl0 &= ~(MXC_F_SPI_CTRL0_EN);
 
     // clear the fifo, start only on pos edge of Slave-sel-B
     MXC_SPI_ClearRXFIFO(bsp_pins_adc_ch0_data_spi_handle);
@@ -234,15 +220,15 @@ AD4630_Error_t ad4630_init()
 void ad4630_cont_conversions_start()
 {
     gpio_write_pin(&bsp_pins_adc_clk_en_cfg, true);
-    gpio_write_pin(&bsp_pins_adc_clock_master_reset_cfg, false);
-    gpio_write_pin(&bsp_pins_adc_chip_select_disable_pin, false);
+    gpio_write_pin(&bsp_pins_adc_clk_master_reset_cfg, false);
+    gpio_write_pin(&bsp_pins_adc_cs_disable_cfg, false);
 }
 
 void ad4630_cont_conversions_stop()
 {
     gpio_write_pin(&bsp_pins_adc_clk_en_cfg, false);
-    gpio_write_pin(&bsp_pins_adc_clock_master_reset_cfg, true);
-    gpio_write_pin(&bsp_pins_adc_chip_select_disable_pin, true);
+    gpio_write_pin(&bsp_pins_adc_clk_master_reset_cfg, true);
+    gpio_write_pin(&bsp_pins_adc_cs_disable_cfg, true);
 }
 
 /* Private function definitions --------------------------------------------------------------------------------------*/
@@ -255,6 +241,19 @@ AD4630_Error_t ad4630_read_reg(AD4630_Register_t reg, uint8_t *out)
 
     gpio_write_pin(&bsp_pins_adc_cfg_spi_cs_out_cfg, false);
     MXC_Delay(4); // TODO are these delays necessary?
+
+    mxc_spi_req_t cfg_spi_req = {
+        .spi = bsp_pins_adc_cfg_spi_handle,
+        .txData = cfg_spi_tx_buff,
+        .rxData = cfg_spi_rx_buff,
+        .txLen = CONFIG_SPI_TX_BUFF_LEN_IN_BYTES,
+        .rxLen = 1,
+        .ssIdx = 0,
+        .ssDeassert = 1,
+        .txCnt = 0,
+        .rxCnt = 0,
+        .completeCB = NULL,
+    };
 
     if (MXC_SPI_MasterTransaction(&cfg_spi_req) != E_NO_ERROR)
     {
@@ -277,6 +276,19 @@ AD4630_Error_t ad4630_write_reg(AD4630_Register_t reg, uint8_t val)
 
     gpio_write_pin(&bsp_pins_adc_cfg_spi_cs_out_cfg, false);
     MXC_Delay(4); // TODO are these delays necessary?
+
+    mxc_spi_req_t cfg_spi_req = {
+        .spi = bsp_pins_adc_cfg_spi_handle,
+        .txData = cfg_spi_tx_buff,
+        .rxData = cfg_spi_rx_buff,
+        .txLen = CONFIG_SPI_TX_BUFF_LEN_IN_BYTES,
+        .rxLen = 1,
+        .ssIdx = 0,
+        .ssDeassert = 1,
+        .txCnt = 0,
+        .rxCnt = 0,
+        .completeCB = NULL,
+    };
 
     if (MXC_SPI_MasterTransaction(&cfg_spi_req) != E_NO_ERROR)
     {
