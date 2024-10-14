@@ -17,7 +17,7 @@
 #include "bsp_status_led.h"
 #include "sd_card.h"
 #include "sd_card_bank_ctl.h"
-#include "SEGGER_RTT.h"
+//#include "SEGGER_RTT.h"
 
 /* Variables ---------------------------------------------------------------------------------------------------------*/
 

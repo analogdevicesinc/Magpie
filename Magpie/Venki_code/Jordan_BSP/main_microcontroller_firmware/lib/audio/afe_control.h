@@ -14,6 +14,9 @@
 #ifndef AFE_GAIN_CTL_H_
 #define AFE_GAIN_CTL_H_
 
+#include <stdbool.h>
+
+
 /* Public enumerations -----------------------------------------------------------------------------------------------*/
 
 /**
