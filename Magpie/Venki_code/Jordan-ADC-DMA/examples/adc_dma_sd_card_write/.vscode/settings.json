@@ -71,6 +71,7 @@
         "${workspaceFolder}/build/project_defines.h"
     ],
     "files.associations": {
-        "cstdio": "cpp"
+        "cstdio": "cpp",
+        "spi_regs.h": "c"
     }
 }

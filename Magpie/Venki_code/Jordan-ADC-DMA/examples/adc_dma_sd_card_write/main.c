@@ -21,7 +21,7 @@
 #include "wav_header.h"
 
 #include <string.h>
-#include "SEGGER_RTT.h"
+//#include "SEGGER_RTT.h"
 
 /* Private function declarations -------------------------------------------------------------------------------------*/
 
@@ -75,86 +75,92 @@ int main(void)
         printf("[SUCCESS]--> DMA init\n");
     }
 
-    if (bsp_3v3_i2c_init() != E_NO_ERROR)
-    {
-        printf("[ERROR]--> I2C init\n");
-    }
-    else
-    {
-        printf("[SUCCESS]--> I2C init\n");
-    }
+    
+    printf("[Success]-->Decimation\n");
+    ad4630_cont_conversions_start();
+    printf("[Success]-->ADC converison\n");    
+    audio_dma_start();
 
-    if (sd_card_bank_ctl_init() != SD_CARD_BANK_CTL_ERROR_ALL_OK)
-    {
-        printf("[ERROR]--> SD card bank ctl init\n");
-    }
-    else
-    {
-        printf("[SUCCESS]--> SD card bank ctl init\n");
-    }
+    // if (bsp_3v3_i2c_init() != E_NO_ERROR)
+    // {
+    //     printf("[ERROR]--> I2C init\n");
+    // }
+    // else
+    // {
+    //     printf("[SUCCESS]--> I2C init\n");
+    // }
 
-    sd_card_bank_ctl_enable_slot(0);
+    // if (sd_card_bank_ctl_init() != SD_CARD_BANK_CTL_ERROR_ALL_OK)
+    // {
+    //     printf("[ERROR]--> SD card bank ctl init\n");
+    // }
+    // else
+    // {
+    //     printf("[SUCCESS]--> SD card bank ctl init\n");
+    // }
 
-    sd_card_bank_ctl_read_and_cache_detect_pins();
+    // sd_card_bank_ctl_enable_slot(0);
 
-    if (!sd_card_bank_ctl_active_card_is_inserted())
-    {
-        printf("[ERROR]--> Card at slot 0 not inserted\n");
-        error_handler(STATUS_LED_COLOR_RED);
-    }
-    else
-    {
-        printf("[SUCCESS]--> SD card inserted in slot 0\n");
-    }
+    // sd_card_bank_ctl_read_and_cache_detect_pins();
 
-    if (sd_card_init() != SD_CARD_ERROR_ALL_OK)
-    {
-        printf("[ERROR]--> SD card init\n");
-        error_handler(STATUS_LED_COLOR_RED);
-    }
-    else
-    {
-        printf("[SUCCESS]--> SD card init\n");
-    }
+    // if (!sd_card_bank_ctl_active_card_is_inserted())
+    // {
+    //     printf("[ERROR]--> Card at slot 0 not inserted\n");
+    //     error_handler(STATUS_LED_COLOR_RED);
+    // }
+    // else
+    // {
+    //     printf("[SUCCESS]--> SD card inserted in slot 0\n");
+    // }
 
-    // without a brief delay between card init and mount, there are often mount errors
-    MXC_Delay(100000);
+    // if (sd_card_init() != SD_CARD_ERROR_ALL_OK)
+    // {
+    //     printf("[ERROR]--> SD card init\n");
+    //     error_handler(STATUS_LED_COLOR_RED);
+    // }
+    // else
+    // {
+    //     printf("[SUCCESS]--> SD card init\n");
+    // }
 
-    if (sd_card_mount() != SD_CARD_ERROR_ALL_OK)
-    {
-        printf("[ERROR]--> SD card mount\n");
-        error_handler(STATUS_LED_COLOR_RED);
-    }
-    else
-    {
-        printf("[SUCCESS]--> SD card mounted\n");
-    }
+    // // without a brief delay between card init and mount, there are often mount errors
+    // MXC_Delay(100000);
 
-    Wave_Header_Attributes_t wav_attr = {
-        .num_channels = WAVE_HEADER_MONO, // only mono is supported for now, 2 channel might be added later
-    };
+    // if (sd_card_mount() != SD_CARD_ERROR_ALL_OK)
+    // {
+    //     printf("[ERROR]--> SD card mount\n");
+    //     error_handler(STATUS_LED_COLOR_RED);
+    // }
+    // else
+    // {
+    //     printf("[SUCCESS]--> SD card mounted\n");
+    // }
 
-    for (uint32_t sr = 0; sr < DEMO_CONFIG_NUM_SAMPLE_RATES_TO_TEST; sr++)
-    {
-        for (uint32_t bd = 0; bd < DEMO_CONFIG_NUM_BIT_DEPTHS_TO_TEST; bd++)
-        {
-            wav_attr.sample_rate = demo_sample_rates_to_test[sr];
-            wav_attr.bits_per_sample = demo_bit_depths_to_test[bd];
-            write_demo_wav_file(&wav_attr, DEMO_CONFIG_AUDIO_FILE_LEN_IN_SECONDS);
+    // Wave_Header_Attributes_t wav_attr = {
+    //     .num_channels = WAVE_HEADER_MONO, // only mono is supported for now, 2 channel might be added later
+    // };
 
-            MXC_Delay(500000);
-        }
-    }
+    // for (uint32_t sr = 0; sr < DEMO_CONFIG_NUM_SAMPLE_RATES_TO_TEST; sr++)
+    // {
+    //     for (uint32_t bd = 0; bd < DEMO_CONFIG_NUM_BIT_DEPTHS_TO_TEST; bd++)
+    //     {
+    //         wav_attr.sample_rate = demo_sample_rates_to_test[sr];
+    //         wav_attr.bits_per_sample = demo_bit_depths_to_test[bd];
+    //         write_demo_wav_file(&wav_attr, DEMO_CONFIG_AUDIO_FILE_LEN_IN_SECONDS);
 
-    if (sd_card_unmount() != SD_CARD_ERROR_ALL_OK)
-    {
-        printf("[ERROR]--> SD card unmount\n");
-        error_handler(STATUS_LED_COLOR_RED);
-    }
-    else
-    {
-        printf("[SUCCESS]--> SD card unmounted\n");
-    }
+    //         MXC_Delay(500000);
+    //     }
+    // }
+
+    // if (sd_card_unmount() != SD_CARD_ERROR_ALL_OK)
+    // {
+    //     printf("[ERROR]--> SD card unmount\n");
+    //     error_handler(STATUS_LED_COLOR_RED);
+    // }
+    // else
+    // {
+    //     printf("[SUCCESS]--> SD card unmounted\n");
+    // }
 
     // do a slow green blink to indicate success
     const uint32_t slow_blink = 1000000;
@@ -209,10 +215,15 @@ void write_demo_wav_file(Wave_Header_Attributes_t *wav_attr, uint32_t file_len_s
         printf("[SUCCESS]--> SD card lseek\n");
     }
 
-    decimation_filter_set_sample_rate(wav_attr->sample_rate);
+  
 
+    decimation_filter_set_sample_rate(wav_attr->sample_rate);
+    printf("[Success]-->Decimation\n");
     ad4630_cont_conversions_start();
+    printf("[Success]-->ADC converison\n");
+    
     audio_dma_start();
+   // prinf("[Success]-->DMA\n");
 
     for (uint32_t num_dma_blocks_written = 0; num_dma_blocks_written < num_dma_blocks_in_the_file;)
     {

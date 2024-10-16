@@ -13,8 +13,12 @@
 
 #include <stdbool.h>
 #include <stddef.h> // for NULL
-
+#include<stdio.h>
 #include "mxc_sys.h"
+#include "mxc_device.h"
+#include "mxc_assert.h"
+#include "mxc_lock.h"
+#include "bsp_status_led.h"
 
 /* Private defines ---------------------------------------------------------------------------------------------------*/
 
@@ -78,18 +82,18 @@ void DMA0_IRQHandler();
 
 Audio_DMA_Error_t audio_dma_init()
 {
-    //Adding code based on Jordan's comments   
+   
+
+    MXC_GPIO_Config(&bsp_pins_adc_cs_check_pin_cfg);
+    NVIC_EnableIRQ(DMA0_IRQn);
+
+        //Adding code based on Jordan's comments   
     if (!MXC_SYS_IsClockEnabled(MXC_SYS_PERIPH_CLOCK_DMA)) 
     {
         MXC_SYS_ClockEnable(MXC_SYS_PERIPH_CLOCK_DMA);
         MXC_SYS_Reset_Periph(MXC_SYS_RESET_DMA0);
     }
-    
-
-    MXC_GPIO_Config(&bsp_pins_adc_cs_check_pin_cfg);
-
-    NVIC_EnableIRQ(DMA0_IRQn);
-
+ 
     if (MXC_DMA_Init(MXC_DMA0) != E_NO_ERROR)
     {
         return AUDIO_DMA_ERROR_DMA_ERROR;
@@ -277,3 +281,5 @@ void DMA0_IRQHandler()
         overrun_occured = true;
     }
 }
+
+
