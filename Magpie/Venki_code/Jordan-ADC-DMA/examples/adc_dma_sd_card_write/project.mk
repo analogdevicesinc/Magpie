@@ -56,5 +56,5 @@ VPATH += ../../lib/utils/
 
 PROJ_LDFLAGS += -Wl,--print-memory-usage
 
-#VPATH += RTT
-#IPATH += RTT
+VPATH += RTT
+IPATH += RTT
