@@ -1,0 +1,185 @@
+
+int32_t ad4630_spi_reg_read_4_wire(uint16_t reg_addr, uint8_t reg_data)
+{
+
+
+
+	int ret = E_NO_ERROR;
+	uint8_t master_rx[8];
+	uint8_t master_tx[8];
+	mxc_spi_req_t master_req;
+	//Using the GPIO 16
+	mxc_gpio_cfg_t gpio_out16;
+
+	gpio_out16.port = MXC_GPIO_PORT_OUT0;
+	gpio_out16.mask = MXC_GPIO_PIN_OUT16;
+	gpio_out16.pad = MXC_GPIO_PAD_NONE;
+	gpio_out16.func = MXC_GPIO_FUNC_OUT;
+	gpio_out16.vssel = MXC_GPIO_VSSEL_VDDIO;
+	gpio_out16.drvstr = MXC_GPIO_DRVSTR_2;
+	ret = MXC_GPIO_Config(&gpio_out16);
+	if(ret != E_NO_ERROR)
+	{
+		printf("\nGPIO INITIALIZATION ERROR\n");
+		return E_FAIL;
+	}
+
+	MXC_GPIO_OutSet(gpio_out16.port, gpio_out16.mask);
+	//Initializing the SPI2 as Master
+
+	ret = MXC_SPI_Init(MXC_SPI2, 1, 0, 1, 0, 100000, MAP_A);
+	if (ret != E_NO_ERROR)
+	{
+		printf("\nSPI MASTER INITIALIZATION ERROR\n");
+		return E_FAIL;
+	}
+
+	//Setting the data size
+	ret = MXC_SPI_SetDataSize(MXC_SPI2, 8);
+	if (ret != E_NO_ERROR)
+	{
+		printf("\nSPI MASTER INITIALIZATION ERROR\n");
+		return E_FAIL;
+	}
+
+	//Setting width of the SPI in this case 4- wire SPI for QSPI2 master
+	ret = MXC_SPI_SetWidth(MXC_SPI2, SPI_WIDTH_STANDARD);
+	if (ret != E_NO_ERROR)
+	{
+		printf("\nSPI MASTER INITIALIZATION ERROR\n");
+		return E_FAIL;
+	}
+
+	ret = MXC_SPI_SetMode(MXC_SPI2, SPI_MODE_0);
+	if (ret != E_NO_ERROR)
+	{
+		printf("\nSPI MASTER INITIALIZATION ERROR\n");
+		return E_FAIL;
+	}
+	master_req.spi = MXC_SPI2;
+	master_req.txData = (uint8_t *)master_tx;
+	master_req.rxData = (uint8_t *)master_rx;
+	master_req.txLen = 3;
+	master_req.rxLen = 1;
+	master_req.ssIdx = MXC_SPI2_SSIDX;
+	master_req.ssDeassert = 1;
+	master_req.txCnt = 0;
+	master_req.rxCnt = 0;
+	master_req.completeCB = NULL;
+
+	//************************************************
+	//    SPI Read for ADC procedure
+	//     * Declare the address as uint16_t
+	//     * Declare read data as uint8_t
+	//     * Number of data bytes must be 3 to make 24 clock cycles of SCK
+	//*************************************************
+
+
+	// Separating first byte of 16 bit address and making sure the first bit is 1 for read operation
+	master_tx[0] = AD463X_REG_READ| ((reg_addr >> 8) & 0x7F); // Separating first byte of 16 bit address
+	master_tx[1] = (uint8_t)reg_addr;  //Separating second byte of address
+	master_tx[2] = AD463X_REG_READ_DUMMY;
+
+	//	**** Perform Transaction ****
+	MXC_GPIO_OutClr(gpio_out16.port, gpio_out16.mask);
+	MXC_Delay(10);
+	MXC_SPI_MasterTransaction(&master_req);
+	MXC_Delay(10);
+	MXC_GPIO_OutSet(gpio_out16.port, gpio_out16.mask);
+	MXC_Delay(10);
+	reg_data = master_tx[2];
+
+	MXC_SPI_Shutdown(MXC_SPI2);
+	//MXC_Delay(1000);
+	return ret;
+
+}
+
+
+int32_t ad4630_spi_reg_write_4_wire(uint16_t reg_addr, uint8_t reg_data)
+{
+
+	mxc_spi_req_t master_req;
+	uint8_t master_rx[8];
+	uint8_t master_tx[8];
+	int ret = E_NO_ERROR;
+	mxc_gpio_cfg_t gpio_out16;
+
+	gpio_out16.port = MXC_GPIO_PORT_OUT0;
+	gpio_out16.mask = MXC_GPIO_PIN_OUT16;
+	gpio_out16.pad = MXC_GPIO_PAD_NONE;
+	gpio_out16.func = MXC_GPIO_FUNC_OUT;
+	gpio_out16.vssel = MXC_GPIO_VSSEL_VDDIO;
+	gpio_out16.drvstr = MXC_GPIO_DRVSTR_2;
+	//Using the GPIO 16
+
+	ret = MXC_GPIO_Config(&gpio_out16);
+	if(ret != E_NO_ERROR)
+	{
+		printf("\nGPIO INITIALIZATION ERROR\n");
+		return E_FAIL;
+	}
+
+	MXC_GPIO_OutSet(gpio_out16.port, gpio_out16.mask);
+	//Initializing the SPI2 as Master
+
+	ret = MXC_SPI_Init(MXC_SPI2, 1, 0, 1, 0, 100000, MAP_A);
+	if (ret != E_NO_ERROR)
+	{
+		printf("\nSPI MASTER INITIALIZATION ERROR\n");
+		return E_FAIL;
+	}
+
+	//Setting the data size
+	ret = MXC_SPI_SetDataSize(MXC_SPI2, 8);
+	if (ret != E_NO_ERROR)
+	{
+		printf("\nSPI MASTER INITIALIZATION ERROR\n");
+		return E_FAIL;
+	}
+
+	//Setting width of the SPI in this case 4- wire SPI for QSPI2 master
+	ret = MXC_SPI_SetWidth(MXC_SPI2, SPI_WIDTH_STANDARD);
+	if (ret != E_NO_ERROR)
+	{
+		printf("\nSPI MASTER INITIALIZATION ERROR\n");
+		return E_FAIL;
+	}
+
+	ret = MXC_SPI_SetMode(MXC_SPI2, SPI_MODE_0);
+	if (ret != E_NO_ERROR)
+	{
+		printf("\nSPI MASTER INITIALIZATION ERROR\n");
+		return E_FAIL;
+	}
+
+	// **** Initialize Transaction Parameters ****
+	master_req.spi = MXC_SPI2;
+	master_req.txData = (uint8_t *)master_tx;
+	master_req.rxData = (uint8_t *)master_rx;
+	master_req.txLen = 3;
+	master_req.rxLen = 1;
+	master_req.ssIdx = MXC_SPI2_SSIDX;
+	master_req.ssDeassert = 1;
+	master_req.txCnt = 0;
+	master_req.rxCnt = 0;
+	master_req.completeCB = NULL;
+
+
+	// Separating first byte of 16 bit address and making sure the first bit is 0 for write operation
+	master_tx[0] = ((reg_addr >> 8) & 0x7F);
+	master_tx[1] = (uint8_t)reg_addr;  //Separating second byte of address
+	master_tx[2] = reg_data;
+
+	//	**** Perform Transaction ****
+	MXC_GPIO_OutClr(gpio_out16.port, gpio_out16.mask);
+	MXC_Delay(10);
+	MXC_SPI_MasterTransaction(&master_req);
+	MXC_Delay(10);
+	MXC_GPIO_OutSet(gpio_out16.port, gpio_out16.mask);
+	//MXC_Delay(1000);
+	MXC_SPI_Shutdown(MXC_SPI2);
+	return ret;
+}
+
+

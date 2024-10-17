@@ -100,6 +100,7 @@ Audio_DMA_Error_t audio_dma_init()
     }
 
     dma_channel = MXC_DMA_AcquireChannel(MXC_DMA0);
+    printf("DMA channel acquired is %d \n",dma_channel);
 
     if (dma_channel == E_NONE_AVAIL || dma_channel == E_BAD_STATE || dma_channel == E_BUSY)
     {
