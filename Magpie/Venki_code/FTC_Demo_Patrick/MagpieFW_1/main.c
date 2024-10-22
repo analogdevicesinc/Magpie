@@ -19,7 +19,7 @@
 #include "board.h"
 #include "sd_card.h"
 #include "sd_card_bank_ctl.h"
-
+#include "SEGGER_RTT.h"
 
 
 #include "nvic_table.h"
