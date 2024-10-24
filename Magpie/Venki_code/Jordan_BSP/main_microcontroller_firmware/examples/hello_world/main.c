@@ -8,7 +8,7 @@
 
 #include "mxc_delay.h"
 #include "bsp_status_led.h"
-#include "SEGGER_RTT.h"
+//#include "SEGGER_RTT.h"
 
 Status_LED_Color_t next_color(Status_LED_Color_t this_color)
 {

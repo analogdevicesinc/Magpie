@@ -36,5 +36,5 @@ IPATH += ../../MSDK_overrides/SDHC/ff15/source/conf/
 
 PROJ_LDFLAGS += -Wl,--print-memory-usage
 
-VPATH += RTT
-IPATH += RTT
+#VPATH += RTT
+#IPATH += RTT
