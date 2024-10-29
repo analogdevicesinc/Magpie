@@ -11,11 +11,12 @@
 # For more information on how sing process works, see
 # https://www.analog.com/en/education/education-library/videos/6313214207112.html
 SBT=0
+DEBUG=0
 
 # Set hardware floating-point acceleration
 ##MFLOAT_ABI = hard
-MXC_OPTIMIZE_CFLAGS = -O2 ## note, this kills some debugging, use volatile debug vars
-#PROJ_CFLAGS+=-mno-unaligned-access
+#MXC_OPTIMIZE_CFLAGS = -O2 ## note, this kills some debugging, use volatile debug vars
+PROJ_CFLAGS+=-mno-unaligned-access
 
 # Include the CMSIS-DSP library. Set to 0 if we have a custom folder
 LIB_CMSIS_DSP = 0
@@ -32,3 +33,6 @@ IPATH += SD_CARD
 
 #VPATH += RTT
 #IPATH += RTT
+# Use the CLI lib in ./MSDK_overrides/SDHC/ instead of the files supplied by the MSKD, this is because the MSKD
+# version does not have the right definitions for MAX32666, even through it works when you add them
+ LIB_CLI = 1

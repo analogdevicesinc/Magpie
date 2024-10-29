@@ -4,10 +4,8 @@
 #include <stdint.h>
 #include <stdlib.h>
 #include <string.h>
+#include "ctype.h"
 #include "mxc_device.h"
-
-
-
 #include "mxc_sys.h"
 #include "mxc_delay.h"
 #include "mxc_errors.h"
@@ -19,9 +17,6 @@
 #include "board.h"
 #include "sd_card.h"
 #include "sd_card_bank_ctl.h"
-
-//#include "SEGGER_RTT.h"
-
 #include "nvic_table.h"
 #include "spi.h"
 #include "i2c.h"
@@ -31,23 +26,66 @@
 #include "utils.h"
 #include "dma.h"
 #include "arm_math.h"
-
 #include "DS3231_driver.h"   //Access to the RTC DS3231 peripheral
 #include <time.h>
 #include "rtc.h"
-
 #include "./data_converters.h"
 #include "./periphDirectAccess.txt"
 
-
 // make sure the following is set BEFORE including the decimation filter code
 //#define UNALIGNED_SUPPORT_DISABLE
-
 //#include "arm_fir_decimate_fast_q15_bob.h"
 #include "arm_fir_decimate_fast_q31_bob.h"
 #include "arm_fir_decimate_fast_q31_HB.h"
+#include "cli.h"
+
+
 
 /***** #defines  *****/
+/********************************************************************************************/
+
+//CLI defines private defines and custom functions
+/********************************************************************************************/
+#define CUSTOM_COMMANDS_ARRAY_SIZE (3)
+#define MAX_STRING_SIZE 100
+#define CLI_UART MXC_UART1
+#define PRINT_LOG(msg) printf("%s\n\r", msg)
+
+/*********************************************************************************************/
+//CLI variables and custom functions
+/********************************************************************************************/
+static int toggle_event = 0;
+static int set_rtc_event = 0;
+static char color;
+int cli_led_toggle(int argc, char *argv[]);
+int cli_set_rtc(int argc, char *argv[]);
+int cli_sdcard_bitdepth_samplerate_select(int argc, char *argv[]);
+
+/* Private variables -------------------------------------------------------------------------------------------------*/
+
+const command_t commands[CUSTOM_COMMANDS_ARRAY_SIZE] = 
+    {
+        {
+			"led_toggle",
+		    "[led_toggle] on command line",
+		    "Toggles all LEDs R G B",
+		    cli_led_toggle,
+	    },
+
+	    {
+			"set_rtc", 
+	        "[set_rtc] [month] [day] [hour] [min] [sec]", 
+	        "Set Date Time to something, Year is always Year - 1900, Month is 0-11 so subtract 1 from the month, you want to set Time is in UTC so set appropriately, hour is 0-23. min is 0-59,sec is 0-59",
+	        cli_set_rtc,
+        },
+		{
+            "bitdepth_samplerate_sd_card_select",
+			"[bitdepth_samplerate_sd_card_select] [bit depth] [sample rate] [slot_number]",
+			"bitdepth(0=16bits,1=24bits) sample rate (0=384k,1=192k,2=96k,3=48k,4=32k,5=24k,6=16k) slot(0,1,2,3,4,5)",
+			cli_sdcard_bitdepth_samplerate_select,
+		},
+    };
+
 
 /********************************************************************************************/
 
@@ -319,7 +357,11 @@ uint32_t clusters_free = 0, sectors_free = 0, sectors_total = 0, volume_sn = 0;
 UINT bytes_written = 0, bytes_read = 0, mounted = 0;
 BYTE work[4096];
 
-
+int run = 1, input = -1;
+int ret=0;
+static uint8_t stall;
+static uint32_t ktrace = 0;
+char metaBuffer[32] = {0};
 
 
 // global DMA var
@@ -536,8 +578,6 @@ static uint8_t num_cards_with_file_errors = 0;
 
 
 // *********** start functions *******************
-
-
 
 int mount()
 {
@@ -1278,40 +1318,11 @@ int main(void)
 		LED_Off(LED_GREEN);
 		MXC_Delay(100000);
 	}
-
-	char metaBuffer[32] = {0};
+	
 	MXC_Delay(MXC_DELAY_SEC(1));
-	mxc_sdhc_cfg_t cfg;
-	FF_ERRORS[0] = "FR_OK";
-	FF_ERRORS[1] = "FR_DISK_ERR";
-	FF_ERRORS[2] = "FR_INT_ERR";
-	FF_ERRORS[3] = "FR_NOT_READY";
-	FF_ERRORS[4] = "FR_NO_FILE";
-	FF_ERRORS[5] = "FR_NO_PATH";
-	FF_ERRORS[6] = "FR_INVLAID_NAME";
-	FF_ERRORS[7] = "FR_DENIED";
-	FF_ERRORS[8] = "FR_EXIST";
-	FF_ERRORS[9] = "FR_INVALID_OBJECT";
-	FF_ERRORS[10] = "FR_WRITE_PROTECTED";
-	FF_ERRORS[11] = "FR_INVALID_DRIVE";
-	FF_ERRORS[12] = "FR_NOT_ENABLED";
-	FF_ERRORS[13] = "FR_NO_FILESYSTEM";
-	FF_ERRORS[14] = "FR_MKFS_ABORTED";
-	FF_ERRORS[15] = "FR_TIMEOUT";
-	FF_ERRORS[16] = "FR_LOCKED";
-	FF_ERRORS[17] = "FR_NOT_ENOUGH_CORE";
-	FF_ERRORS[18] = "FR_TOO_MANY_OPEN_FILES";
-	FF_ERRORS[19] = "FR_INVALID_PARAMETER";
-	srand(12347439);
-	int run = 1, input = -1;
-
-	int ret=0;
-
-	static uint8_t stall;
-	static uint32_t ktrace = 0;
-
+	
     printf("\n\nInitializing .....\n");
-  
+
 	//Init DS3231 RTC peripheral
 	if(DS3231_I2C_NO_ERROR != DS3231_I2C_init())
 	{
@@ -1321,21 +1332,61 @@ int main(void)
 	}
 
 
-	#ifdef FIRST_SET_RTC
-	// //Set Date Time to something
-	//Year is always Year - 1900
-	//Month is 0-11 so subtract 1 from the month you want to set
-	//Time is in UTC so set appropriately
-	// hour is 0-23
-	// min is 0-59
-	// sec is 0-59
+
+	PRINT_LOG("***********ClI Code to run different functions***********\n\n");
+
+    MXC_CLI_Init(CLI_UART, commands, CUSTOM_COMMANDS_ARRAY_SIZE);
+
+    while (1)
+	{
+		// everything is handled by the CLI
+		MXC_Delay(10000);
+	
+			
+		return 0;
+	}
+
+} // end of main
+
+
+/* Private function definitions --------------------------------------------------------------------------------------*/
+
+int cli_led_toggle(int argc, char *argv[])
+{
+	PRINT_LOG("LED toggle event called \r\n");
+    // fail is wrong number of args
+    if (argc != 1)
+    {		
+        return -1;		
+    }
+	else
+	{
+		LED_Toggle(LED_RED);
+		LED_Toggle(LED_GREEN);
+		LED_Toggle(LED_BLUE);
+	}
+  
+	return 0; // success
+	
+}
+
+cli_set_rtc(int argc, char *argv[])
+{
+	//fail is wrong number of args
+    if (argc != 6)
+    {
+		PRINT_LOG("Set RTC event failed \r\n");
+        return -1;
+    }
+	int mon,day,hour,min;
+	
 	struct tm newTime = {
 		.tm_year = 2024 - 1900U,
-		.tm_mon = 10 - 1U,
-		.tm_mday = 16,
-		.tm_hour = 2,
-		.tm_min = 56,
-		.tm_sec = 0
+		.tm_mon = atoi(argv[1]) - 1U,
+		.tm_mday = atoi(argv[2]),
+		.tm_hour = atoi(argv[3]),
+		.tm_min = atoi(argv[4]),
+		.tm_sec = atoi(argv[5])
 	};
 
 	
@@ -1347,8 +1398,19 @@ int main(void)
 		strftime((char*)output_msgBuffer, OUTPUT_MSG_BUFFER_SIZE, "\n-->Set DateTime: %F %TZ\r\n", &newTime);
 		printf(output_msgBuffer);
 	}
-	#endif
+}
 
+cli_sdcard_bitdepth_samplerate_select(int argc, char *argv[])
+{
+		//fail is wrong number of args
+    if (argc != 4)
+    {
+		PRINT_LOG("sdcard_bitdepth_samplerate_select event failed \r\n");
+        return -1;
+    }
+
+	
+    
 	//Get Date Time from RTC
 	
 	if (E_NO_ERROR != DS3231_RTC.read_datetime(&ds3231_datetime, ds3231_datetime_str)) {
@@ -1375,8 +1437,7 @@ int main(void)
 		
 
 
-	
-// magpie_new - init all the decimation filters. This allows you to change fs without re-compiling
+	// magpie_new - init all the decimation filters. This allows you to change fs without re-compiling
 	arm_fir_decimate_init_q31(&Sdeci_16k_0,deci_16k_numcoeffs_0,3, &firCoeffs_16k_0[0],&firState_stage0[0],DMA_buffLen);
 	arm_fir_decimate_init_q31(&Sdeci_16k_1,deci_16k_numcoeffs_1,2, &firCoeffs_16k_1[0],&firState_stage1[0],buffLen_deci2x);
 	arm_fir_decimate_init_q31(&Sdeci_16k_2,deci_16k_numcoeffs_2,2, &firCoeffs_16k_2[0],&firState_stage2[0],buffLen_deci4x);
@@ -1399,14 +1460,16 @@ int main(void)
 	arm_fir_decimate_init_q31(&Sdeci_96k_1,deci_96k_numcoeffs_1,2, &firCoeffs_96k_1[0],&firState_stage1[0],buffLen_deci2x);
 
 	arm_fir_decimate_init_q31(&Sdeci_192k_0,deci_192k_numcoeffs_0,2, &firCoeffs_192k_0[0],&firState_stage0[0],DMA_buffLen);
+	
+
 
 	// magpie_new - set sample-rate and bit depth
 	//******************* set sample rate ************************
-	magpie_FS =fs_384k; // use this to set sample rate; the variable FS is also set, for writing the wav header file
+	magpie_FS =atoi(argv[2]); // use this to set sample rate; the variable FS is also set, for writing the wav header file
 	//*************************************************************
 
 	//******************* set bit depth, 1=24 bits, 0=16 bits ************************
-	magpie_bitdepth = 1;
+	magpie_bitdepth = atoi(argv[1]);
 	// *******************************************************************************
 
 	// check for invalid condition (384k, 16 bits)
@@ -1462,9 +1525,29 @@ int main(void)
 
 
 	//*******************************************
-
-
-
+	
+	mxc_sdhc_cfg_t cfg;
+	FF_ERRORS[0] = "FR_OK";
+	FF_ERRORS[1] = "FR_DISK_ERR";
+	FF_ERRORS[2] = "FR_INT_ERR";
+	FF_ERRORS[3] = "FR_NOT_READY";
+	FF_ERRORS[4] = "FR_NO_FILE";
+	FF_ERRORS[5] = "FR_NO_PATH";
+	FF_ERRORS[6] = "FR_INVLAID_NAME";
+	FF_ERRORS[7] = "FR_DENIED";
+	FF_ERRORS[8] = "FR_EXIST";
+	FF_ERRORS[9] = "FR_INVALID_OBJECT";
+	FF_ERRORS[10] = "FR_WRITE_PROTECTED";
+	FF_ERRORS[11] = "FR_INVALID_DRIVE";
+	FF_ERRORS[12] = "FR_NOT_ENABLED";
+	FF_ERRORS[13] = "FR_NO_FILESYSTEM";
+	FF_ERRORS[14] = "FR_MKFS_ABORTED";
+	FF_ERRORS[15] = "FR_TIMEOUT";
+	FF_ERRORS[16] = "FR_LOCKED";
+	FF_ERRORS[17] = "FR_NOT_ENOUGH_CORE";
+	FF_ERRORS[18] = "FR_TOO_MANY_OPEN_FILES";
+	FF_ERRORS[19] = "FR_INVALID_PARAMETER";
+	srand(12347439);
 	//CARD writes, cluster size (== allocation size) may be 128Kb, whereas sector size is 512 bytes
 	cfg.bus_voltage = MXC_SDHC_Bus_Voltage_3_3;
 	cfg.block_gap = 0;
@@ -1490,40 +1573,9 @@ int main(void)
 		printf("[Success] --> SD Card Bank Initialized.\n\n");
 	}
 	
-	printf("Selecting SD Card Slot 0 .....\n");
-	//Select Card Slot 0
-	sd_card_bank_ctl_enable_slot(0);
-
-
-    // sd_card_bank_ctl_read_and_cache_detect_pins();
-
-	// if (!sd_card_bank_ctl_active_card_is_inserted())
-    // {
-	// 	printf("No SD Card Detected in Slot 0.\n\n");
-	// 	LED_On(LED_RED);
-	// 	return 1;
-	// }else{
-	// 	printf("[Success] --> SD Card found in Slot 0.\n\n");
-	// }
-
-	// printf("Initialize SD Card in Slot 0 .....\n");
-	// // initialize and mount the card
-    // if (sd_card_init() != SD_CARD_ERROR_ALL_OK)
-    // {
-    //    	printf("[Failed] --> Unable to initialize SD Card.\n\n");
-	// 	LED_On(LED_RED);
-	// 	return 1;
-    // }else{
-	// 	printf("[Success] --> SD Card in Slot 0 Initialized.\n\n");
-	// }
-
-	// printf("Mounting SD Card in Slot 0 .....\n");
-	// if (sd_card_mount() != SD_CARD_ERROR_ALL_OK)
-    // {
-	// 	printf("[Failed] --> Unable to Mount SD Card.\n\n");
-	// 	LED_On(LED_RED);
-	// 	return 1;
-	// }
+	printf("Selecting SD Card Slot %d .....\n", atoi(argv[3]));
+	//Select Card Slot 
+	sd_card_bank_ctl_enable_slot(atoi(argv[3]));
 
 
 	if (MXC_SDHC_Init(&cfg) != E_NO_ERROR)
@@ -1543,23 +1595,7 @@ int main(void)
 	}
 	printf("Card inserted.\n");
 
-	//MB_LED(1);
 
-	//////// FTHR2 SDCARD Enabling ////
-
-    // const mxc_gpio_cfg_t sd_card_en_pin = {
-    // .port = MXC_GPIO1,
-    // .mask = MXC_GPIO_PIN_6,
-    // .pad = MXC_GPIO_PAD_NONE,
-    // .func = MXC_GPIO_FUNC_OUT,
-    // .vssel = MXC_GPIO_VSSEL_VDDIO,
-    // .drvstr = MXC_GPIO_DRVSTR_0,
-	// };
-
-	// MXC_GPIO_Config(&sd_card_en_pin);
-	// MXC_GPIO_OutSet(sd_card_en_pin.port, sd_card_en_pin.mask);
-
-	//////////////////////////////////
 
 	// set up card to get it ready for a transaction
 	if (MXC_SDHC_Lib_InitCard(10) == E_NO_ERROR) {
@@ -1580,22 +1616,6 @@ int main(void)
 		printf("Card type: MMC/eMMC\n");
 		debug1 = 13;
 	}
-
-	/* Configure for fastest possible clock, must not exceed 52 MHz for eMMC */
-
-
-	// skip formatting
-	// for now, format the card every time, so we just make a single file per pass
-//	MKFS_PARM format_options = { .fmt = FM_EXFAT };
-//
-//	if ((err = f_mkfs("", &format_options, work, sizeof(work))) != FR_OK) { //Format the default drive to FAT32
-//		printf("Error formatting SD card: %s\n", FF_ERRORS[err]);
-//		debug1 = 10;
-//	} else {
-//		printf("Drive formatted.\n");
-//		debug1 = 10;
-//	}
-
 	//Turn ON LED to indicate we are starting the recording.
 	LED_Off(LED_RED);
 	LED_Off(LED_BLUE);
@@ -1644,14 +1664,6 @@ int main(void)
 
 	debug1= 16;
 
-	// blue led pin 5 on feather
-	// gpio_in30.port =MXC_GPIO_PORT_OUT0;
-	// gpio_in30.mask= MXC_GPIO_PIN_OUT30;
-	// gpio_in30.pad = MXC_GPIO_PAD_NONE;
-	// gpio_in30.func = MXC_GPIO_FUNC_OUT;
-	// gpio_in30.vssel = MXC_GPIO_VSSEL_VDDIO;
-	// MXC_GPIO_Config(&gpio_in30);
-	// MXC_GPIO_OutClr(gpio_in30.port,gpio_in30.mask); // set LOW (Led on)
 
 
 // adc fs clock enable. Note after the spi_init_slave, this will be over-written by the spi definition and will go high
@@ -1677,37 +1689,7 @@ int main(void)
 	gpio_in4.vssel = MXC_GPIO_VSSEL_VDDIO;
 	MXC_GPIO_Config(&gpio_in4);
 
-	// gpio 5, pin6 on feather, used for code timing tests
-	// gpio_outGreenLED.port = MXC_GPIO_PORT_OUT0;
-	// gpio_outGreenLED.mask = MXC_GPIO_PIN_OUT5;
-	// gpio_outGreenLED.pad = MXC_GPIO_PAD_NONE;
-	// gpio_outGreenLED.func = MXC_GPIO_FUNC_OUT;
-	// gpio_outGreenLED.vssel = MXC_GPIO_VSSEL_VDDIO;
-	// gpio_outGreenLED.drvstr = MXC_GPIO_DRVSTR_2;
-	// ret = MXC_GPIO_Config(&gpio_outGreenLED);
 
-
-
-	// ***  set up I2C, write address 0x98, read addr 0x99
-
-	// i2cErr = MXC_I2C_Init(I2C_MASTER, 1, 0);
-	// mxc_i2c_req_t reqMaster;
-	// reqMaster.i2c = I2C_MASTER;
-	// reqMaster.addr = I2C_SLAVE_ADDR;
-	// reqMaster.tx_buf = i2c_txdata;
-	// reqMaster.tx_len = I2C_BYTES;
-	// reqMaster.rx_buf = i2c_rxdata;
-	// reqMaster.rx_len = 0;
-	// reqMaster.restart = 0;
-	// reqMaster.callback = NULL;
-	// reqMaster.callback = I2C_Callback;
-	// I2C_FLAG = 1;
-	// MXC_I2C_SetFrequency(I2C_MASTER, I2C_FREQ);
-	// i2cErr = MXC_I2C_MasterTransaction(&reqMaster);
-	// MXC_Delay(10000);
-
-	//reset_adc();
-	// MXC_Delay(200000);
 
 	set_adc_host_clock_mode();
 	MXC_Delay(100000);
@@ -1865,9 +1847,6 @@ int main(void)
 
 	LED_On(LED_BLUE);
 
-	for(;;){}
-
-} // end of main
-
-
+return 0;
+}
 

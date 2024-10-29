@@ -92,7 +92,11 @@
     ],
     "files.associations": {
         "segger_rtt.h": "c",
-        "mxc_delay.h": "c"
+        "mxc_delay.h": "c",
+        "cli.h": "c",
+        "cstdio": "cpp",
+        "mxc_device.h": "c",
+        "spi.h": "c"
     }
 }
 

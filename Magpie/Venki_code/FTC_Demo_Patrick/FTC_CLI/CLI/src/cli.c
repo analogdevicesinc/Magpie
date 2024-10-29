@@ -1,8 +1,9 @@
 /******************************************************************************
  *
- * Copyright (C) 2022-2023 Maxim Integrated Products, Inc. (now owned by 
- * Analog Devices, Inc.),
- * Copyright (C) 2023-2024 Analog Devices, Inc.
+ * Copyright (C) 2022-2023 Maxim Integrated Products, Inc. All Rights Reserved.
+ * (now owned by Analog Devices, Inc.),
+ * Copyright (C) 2023 Analog Devices, Inc. All Rights Reserved. This software
+ * is proprietary to Analog Devices, Inc. and its licensors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -50,8 +51,8 @@
 // Macro to call MXC_UART_Init function with appropriate parameters
 #if (TARGET_NUM == 32520 || TARGET_NUM == 32570 || TARGET_NUM == 32650)
 #define UART_INIT(uart) MXC_UART_Init(uart, UART_BAUD)
-#elif TARGET_NUM == 32660
-#define UART_INIT(uart) MXC_UART_Init(uart, UART_BAUD, MAP_A)
+#elif (TARGET_NUM == 32660 || TARGET_NUM == 32665 || TARGET_NUM == 32666)
+#define UART_INIT(uart) MXC_UART_Init(uart, UART_BAUD, MAP_B)
 #elif TARGET_NUM == 32662
 #define UART_INIT(uart) MXC_UART_Init(uart, UART_BAUD, MXC_UART_APB_CLK, MAP_A)
 #else
@@ -71,13 +72,13 @@ int handle_help(int argc, char *argv[]);
 char cmd_buf[MAX_COMMAND_LENGTH]; // Command buffer
 uint16_t buf_idx = 0;
 
-uint8_t char_recv; // Variable to store characters received by CLI UART
+uint8_t char_recv;      // Variable to store characters received by CLI UART
 mxc_uart_req_t cli_req; // CLI UART transaction request structure
 
 // Help Command
-const command_t help_command = { "Help", "help",
-                                 "Prints details regarding the usage of the supported commands.",
-                                 handle_help };
+const command_t help_command = {"Help", "help",
+                                "Prints details regarding the usage of the supported commands.",
+                                handle_help};
 
 // Command table parameters;
 const command_t *command_table = NULL;
@@ -89,12 +90,13 @@ mxc_uart_regs_t *cli_uart = NULL;
 /* -------------------------------------------------- */
 //            PRIVATE FUNCTION DEFINITIONS
 /* -------------------------------------------------- */
-/** 
+/**
  * @brief Prints the CLI prompt
  */
 void User_Prompt_Sequence(void)
 {
-    if (cli_uart == NULL) {
+    if (cli_uart == NULL)
+    {
         return;
     }
 
@@ -103,7 +105,7 @@ void User_Prompt_Sequence(void)
     MXC_UART_WriteCharacter(cli_uart, SPACE);
 }
 
-/** 
+/**
  * @brief Clears the buffer storing the command string
  */
 void Clear_buffer(void)
@@ -111,12 +113,13 @@ void Clear_buffer(void)
     memset(cmd_buf, '\0', MAX_COMMAND_LENGTH);
 }
 
-/** 
+/**
  * @brief Writes the backspace sequence to the UART console
  */
 void Console_Backspace_Sequence(void)
 {
-    if (cli_uart == NULL) {
+    if (cli_uart == NULL)
+    {
         return;
     }
 
@@ -125,30 +128,34 @@ void Console_Backspace_Sequence(void)
     MXC_UART_WriteCharacter(cli_uart, BACKSPACE);
 }
 
-/** 
+/**
  * @brief Clears the line on the UART console
  */
 void Console_Cmd_Clear(void)
 {
-    for (int i = 0; i < buf_idx; i++) {
+    for (int i = 0; i < buf_idx; i++)
+    {
         Console_Backspace_Sequence();
     }
 }
 
-/** 
+/**
  * @brief Adds characters to the command string as they are received and echos them to the terminal
  */
 void line_accumulator(uint8_t user_char)
 {
-    if (cli_uart == NULL) {
+    if (cli_uart == NULL)
+    {
         return;
     }
 
-    switch (user_char) {
+    switch (user_char)
+    {
     case BACKSPACE:
         // Handle Backspace and Delete
-        if (buf_idx > 0) {
-            //Sequence to implement a backspace on the terminal
+        if (buf_idx > 0)
+        {
+            // Sequence to implement a backspace on the terminal
             Console_Backspace_Sequence();
             buf_idx--;
             cmd_buf[buf_idx] = '\0';
@@ -174,8 +181,9 @@ void line_accumulator(uint8_t user_char)
 
     default:
         // Handle all other characters
-        if (buf_idx < MAX_COMMAND_LENGTH) {
-            cmd_buf[buf_idx++] = user_char; //pushes characters into the buffer
+        if (buf_idx < MAX_COMMAND_LENGTH)
+        {
+            cmd_buf[buf_idx++] = user_char; // pushes characters into the buffer
             MXC_UART_WriteCharacter(cli_uart, user_char);
         }
         break;
@@ -184,8 +192,8 @@ void line_accumulator(uint8_t user_char)
 
 /**
  * @brief Determines whether the command received was valid and calls the appropriate handler
- * 
- * @param input   Command string received by the CLI 
+ *
+ * @param input   Command string received by the CLI
  */
 void process_command(char *input)
 {
@@ -199,7 +207,8 @@ void process_command(char *input)
     char *token;
 
     // Parse command string (delimiters: space and tab)
-    while (argc < MAX_COMMAND_TOKENS && (token = strtok_r(cmd, " \t", &cmd))) {
+    while (argc < MAX_COMMAND_TOKENS && (token = strtok_r(cmd, " \t", &cmd)))
+    {
         argv[argc++] = token;
     }
 
@@ -207,18 +216,24 @@ void process_command(char *input)
     argv[argc] = NULL;
 
     // If no arguments, return
-    if (argc == 0) {
+    if (argc == 0)
+    {
         return;
     }
 
     // Check for a valid command
-    if (strcasecmp(argv[0], help_command.cmd) == 0) {
+    if (strcasecmp(argv[0], help_command.cmd) == 0)
+    {
         // Help command received
         success_flag = help_command.handler(argc, argv);
-    } else {
+    }
+    else
+    {
         // Help command not received, iterate over all user-defined commands
-        for (int i = 0; i < command_table_sz; i++) {
-            if (strcasecmp(argv[0], command_table[i].cmd) == 0) {
+        for (int i = 0; i < command_table_sz; i++)
+        {
+            if (strcasecmp(argv[0], command_table[i].cmd) == 0)
+            {
                 // Call corresponding command's handler
                 success_flag = command_table[i].handler(argc, argv);
                 break;
@@ -227,10 +242,13 @@ void process_command(char *input)
     }
 
     // Check for errors
-    if (success_flag == 1) {
+    if (success_flag == 1)
+    {
         // Command entered is not supported
         printf("\nCommand isn't valid!\n");
-    } else if (success_flag < E_NO_ERROR) {
+    }
+    else if (success_flag < E_NO_ERROR)
+    {
         // Command entered is supported, but arguments entered incorrectly
         printf("\nEnter 'help' for details on how to use the '%s' command.\n", argv[0]);
     }
@@ -246,13 +264,14 @@ void process_command(char *input)
  * @param argv[]    Array of arguments storing different tokens of the
  *                  command string in the same order as they were passed
  *                  in the command line.
- * 
+ *
  * @returns E_NO_ERROR if successful, otherwise an error code.
  */
 int handle_help(int argc, char *argv[])
 {
     // Print out name, usage, and description of each supported command
-    for (int i = 0; i < command_table_sz; i++) {
+    for (int i = 0; i < command_table_sz; i++)
+    {
         printf("\n%s:\n", command_table[i].cmd);
         printf("  Usage: %s\n", command_table[i].usage);
         printf("  Description: %s\n", command_table[i].description);
@@ -266,7 +285,8 @@ int handle_help(int argc, char *argv[])
  */
 void CLI_Callback(mxc_uart_req_t *req, int error)
 {
-    if (error == E_ABORT) {
+    if (error == E_ABORT)
+    {
         // Shutdown called, nothing to do in callback
         return;
     }
@@ -287,16 +307,22 @@ int MXC_CLI_Init(mxc_uart_regs_t *uart, const command_t *commands, unsigned int 
     int uart_idx = MXC_UART_GET_IDX(uart);
 
     // Check for valid parameters
-    if (uart_idx < 0) {
+    if (uart_idx < 0)
+    {
         return E_BAD_PARAM;
-    } else if (commands == NULL) {
+    }
+    else if (commands == NULL)
+    {
         return E_NULL_PTR;
-    } else if (num_commands <= 0) {
+    }
+    else if (num_commands <= 0)
+    {
         return E_BAD_PARAM;
     }
 
     // Return error if CLI is already initialized
-    if (cli_uart != NULL) {
+    if (cli_uart != NULL)
+    {
         return E_BAD_STATE;
     }
 
@@ -306,7 +332,8 @@ int MXC_CLI_Init(mxc_uart_regs_t *uart, const command_t *commands, unsigned int 
     command_table_sz = num_commands;
 
     // Initialize UART
-    if ((error = UART_INIT(uart)) != E_NO_ERROR) {
+    if ((error = UART_INIT(uart)) != E_NO_ERROR)
+    {
         printf("-->Error initializing CLI UART: %d\n", error);
         return error;
     }
@@ -317,14 +344,17 @@ int MXC_CLI_Init(mxc_uart_regs_t *uart, const command_t *commands, unsigned int 
     cli_req.rxLen = BUFF_SIZE;
     cli_req.txLen = 0;
     cli_req.callback = CLI_Callback;
-    if ((error = MXC_UART_TransactionAsync(&cli_req)) != E_NO_ERROR) {
+    if ((error = MXC_UART_TransactionAsync(&cli_req)) != E_NO_ERROR)
+    {
         return error;
     }
 
     // Print success message and prompt
     printf("CLI Initialized! Enter 'help' to see a list of available commands.\n");
     User_Prompt_Sequence();
-    while (MXC_UART_GetActive(uart)) {}
+    while (MXC_UART_GetActive(uart))
+    {
+    }
 
 #ifdef USE_CLI_LIB_IRQHANDLER
     // Give users the option to define their own IRQ handler in their application. By default,
@@ -341,7 +371,8 @@ int MXC_CLI_Init(mxc_uart_regs_t *uart, const command_t *commands, unsigned int 
 int MXC_CLI_Shutdown(void)
 {
     // Return if CLI is uninitialized
-    if (cli_uart == NULL) {
+    if (cli_uart == NULL)
+    {
         return E_BAD_STATE;
     }
 
@@ -360,7 +391,8 @@ int MXC_CLI_Shutdown(void)
 void MXC_CLI_Handler(void)
 {
     // Return if CLI is uninitialized
-    if (cli_uart == NULL) {
+    if (cli_uart == NULL)
+    {
         return;
     }
 

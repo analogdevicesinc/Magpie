@@ -68,7 +68,7 @@ TARGET_LC := $(subst M,m,$(subst A,a,$(subst X,x,$(TARGET))))
 endif
 
 # Default board.
-BOARD ?= CUSTOM
+BOARD ?= BSP
 
 # *******************************************************************************
 # Locate the MaximSDK
