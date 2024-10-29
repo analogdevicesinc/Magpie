@@ -59,7 +59,7 @@ static int set_rtc_event = 0;
 static char color;
 int cli_led_toggle(int argc, char *argv[]);
 int cli_set_rtc(int argc, char *argv[]);
-int cli_sdcard_bitdepth_samplerate_select(int argc, char *argv[]);
+int cli_sdcard_write(int argc, char *argv[]);
 
 /* Private variables -------------------------------------------------------------------------------------------------*/
 
@@ -79,10 +79,10 @@ const command_t commands[CUSTOM_COMMANDS_ARRAY_SIZE] =
 	        cli_set_rtc,
         },
 		{
-            "bitdepth_samplerate_sd_card_select",
-			"[bitdepth_samplerate_sd_card_select] [bit depth] [sample rate] [slot_number]",
+            "sd_card_write",
+			"[sd_card_write] [bit depth] [sample rate] [slot_number]",
 			"bitdepth(0=16bits,1=24bits) sample rate (0=384k,1=192k,2=96k,3=48k,4=32k,5=24k,6=16k) slot(0,1,2,3,4,5)",
-			cli_sdcard_bitdepth_samplerate_select,
+			cli_sdcard_write,
 		},
     };
 
@@ -95,7 +95,7 @@ const command_t commands[CUSTOM_COMMANDS_ARRAY_SIZE] =
 /********************************************************************************************/
 // RECORDING TIME IN DMA Blocks (each DMA block is 21.33 ms)
 
-#define RECORDING_TIME_DMABLOCKS  1000//10000
+#define RECORDING_TIME_DMABLOCKS  100//10000
 
 
 //Pin 0.20 for ADC clock enable or disable
@@ -1400,7 +1400,7 @@ cli_set_rtc(int argc, char *argv[])
 	}
 }
 
-cli_sdcard_bitdepth_samplerate_select(int argc, char *argv[])
+cli_sdcard_write(int argc, char *argv[])
 {
 		//fail is wrong number of args
     if (argc != 4)
@@ -1409,7 +1409,36 @@ cli_sdcard_bitdepth_samplerate_select(int argc, char *argv[])
         return -1;
     }
 
-	
+	char metaBuffer[32] = {0};
+	MXC_Delay(MXC_DELAY_SEC(1));
+	mxc_sdhc_cfg_t cfg;
+	FF_ERRORS[0] = "FR_OK";
+	FF_ERRORS[1] = "FR_DISK_ERR";
+	FF_ERRORS[2] = "FR_INT_ERR";
+	FF_ERRORS[3] = "FR_NOT_READY";
+	FF_ERRORS[4] = "FR_NO_FILE";
+	FF_ERRORS[5] = "FR_NO_PATH";
+	FF_ERRORS[6] = "FR_INVLAID_NAME";
+	FF_ERRORS[7] = "FR_DENIED";
+	FF_ERRORS[8] = "FR_EXIST";
+	FF_ERRORS[9] = "FR_INVALID_OBJECT";
+	FF_ERRORS[10] = "FR_WRITE_PROTECTED";
+	FF_ERRORS[11] = "FR_INVALID_DRIVE";
+	FF_ERRORS[12] = "FR_NOT_ENABLED";
+	FF_ERRORS[13] = "FR_NO_FILESYSTEM";
+	FF_ERRORS[14] = "FR_MKFS_ABORTED";
+	FF_ERRORS[15] = "FR_TIMEOUT";
+	FF_ERRORS[16] = "FR_LOCKED";
+	FF_ERRORS[17] = "FR_NOT_ENOUGH_CORE";
+	FF_ERRORS[18] = "FR_TOO_MANY_OPEN_FILES";
+	FF_ERRORS[19] = "FR_INVALID_PARAMETER";
+	srand(12347439);
+	int run = 1, input = -1;
+
+	int ret=0;
+
+	static uint8_t stall;
+	static uint32_t ktrace = 0;
     
 	//Get Date Time from RTC
 	
@@ -1426,18 +1455,17 @@ cli_sdcard_bitdepth_samplerate_select(int argc, char *argv[])
 
 	}
 	//time_t currentTime = mktime(ds3231_datetime);
-
-	//Get Temperature from RTC	
+//Get Temperature from RTC	
 	if (E_NO_ERROR != DS3231_RTC.read_temperature(&ds3231_temperature)) {
 		printf("\nDS3231 read temperature error\n");
 	} else {
 		sprintf((char*)output_msgBuffer, "\n-->Temperature: %.2f\r\n", ds3231_temperature);
 		printf(output_msgBuffer);
-	}
-		
+	}		
 
 
-	// magpie_new - init all the decimation filters. This allows you to change fs without re-compiling
+	
+// magpie_new - init all the decimation filters. This allows you to change fs without re-compiling
 	arm_fir_decimate_init_q31(&Sdeci_16k_0,deci_16k_numcoeffs_0,3, &firCoeffs_16k_0[0],&firState_stage0[0],DMA_buffLen);
 	arm_fir_decimate_init_q31(&Sdeci_16k_1,deci_16k_numcoeffs_1,2, &firCoeffs_16k_1[0],&firState_stage1[0],buffLen_deci2x);
 	arm_fir_decimate_init_q31(&Sdeci_16k_2,deci_16k_numcoeffs_2,2, &firCoeffs_16k_2[0],&firState_stage2[0],buffLen_deci4x);
@@ -1460,16 +1488,18 @@ cli_sdcard_bitdepth_samplerate_select(int argc, char *argv[])
 	arm_fir_decimate_init_q31(&Sdeci_96k_1,deci_96k_numcoeffs_1,2, &firCoeffs_96k_1[0],&firState_stage1[0],buffLen_deci2x);
 
 	arm_fir_decimate_init_q31(&Sdeci_192k_0,deci_192k_numcoeffs_0,2, &firCoeffs_192k_0[0],&firState_stage0[0],DMA_buffLen);
-	
+
 
 
 	// magpie_new - set sample-rate and bit depth
 	//******************* set sample rate ************************
 	magpie_FS =atoi(argv[2]); // use this to set sample rate; the variable FS is also set, for writing the wav header file
+	//magpie_FS =fs_384k; 
 	//*************************************************************
 
 	//******************* set bit depth, 1=24 bits, 0=16 bits ************************
 	magpie_bitdepth = atoi(argv[1]);
+	//magpie_bitdepth = 1;
 	// *******************************************************************************
 
 	// check for invalid condition (384k, 16 bits)
@@ -1525,29 +1555,9 @@ cli_sdcard_bitdepth_samplerate_select(int argc, char *argv[])
 
 
 	//*******************************************
-	
-	mxc_sdhc_cfg_t cfg;
-	FF_ERRORS[0] = "FR_OK";
-	FF_ERRORS[1] = "FR_DISK_ERR";
-	FF_ERRORS[2] = "FR_INT_ERR";
-	FF_ERRORS[3] = "FR_NOT_READY";
-	FF_ERRORS[4] = "FR_NO_FILE";
-	FF_ERRORS[5] = "FR_NO_PATH";
-	FF_ERRORS[6] = "FR_INVLAID_NAME";
-	FF_ERRORS[7] = "FR_DENIED";
-	FF_ERRORS[8] = "FR_EXIST";
-	FF_ERRORS[9] = "FR_INVALID_OBJECT";
-	FF_ERRORS[10] = "FR_WRITE_PROTECTED";
-	FF_ERRORS[11] = "FR_INVALID_DRIVE";
-	FF_ERRORS[12] = "FR_NOT_ENABLED";
-	FF_ERRORS[13] = "FR_NO_FILESYSTEM";
-	FF_ERRORS[14] = "FR_MKFS_ABORTED";
-	FF_ERRORS[15] = "FR_TIMEOUT";
-	FF_ERRORS[16] = "FR_LOCKED";
-	FF_ERRORS[17] = "FR_NOT_ENOUGH_CORE";
-	FF_ERRORS[18] = "FR_TOO_MANY_OPEN_FILES";
-	FF_ERRORS[19] = "FR_INVALID_PARAMETER";
-	srand(12347439);
+
+
+
 	//CARD writes, cluster size (== allocation size) may be 128Kb, whereas sector size is 512 bytes
 	cfg.bus_voltage = MXC_SDHC_Bus_Voltage_3_3;
 	cfg.block_gap = 0;
@@ -1573,8 +1583,8 @@ cli_sdcard_bitdepth_samplerate_select(int argc, char *argv[])
 		printf("[Success] --> SD Card Bank Initialized.\n\n");
 	}
 	
-	printf("Selecting SD Card Slot %d .....\n", atoi(argv[3]));
-	//Select Card Slot 
+	printf("Selecting SD Card Slot %d .....\n",atoi(argv[3]));
+	//Select Card Slot 0
 	sd_card_bank_ctl_enable_slot(atoi(argv[3]));
 
 
@@ -1616,6 +1626,9 @@ cli_sdcard_bitdepth_samplerate_select(int argc, char *argv[])
 		printf("Card type: MMC/eMMC\n");
 		debug1 = 13;
 	}
+
+	
+
 	//Turn ON LED to indicate we are starting the recording.
 	LED_Off(LED_RED);
 	LED_Off(LED_BLUE);
@@ -1663,6 +1676,7 @@ cli_sdcard_bitdepth_samplerate_select(int argc, char *argv[])
 
 
 	debug1= 16;
+
 
 
 
@@ -1758,18 +1772,19 @@ cli_sdcard_bitdepth_samplerate_select(int argc, char *argv[])
 		while((dataBlocksDmaCount - dataBlocksConsumedCount) > 0) 
 		{ // there is normally a difference of 1, unless the SD card has stalled and the block writes have fallen behind
 			delta = dataBlocksDmaCount - dataBlocksConsumedCount;
+			LED_Toggle(LED_BLUE);
 		}
-		// //MXC_GPIO_OutSet(gpio_outGreenLED.port,gpio_outGreenLED.mask); // timing test
+	//	MXC_GPIO_OutSet(gpio_outGreenLED.port,gpio_outGreenLED.mask); // timing test
 		f_write(&file, SD_write_buff + offsetSDbuff, numBytesSDwrite, &bw); // # bytes = 3X word length of buffer, 24 bits
-		// //MXC_GPIO_OutClr(gpio_outGreenLED.port,gpio_outGreenLED.mask); // timing test
+	//	MXC_GPIO_OutClr(gpio_outGreenLED.port,gpio_outGreenLED.mask); // timing test
 
 		dataBlocksConsumedCount+=1;
 		blockPtrModuloSDbuff = (blockPtrModuloSDbuff+1) & block_ptr_modulo_mask; // wraps before end of sd_write_buff
 		offsetSDbuff = blockPtrModuloSDbuff*numBytesSDwrite;
 
-		// printf("\nRecording Time DMA Blocks: %d \n\n", RECORDING_TIME_DMABLOCKS);
-		// printf("Data block consumed: %d\n", dataBlocksConsumedCount);
-		// printf("count dma irq: %d\n", count_dma_irq);
+		 printf("\nRecording Time DMA Blocks: %d \n\n", RECORDING_TIME_DMABLOCKS);
+		printf("Data block consumed: %d\n", dataBlocksConsumedCount);
+		 printf("count dma irq: %d\n", count_dma_irq);
 		if(count_dma_irq % 3 == 0)
 		{
 			LED_Toggle(LED_GREEN);
