@@ -1,0 +1,7 @@
+/.metadata/
+build
+.settings
+flash.log
+*.d
+*.o
+

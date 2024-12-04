@@ -1,0 +1,6 @@
+si SWD 
+Speed 4000 
+Loadfile c:/MaximSDK/temp_jlink/temp.elf, 0x0   
+r 
+g 
+q 
