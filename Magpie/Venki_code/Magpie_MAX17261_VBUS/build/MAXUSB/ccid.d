@@ -1,0 +1,57 @@
+C:/Users/Vkarra/Documents/GitHub/Magpie/Magpie/Venki_code/Magpie_MAX17261_VBUS/build/MAXUSB/ccid.o: \
+ src/devclass/ccid.c \
+ c:\users\vkarra\documents\github\msdk\tools\gnutools\10.3\arm-none-eabi\include\string.h \
+ c:\users\vkarra\documents\github\msdk\tools\gnutools\10.3\arm-none-eabi\include\_ansi.h \
+ c:\users\vkarra\documents\github\msdk\tools\gnutools\10.3\arm-none-eabi\include\newlib.h \
+ c:\users\vkarra\documents\github\msdk\tools\gnutools\10.3\arm-none-eabi\include\_newlib_version.h \
+ c:\users\vkarra\documents\github\msdk\tools\gnutools\10.3\arm-none-eabi\include\sys\config.h \
+ c:\users\vkarra\documents\github\msdk\tools\gnutools\10.3\arm-none-eabi\include\machine\ieeefp.h \
+ c:\users\vkarra\documents\github\msdk\tools\gnutools\10.3\arm-none-eabi\include\sys\features.h \
+ c:\users\vkarra\documents\github\msdk\tools\gnutools\10.3\arm-none-eabi\include\sys\reent.h \
+ c:\users\vkarra\documents\github\msdk\tools\gnutools\10.3\arm-none-eabi\include\_ansi.h \
+ c:\users\vkarra\documents\github\msdk\tools\gnutools\10.3\lib\gcc\arm-none-eabi\10.3.1\include\stddef.h \
+ c:\users\vkarra\documents\github\msdk\tools\gnutools\10.3\arm-none-eabi\include\sys\_types.h \
+ c:\users\vkarra\documents\github\msdk\tools\gnutools\10.3\arm-none-eabi\include\machine\_types.h \
+ c:\users\vkarra\documents\github\msdk\tools\gnutools\10.3\arm-none-eabi\include\machine\_default_types.h \
+ c:\users\vkarra\documents\github\msdk\tools\gnutools\10.3\arm-none-eabi\include\sys\lock.h \
+ c:\users\vkarra\documents\github\msdk\tools\gnutools\10.3\arm-none-eabi\include\sys\cdefs.h \
+ c:\users\vkarra\documents\github\msdk\tools\gnutools\10.3\arm-none-eabi\include\sys\_locale.h \
+ c:\users\vkarra\documents\github\msdk\tools\gnutools\10.3\arm-none-eabi\include\strings.h \
+ c:\users\vkarra\documents\github\msdk\tools\gnutools\10.3\arm-none-eabi\include\sys\string.h \
+ c:\users\vkarra\documents\github\msdk\tools\gnutools\10.3\arm-none-eabi\include\stdio.h \
+ c:\users\vkarra\documents\github\msdk\tools\gnutools\10.3\lib\gcc\arm-none-eabi\10.3.1\include\stdarg.h \
+ c:\users\vkarra\documents\github\msdk\tools\gnutools\10.3\arm-none-eabi\include\sys\types.h \
+ c:\users\vkarra\documents\github\msdk\tools\gnutools\10.3\arm-none-eabi\include\sys\_stdint.h \
+ c:\users\vkarra\documents\github\msdk\tools\gnutools\10.3\arm-none-eabi\include\machine\endian.h \
+ c:\users\vkarra\documents\github\msdk\tools\gnutools\10.3\arm-none-eabi\include\machine\_endian.h \
+ c:\users\vkarra\documents\github\msdk\tools\gnutools\10.3\arm-none-eabi\include\sys\select.h \
+ c:\users\vkarra\documents\github\msdk\tools\gnutools\10.3\arm-none-eabi\include\sys\_sigset.h \
+ c:\users\vkarra\documents\github\msdk\tools\gnutools\10.3\arm-none-eabi\include\sys\_timeval.h \
+ c:\users\vkarra\documents\github\msdk\tools\gnutools\10.3\arm-none-eabi\include\sys\timespec.h \
+ c:\users\vkarra\documents\github\msdk\tools\gnutools\10.3\arm-none-eabi\include\sys\_timespec.h \
+ c:\users\vkarra\documents\github\msdk\tools\gnutools\10.3\arm-none-eabi\include\sys\_pthreadtypes.h \
+ c:\users\vkarra\documents\github\msdk\tools\gnutools\10.3\arm-none-eabi\include\sys\sched.h \
+ c:\users\vkarra\documents\github\msdk\tools\gnutools\10.3\arm-none-eabi\include\machine\types.h \
+ c:\users\vkarra\documents\github\msdk\tools\gnutools\10.3\arm-none-eabi\include\sys\stdio.h \
+ include/core/usb.h \
+ c:\users\vkarra\documents\github\msdk\tools\gnutools\10.3\lib\gcc\arm-none-eabi\10.3.1\include\stdbool.h \
+ include/core/musbhsfc/usb_hwopt.h \
+ C:/Users/Vkarra/Documents/GitHub/msdk/Libraries/PeriphDrivers/Include/MAX32665/mxc_device.h \
+ C:/Users/Vkarra/Documents/GitHub/msdk/Libraries/CMSIS/Device/Maxim/MAX32665/Include/max32665.h \
+ c:\users\vkarra\documents\github\msdk\tools\gnutools\10.3\lib\gcc\arm-none-eabi\10.3.1\include\stdint.h \
+ c:\users\vkarra\documents\github\msdk\tools\gnutools\10.3\arm-none-eabi\include\stdint.h \
+ c:\users\vkarra\documents\github\msdk\tools\gnutools\10.3\arm-none-eabi\include\sys\_intsup.h \
+ C:/Users/Vkarra/Documents/GitHub/msdk/Libraries/CMSIS/Include/core_cm4.h \
+ C:/Users/Vkarra/Documents/GitHub/msdk/Libraries/CMSIS/Include/core_cmInstr.h \
+ C:/Users/Vkarra/Documents/GitHub/msdk/Libraries/CMSIS/Include/core_cmFunc.h \
+ C:/Users/Vkarra/Documents/GitHub/msdk/Libraries/CMSIS/Include/core_cm4_simd.h \
+ C:/Users/Vkarra/Documents/GitHub/msdk/Libraries/CMSIS/Device/Maxim/MAX32665/Include/system_max32665.h \
+ C:/Users/Vkarra/Documents/GitHub/msdk/Libraries/CMSIS/Device/Maxim/MAX32665/Include/system_core1_max32665.h \
+ C:/Users/Vkarra/Documents/GitHub/msdk/Libraries/PeriphDrivers/Include/MAX32665/mxc_errors.h \
+ C:/Users/Vkarra/Documents/GitHub/msdk/Libraries/PeriphDrivers/Include/MAX32665/mxc_pins.h \
+ C:/Users/Vkarra/Documents/GitHub/msdk/Libraries/PeriphDrivers/Include/MAX32665/gpio.h \
+ C:/Users/Vkarra/Documents/GitHub/msdk/Libraries/CMSIS/Device/Maxim/MAX32665/Include/gpio_regs.h \
+ C:/Users/Vkarra/Documents/GitHub/msdk/Libraries/CMSIS/Device/Maxim/MAX32665/Include/usbhs_regs.h \
+ include/core/usb_protocol.h include/enumerate/enumerate.h \
+ include/core/usb_protocol.h include/core/usb_event.h include/core/usb.h \
+ include/devclass/ccid.h

@@ -1,9 +1,27 @@
 Info : CMSIS-DAP: SWD supported
-Info : CMSIS-DAP: FW Version = 1.0
+Info : CMSIS-DAP: Atomic commands supported
+Info : CMSIS-DAP: Test domain timer supported
+Info : CMSIS-DAP: FW Version = 2.0.0
+Info : CMSIS-DAP: Serial# = 040917026183037400000000000000000000000097969906
 Info : CMSIS-DAP: Interface Initialised (SWD)
-Info : SWCLK/TCK = 0 SWDIO/TMS = 0 TDI = 0 TDO = 0 nTRST = 0 nRESET = 0
+Info : SWCLK/TCK = 1 SWDIO/TMS = 1 TDI = 0 TDO = 0 nTRST = 0 nRESET = 1
 Info : CMSIS-DAP: Interface ready
 Info : clock speed 2000 kHz
-Error: Error connecting DP: cannot read IDR
-
-
+Info : SWD DPIDR 0x2ba01477
+Info : [max32665.cpu] Cortex-M4 r0p1 processor detected
+Info : [max32665.cpu] target has 6 breakpoints, 4 watchpoints
+Info : starting gdb server for max32665.cpu on pipe
+[max32665.cpu] halted due to debug-request, current mode: Thread 
+xPSR: 0x01000000 pc: 0x000001b4 msp: 0x20008400
+Info : Listening on port 6666 for tcl connections
+Info : Listening on port 4444 for telnet connections
+Info : accepting 'gdb' connection from pipe
+Warn : Prefer GDB command "target extended-remote :pipe" instead of "target remote :pipe"
+Warn : No RTOS could be auto-detected!
+[max32665.cpu] halted due to debug-request, current mode: Thread 
+xPSR: 0x01000000 pc: 0x000001b4 msp: 0x20008400
+[max32665.cpu] halted due to debug-request, current mode: Thread 
+xPSR: 0x01000000 pc: 0x000001b4 msp: 0x20008400
+[max32665.cpu] halted due to debug-request, current mode: Thread 
+xPSR: 0x01000000 pc: 0x000001b4 msp: 0x20008400
+Info : dropped 'gdb' connection

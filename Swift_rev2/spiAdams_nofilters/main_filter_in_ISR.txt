@@ -1,0 +1,548 @@
+/***** Includes *****/
+
+#include <stdio.h>
+#include <string.h>
+#include "mxc_device.h"
+#include "board.h"
+#include "gpio.h"
+#include "nvic_table.h"
+#include "spi.h"
+#include "i2c.h"
+
+//#include "spi_reva2.h"
+
+#include "mxc_delay.h"
+#include "icc.h"
+#include "dma.h"
+#include "arm_math.h"
+
+
+
+
+//#include "rtc.h"
+//#include "tmr.h"
+#define SPI1_BASE_addr  0x40046000
+#define DMA0_BASE_addr 0x40028000
+//#include "periphDirectAccess666.txt" // for bare-metal regs, not used much
+
+// define either offset binary or 2's comp for the data buffer.
+//#define RESULT_OFFSET_BINARY
+//#define RESULT_2S_COMP
+
+/***** Definitions *****/
+
+// *** set 24 bit or 16 bit,
+//#define bits24
+#define bits16
+//Pin 0.20 for ADC clock enable or disable
+
+#define MXC_GPIO_PORT_OUT0 MXC_GPIO0
+#define MXC_GPIO_PIN_OUT20 MXC_GPIO_PIN_20 // A4 on feather
+
+//Pin 0.12 for ADC clock enable or disable
+
+#define BUSY_PORT MXC_GPIO0
+#define BUSY_PIN MXC_GPIO_PIN_10 //Rx on feather, this triggers the interrupt, drive with sq wave
+
+// SPI PIns on feather for alternate 2, sclk = A3, MOSI/SDIO0 = A1, MISO/SDIO1=A2, SDIO2 = A4, SDIO3 = A5
+// SS0 (slave Sel) = A0, SS1 and SS2 not avail on feather
+// note, SPI1 is on APB; SPI0 is on AHB, which is faster, but not avail on feather (oops)
+
+//****************************************************************
+//SPI defines for SPI1 master
+//****************************************************************
+/***** Definitions *****/
+#define DATA_LEN_SPI1 3 // number of bytes per spi transaction
+//#define SPI_SPEED_SPI1 16000000 // Bit Rate
+#define SPI_SPEED_SPI1 20000000 // Bit Rate
+#define DATA_SIZE_SPI1 8  //Data bits per character
+#define SPI_MASTER1 MXC_SPI1 //Using SPI2 as Master to configure ADC
+#define SPI_MASTER1_SSIDX 0
+
+
+
+
+// I2C defines
+#define I2C_MASTER MXC_I2C0_BUS0
+#define I2C_SLAVE_ADDR (0x98) // for a write, read is 99
+#define I2C_BYTES 2
+#define I2C_FREQ 100000
+
+/***** Globals *****/
+
+
+// the size of the block spi rx memory = size of decimation filter input block
+// for every 1k inputs we produce 128 decimated samples
+#define spi_rx_mem_len 64
+#define decimate_fir_blocksize 64 // number of samples per input block, for the fir decimator (same as spi_deci_rx_len)
+
+#define spi_rx_mem_len_deci 96000 // 2 seconds of decimated output
+// the size of the decimated block spi rx memory 1/8the the oinput size
+
+#define decimate_fir_decratio 8
+//#define decimate_fir_numcoeffs  134 // # of filter taps
+#define decimate_fir_numcoeffs  32 // # of filter taps
+//#define decimate_fir_state_len  1151 // # state len = blocksize + filter len-1
+#define decimate_fir_state_len  95 // # state len = blocksize + filter len-1
+//#define blockIndexMAX 750 // 96000 decimated samples/128 decimated samples per block
+#define blockIndexMAX 12000 // 96000 decimated samples/8 decimated samples per block
+
+const uint32_t blockSizeDeci = 4; // fir_blocksize/decimation ratio
+
+
+
+
+
+
+static uint32_t blockIndex = 0;
+
+// bare metal spi stuff
+static uint32_t SPI1_DATA0_addr =  SPI1_BASE_addr + 0x00000000;
+static uint32_t SPI1_CTRL0_addr =  SPI1_BASE_addr + 0x00000004;
+
+#define SPI1_DATA0_direct  (*( ( volatile unsigned int * )SPI1_DATA0_addr ) )
+#define SPI1_CTRL0_direct  (*( ( volatile unsigned int * )SPI1_CTRL0_addr ) )
+
+
+#ifdef bits24
+static q31_t spi_rx_bankA[spi_rx_mem_len] = {0}; // bank A, signed 32-bit int
+static q31_t spi_rx_bankB[spi_rx_mem_len] = {0}; // bank B, signed 32-bit int
+static q31_t spi_rx[spi_rx_mem_len] = {0}; //  bank A or bank B depending on pingPongState
+static q31_t spi_rx_deci[spi_rx_mem_len_deci] = {0};
+// pointers for deci filter
+static  q31_t *spirx = &spi_rx[0];
+static  q31_t *spirxd = &spi_rx_deci[0];
+
+const q31_t firCoeffs[decimate_fir_numcoeffs] = {
+173154,528856,817336,1414449,2068698,2889352,3749853,4612859,5357339,5884535,6078449,5850704,5141850,
+3945278,2313730,366023,-1719106,-3716244,-5377357,-6462371,-6773888,-6190460,-4694831,-2390823,494847,
+3628047,6600212,8976454,10354052,10422964,9021721,6178324,2128942,-2690583,-7683164,-12156367,
+-15409748,-16833344,-16005498,-12774569,-7312575,-129692,7957459,15903099,22550466,26778765,27662210,
+24620780,17542733,6859382,-6441951,-20873222,-34569797,-45471867,-51546733,-51027429,-42639400,-25788825,
+-685966,31613007,69255553,109732889,150097144,187235454,218171095,240358792,251941928,251941928,240358792,
+218171095,187235454,150097144,109732889,69255553,31613007,-685966,-25788825,-42639400,-51027429,-51546733,
+-45471867,-34569797,-20873222,-6441951,6859382,17542733,24620780,27662210,26778765,22550466,15903099,
+7957459,-129692,-7312575,-12774569,-16005498,-16833344,-15409748,-12156367,-7683164,-2690583,2128942,
+6178324,9021721,10422964,10354052,8976454,6600212,3628047,494847,-2390823,-4694831,-6190460,-6773888,
+-6462371,-5377357,-3716244,-1719106,366023,2313730,3945278,5141850,5850704,6078449,5884535,5357339,
+4612859,3749853,2889352,2068698,1414449,817336,528856,173154};
+
+static q31_t firState[decimate_fir_state_len] = {0};
+static q31_t spi_data_q31; // use for 24 bit
+
+
+
+#endif
+
+#ifdef bits16
+static q15_t spi_rx_bankA[spi_rx_mem_len] = {0}; // bank A, signed 32-bit int
+static q15_t spi_rx_bankB[spi_rx_mem_len] = {0}; // bank B, signed 32-bit int
+static q15_t spi_rx[spi_rx_mem_len] = {0}; //  bank A or bank B depending on pingPongState
+static q15_t spi_rx_deci[spi_rx_mem_len_deci] = {0};
+static uint8_t wrPtr=192,wrPtrOffset=0,dataPtr=0,coeffPtr=0,deciCount=0,deciCount_X16=0;
+
+
+//const q15_t firCoeffs[decimate_fir_numcoeffs] = {
+//3,8,12,22,32,44,57,70,82,90,93,89,78,60,35,6,-26,-57,-82,-99,-103,-94,-72,-36,8,55,101,137,158,159,
+//138,94,32,-41,-117,-185,-235,-257,-244,-195,-112,-2,121,243,344,409,422,376,268,105,-98,-319,-527,
+//-694,-787,-779,-651,-394,-10,482,1057,1674,2290,2857,3329,3668,3844,3844,3668,3329,2857,2290,1674,
+//1057,482,-10,-394,-651,-779,-787,-694,-527,-319,-98,105,268,376,422,409,344,243,121,-2,-112,-195,
+//-244,-257,-235,-185,-117,-41,32,94,138,159,158,137,101,55,8,-36,-72,-94,-103,-99,-82,-57,-26,6,35,
+//60,78,89,93,90,82,70,57,44,32,22,12,8,3};
+
+const q15_t firCoeffs[decimate_fir_numcoeffs] = {
+2857,3329,3668,3844,3844,3668,3329,2857,2290
+};
+
+static q15_t firState[decimate_fir_state_len] = {0};
+static q15_t spi_data_q15; // use for 16 bit
+
+static q15_t FIR_accum = 0;
+
+#endif
+
+
+
+// ping-pong state, '0' means "writing to bankA while reading bankkB", 1 means "writing to bankB while reading bankkA"
+static uint8_t pingPongState = 0u,lowByte=0, midByte=0,highByte=0, filterNow=0;
+//static q31_t spi_data_q31; // use for 24 bit
+
+
+static uint32_t temp32u=0;
+static signed long int ozone_scope_var=0;
+
+
+// this is 1 for just a single sample and tells the block-processing to start again, using the other spi_rx_bank
+static uint8_t changePingPongBank = 0u;
+
+volatile uint8_t ADC_BUSY = 0;
+uint8_t SPI1_rx[DATA_LEN_SPI1];
+uint8_t SPI1_tx[DATA_LEN_SPI1];
+int mychannel = -1;
+
+
+mxc_spi_req_t SPI1_req; // struct for SPI int
+
+
+static uint8_t i2cErr=0;
+static int I2C_FLAG=0;
+
+static uint8_t i2c_txdata[I2C_BYTES] = {0x1};
+static uint8_t i2c_rxdata[I2C_BYTES] = {0x1};
+
+// set up fir decimation filer. For now, just set the coeffs to [1 0 0 0 0 ...]
+
+
+
+
+
+static uint32_t debug0=0,debug1=0,debug2=0,debug3=0;
+static uint32_t temp0=0,temp1=0,temp2=0;
+
+
+
+// *********** start functions *******************
+//I2C callback function
+void I2C_Callback(mxc_i2c_req_t *req, int error)
+{
+    I2C_FLAG = error;
+}
+
+
+#ifdef bits24
+void BUSY_ISR(void) // gpio adc busy input interrupt handler
+
+{
+
+	uint32_t stat;
+	static uint32_t countISR = 0;
+
+	stat = MXC_GPIO_GetFlags(MXC_GPIO0);
+	MXC_GPIO_ClearFlags(MXC_GPIO0, stat);
+	SPI1_CTRL0_direct |= 0x00000020; // bare-metal spi start
+
+	//note, the next bare-metal read from SPI1_DATA0_direct is happening while the spi read is still active
+	// since the following 4 lines only take about 1us, the spi read is not finished yet
+	// so we are really getting data from the previous read, stored in the fifo
+
+	temp32u = SPI1_DATA0_direct; // read spi fifo, result has byte order in wrong order, need to fix
+	lowByte = (temp32u >> 16) & 0xff;
+	midByte = (temp32u >> 8) & 0xff;
+	highByte = temp32u & 0xff;
+	spi_data_q31 = lowByte | (midByte << 8) | (highByte << 16); // 24-but 2's comp, need to sign-extend to 32 bits
+
+	if(spi_data_q31 & 0x00800000) { // if sign bit == 1, do manual sign extension
+		spi_data_q31 |= 0xff000000;
+	}
+
+	ozone_scope_var = spi_data_q31; // ozone scope var is defined as signed, so this works
+
+
+	if (pingPongState == 0u) { // store the previous spi sample into bankA or bankB depending on the pingPongState
+			spi_rx_bankA[countISR] = spi_data_q31; //bare-metal result from the previous SPI read, hopefully the sign extension from24 to 32 bits works!
+		} else {
+			spi_rx_bankB[countISR] = spi_data_q31; //bare-metal result from the previous SPI read
+		}
+
+
+	// if this was the last memory write to the current bank mem, change pingPongState and signal the change
+	if(countISR == spi_rx_mem_len-1u) {
+		countISR = 0u;
+		// signal the main code using changePingPongBank that the new buffer is full.
+		//The main block processing should have been completed by this time,
+		//so the main code is waiting in a while() loop, waiting for this signal to
+		//start processing the new data buffer
+		changePingPongBank = 1u;
+
+		pingPongState = ~pingPongState & 0x1; // toggle the state
+		filterNow=1;
+
+	} else {
+		countISR++;
+		changePingPongBank = 0u;
+	}
+
+
+}
+
+//
+//void BLOCK_PROCESS() { // this is where we will process the data and write to sd card in bursts.
+//
+//	temp1 = 1; // just to make a breakpoint available
+//
+//	// select which bank to copy to the float version of the block samples.
+//	if (pingPongState == 0u) {
+//		memcpy(spi_rx,spi_rx_bankB, 4*spi_rx_mem_len);
+//	} else {
+//		memcpy(spi_rx,spi_rx_bankA, 4*spi_rx_mem_len);
+//
+//	}
+//	temp1 = 1;
+//
+//	arm_fir_decimate_q31(&Sdeci,spirx,spirxd, decimate_fir_blocksize); // block size = entire spi buffer, for now ...
+//}
+
+#endif // end of 32-bit section
+
+
+
+
+#ifdef bits16
+
+void BUSY_ISR(void) // gpio adc busy input interrupt handler
+
+{
+
+	uint32_t stat;
+	static uint32_t countISR = 0;
+
+	stat = MXC_GPIO_GetFlags(MXC_GPIO0);
+	MXC_GPIO_ClearFlags(MXC_GPIO0, stat);
+
+
+
+	filterNow = 0; // only set for 1 interrupt ycle
+	SPI1_CTRL0_direct |= 0x00000020; // bare-metal spi start
+
+	//note, the next bare-metal read from SPI1_DATA0_direct is happening while the spi read is still active
+	// since the following 4 lines only take about 1us, the spi read is not finished yet
+	// so we are really getting data from the previous read, stored in the fifo
+
+	temp32u = SPI1_DATA0_direct; // read spi fifo, result has byte order in wrong order, need to fix
+
+
+	lowByte = (temp32u >> 8) & 0xff;
+	highByte = temp32u & 0xff;
+	spi_data_q15 = lowByte | (highByte << 8); // 16-but 2's comp, need to sign-extend to 32 bits
+
+	// unlike 24 bit case, don't need to sign-extend
+	//ozone_scope_var = (spi_data_q15 ^ 0x8000) - 32768;
+
+	ozone_scope_var = spi_data_q15;
+
+	// limit number of fir tap computations to 16/interrupt
+	// with a filter length of 128, it takes 8 interrupts to compute 1 output
+	// we are decimating by 8, so this is good
+	// each ping-pong bank is 256 long, so we will produce 32 decimated samples from each bank
+	// before the next bank is used
+
+
+	wrPtr = (uint8_t)((countISR + 192) & 0x000000ff);
+	coeffPtr = (uint8_t)(countISR & 0x0000007f);
+	deciCount = (uint8_t)((countISR & 0x00000380) >> 7);
+	deciCount_X16 = (uint8_t)((countISR & 0x00000380) >> 3);
+	dataPtr = coeffPtr + deciCount_X16;
+	pingPongState = (countISR & 0x00000100); // toggle every 256
+
+
+	spi_rx_bankA[wrPtr] = spi_data_q15;
+	if (pingPongState == 0u) { // store the previous spi sample into bankA or bankB depending on the pingPongState
+			spi_rx_bankA[countISR] = spi_data_q15; //bare-metal result from the previous SPI read, hopefully the sign extension from24 to 32 bits works!
+			FIR_accum += firCoeffs[coeffPtr+=1]*spi_rx_bankB[dataPtr+=1];
+			FIR_accum += firCoeffs[coeffPtr+=1]*spi_rx_bankB[dataPtr+=1];
+			FIR_accum += firCoeffs[coeffPtr+=1]*spi_rx_bankB[dataPtr+=1];
+			FIR_accum += firCoeffs[coeffPtr+=1]*spi_rx_bankB[dataPtr+=1];
+			FIR_accum += firCoeffs[coeffPtr+=1]*spi_rx_bankB[dataPtr+=1];
+			FIR_accum += firCoeffs[coeffPtr+=1]*spi_rx_bankB[dataPtr+=1];
+			FIR_accum += firCoeffs[coeffPtr+=1]*spi_rx_bankB[dataPtr+=1];
+			FIR_accum += firCoeffs[coeffPtr+=1]*spi_rx_bankB[dataPtr+=1];
+			FIR_accum += firCoeffs[coeffPtr+=1]*spi_rx_bankB[dataPtr+=1];
+			FIR_accum += firCoeffs[coeffPtr+=1]*spi_rx_bankB[dataPtr+=1];
+			FIR_accum += firCoeffs[coeffPtr+=1]*spi_rx_bankB[dataPtr+=1];
+			FIR_accum += firCoeffs[coeffPtr+=1]*spi_rx_bankB[dataPtr+=1];
+			FIR_accum += firCoeffs[coeffPtr+=1]*spi_rx_bankB[dataPtr+=1];
+			FIR_accum += firCoeffs[coeffPtr+=1]*spi_rx_bankB[dataPtr+=1];
+			FIR_accum += firCoeffs[coeffPtr+=1]*spi_rx_bankB[dataPtr+=1];
+			FIR_accum += firCoeffs[coeffPtr+=1]*spi_rx_bankB[dataPtr+=1];
+	} else {
+			spi_rx_bankB[countISR] = spi_data_q15; //bare-metal result from the previous SPI read
+
+			FIR_accum += firCoeffs[coeffPtr+=1]*spi_rx_bankA[dataPtr+=1];
+			FIR_accum += firCoeffs[coeffPtr+=1]*spi_rx_bankA[dataPtr+=1];
+			FIR_accum += firCoeffs[coeffPtr+=1]*spi_rx_bankA[dataPtr+=1];
+			FIR_accum += firCoeffs[coeffPtr+=1]*spi_rx_bankA[dataPtr+=1];
+			FIR_accum += firCoeffs[coeffPtr+=1]*spi_rx_bankA[dataPtr+=1];
+			FIR_accum += firCoeffs[coeffPtr+=1]*spi_rx_bankA[dataPtr+=1];
+			FIR_accum += firCoeffs[coeffPtr+=1]*spi_rx_bankA[dataPtr+=1];
+			FIR_accum += firCoeffs[coeffPtr+=1]*spi_rx_bankA[dataPtr+=1];
+			FIR_accum += firCoeffs[coeffPtr+=1]*spi_rx_bankA[dataPtr+=1];
+			FIR_accum += firCoeffs[coeffPtr+=1]*spi_rx_bankA[dataPtr+=1];
+			FIR_accum += firCoeffs[coeffPtr+=1]*spi_rx_bankA[dataPtr+=1];
+			FIR_accum += firCoeffs[coeffPtr+=1]*spi_rx_bankA[dataPtr+=1];
+			FIR_accum += firCoeffs[coeffPtr+=1]*spi_rx_bankA[dataPtr+=1];
+			FIR_accum += firCoeffs[coeffPtr+=1]*spi_rx_bankA[dataPtr+=1];
+			FIR_accum += firCoeffs[coeffPtr+=1]*spi_rx_bankA[dataPtr+=1];
+			FIR_accum += firCoeffs[coeffPtr+=1]*spi_rx_bankA[dataPtr+=1];
+
+
+		}
+	// start filtering with current offsets and indexes
+
+	countISR++;
+	// if this was the last memory write to the current bank mem, change pingPongState and signal the change
+//	if(countISR == spi_rx_mem_len-1u) {
+//		countISR = 0u;
+//		// signal the main code using changePingPongBank that the new buffer is full.
+//		//The main block processing should have been completed by this time,
+//		//so the main code is waiting in a while() loop, waiting for this signal to
+////		//start processing the new data buffer
+////		changePingPongBank = 1u;
+//		pingPongState = ~pingPongState & 0x1; // toggle the state
+////		filterNow=1; // will get set back to 0 when filter is done in main
+//
+//	} else {
+//		countISR++;
+//	}
+
+
+}
+
+//
+//void BLOCK_PROCESS() { // this is where we will process the data and write to sd card in bursts.
+//
+//	temp1 = 1; // just to make a breakpoint available
+//
+//	// select which bank to copy to the float version of the block samples.
+//	if (pingPongState == 0u) {
+//		memcpy(spi_rx,spi_rx_bankB, 2*spi_rx_mem_len);
+//	} else {
+//		memcpy(spi_rx,spi_rx_bankA, 2*spi_rx_mem_len);
+//
+//	}
+//	temp1 = 1;
+//
+//	arm_fir_decimate_q15(&Sdeci,spirx,spirxd, decimate_fir_blocksize); // block size = entire spi buffer, for now ...
+//}
+
+
+#endif // end of 16 bit section
+
+
+
+int main(void)
+
+{
+	int retVal, fail = 0;
+
+	MXC_ICC_Enable(); // enable cache
+
+#ifdef bits16
+	arm_fir_decimate_instance_q15 Sdeci = {decimate_fir_decratio, decimate_fir_numcoeffs,&firCoeffs[0],&firState[0]};
+	// pointers for deci filter
+	static  q15_t *spirx_ptrA = &spi_rx_bankA[0];
+	static  q15_t *spirx_ptrB = &spi_rx_bankB[0];
+	static  q15_t *spirxd_ptr = &spi_rx_deci[0];
+	//static q15_t spi_data_q15; // use for 16-bit
+	#endif
+#ifdef bits24
+	arm_fir_decimate_instance_q31 Sdeci = {decimate_fir_decratio, decimate_fir_numcoeffs,&firCoeffs[0],&firState[0]};
+	static  q31_t *spirx_ptrA = &spi_rx_bankA[0];
+	static  q31_t *spirx_ptrB = &spi_rx_bankB[0];
+	static  q31_t *spirxd_ptr = &spi_rx_deci[0];
+	#endif
+
+	mxc_gpio_cfg_t BUSY;
+
+	// set up the gpio interupt input pin which will be driven by the adc busy signal (falling edge trigger)
+	BUSY.port = BUSY_PORT;
+	BUSY.mask = BUSY_PIN;
+	BUSY.pad = MXC_GPIO_PAD_PULL_UP;
+	BUSY.func = MXC_GPIO_FUNC_IN;
+	BUSY.vssel = MXC_GPIO_VSSEL_VDDIO;
+	MXC_GPIO_IntConfig(&BUSY, MXC_GPIO_INT_FALLING);
+	MXC_GPIO_EnableInt(BUSY.port, BUSY.mask);
+	MXC_NVIC_SetVector(MXC_GPIO_GET_IRQ(MXC_GPIO_GET_IDX(BUSY_PORT)), BUSY_ISR);
+//	NVIC_EnableIRQ(MXC_GPIO_GET_IRQ(MXC_GPIO_GET_IDX(BUSY_PORT))); move this to just before the while() loop so that the 1st interupt is aligned with the block memory pointer==0
+
+	// Initialize the SPI
+	// MXC_SPI_Init(mxc_spi_regs_t *spi, int masterMode, int quadModeUsed, int numSlaves,...
+    // ... unsigned ssPolarity, unsigned int hz, sys_map_t map);
+	retVal = MXC_SPI_Init(SPI_MASTER1, 1, 0, 1, 0, SPI_SPEED_SPI1, MAP_A);
+
+	//Setting the data size
+	retVal = MXC_SPI_SetDataSize(SPI_MASTER1, DATA_SIZE_SPI1); // in units of #bits/character, note that '16' writes 0 to the reg (special case)
+	//Setting width of the SPI in this case 3- wire SPI for SPI1 master
+	retVal = MXC_SPI_SetWidth(SPI_MASTER1, SPI_WIDTH_3WIRE);
+	//Setting the SPI mode
+	retVal = MXC_SPI_SetMode(SPI_MASTER1, SPI_MODE_0); // clock phase = 0, clock polarity = 0
+
+
+	// we call mxc_spi_mastertransaction only once to complete the initialization (MXC_SPI_Init only does part of the initialization; weird!)
+	SPI1_req.spi = SPI_MASTER1;
+	SPI1_req.txData = (uint8_t *)SPI1_tx;
+	SPI1_req.rxData = (uint8_t *)SPI1_rx;
+	SPI1_req.txLen = 0;
+	SPI1_req.rxLen = 3; // bytes/char (3)
+	SPI1_req.ssIdx = 0;
+	SPI1_req.ssDeassert = 1;
+	SPI1_req.txCnt = 0;
+	SPI1_req.rxCnt = 0;
+	SPI1_req.completeCB = NULL;
+
+	memset(SPI1_rx, 0x0, 3); //Filling a block of memory
+	// call this function to execute the reg init part of the function, the data is not used
+	MXC_SPI_MasterTransaction(&SPI1_req); // complete the init; don't use the data!
+
+
+
+	// ***  set up I2C, write address 0x98, read addr 0x99
+	//i2c_txdata=0b00001000; // 1 bit per switch, b1-b8 pins map to reg 0-7; b1,b4,b7 connected (= reg 0,3,6)
+
+	i2cErr = MXC_I2C_Init(I2C_MASTER, 1, 0);
+	 mxc_i2c_req_t reqMaster;
+	reqMaster.i2c = I2C_MASTER;
+	reqMaster.addr = I2C_SLAVE_ADDR;
+	reqMaster.tx_buf = i2c_txdata;
+	reqMaster.tx_len = I2C_BYTES;
+	reqMaster.rx_buf = i2c_rxdata;
+	reqMaster.rx_len = 0;
+	reqMaster.restart = 0;
+	reqMaster.callback = NULL;
+	reqMaster.callback = I2C_Callback;
+	I2C_FLAG = 1;
+
+    MXC_I2C_SetFrequency(I2C_MASTER, I2C_FREQ);
+
+	i2cErr = MXC_I2C_MasterTransaction(&reqMaster);
+//	 while (I2C_FLAG == 1)
+//	    {
+//
+//	    }
+
+
+	// ******************* start block processing here; this will get interrupted often by the BUSY signal ***
+	// ** the interrupt does another spi read, which gets written to the non-current memory bank
+	NVIC_EnableIRQ(MXC_GPIO_GET_IRQ(MXC_GPIO_GET_IDX(BUSY_PORT))); //enable here so the 1st interrupt is aligned with the block memory pointer==0
+
+	while (1) {
+		//BLOCK_PROCESS(); // this needs to be finished before the next change in the pingPongState or you will miss an entire block of data
+		// wait until the next change in pingPongState before going back to the block process block
+//		if (filterNow) {
+//
+//
+//			if (pingPongState == 0u) {
+//				MXC_Delay(150); // max 75us with block size 128
+//				// max delay experiment 150us with block size 256
+//				// 256 input samples at 384khz = 666us, should have produced 32 outputs
+//				// with fir length 32 each, or 1024 total taps, so need about 600ns/tap, should be easy, but massively slowed down by interrupts??
+//				//arm_fir_decimate_q15(&Sdeci,spirx_ptrB,spirxd_ptr + (blockIndex*blockSizeDeci), decimate_fir_blocksize); // block size = entire spi buffer
+//				//memcpy(spi_rx,spi_rx_bankB, 2*spi_rx_mem_len);
+//			} else {
+//				MXC_Delay(150);
+//				//arm_fir_decimate_q15(&Sdeci,spirx_ptrA,spirxd_ptr + (blockIndex*blockSizeDeci), decimate_fir_blocksize); // block size = entire spi buffer
+//				//memcpy(spi_rx,spi_rx_bankA, 2*spi_rx_mem_len);
+//			}
+//			filterNow = 0u;
+//			blockIndex++;
+//			if(blockIndex == blockIndexMAX) {
+//				temp1 = 1; // set breakpoint here
+//			}
+//		}
+//
+	}
+
+
+
+	return 0;
+
+}
